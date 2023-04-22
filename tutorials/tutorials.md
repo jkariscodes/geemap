@@ -2,9 +2,9 @@
 
 ## YouTube Channel
 
-More video tutorials for geemap and Earth Engine are available on my [YouTube channel](https://www.youtube.com/c/QiushengWu). If you can't access YouTube in your country, you can try [西瓜视频](http://gishub.org/xigua) or [哔哩哔哩](https://space.bilibili.com/527404442)。
+More video tutorials for geemap and Earth Engine are available on my [YouTube channel](https://youtube.com/@giswqs). If you can't access YouTube in your country, you can try [西瓜视频](http://gishub.org/xigua) or [哔哩哔哩](https://space.bilibili.com/527404442)。
 
-[![Earth Engine Tutorials on YouTube](https://wetlands.io/file/images/youtube.png)](https://www.youtube.com/c/QiushengWu)
+[![Earth Engine Tutorials on YouTube](https://wetlands.io/file/images/youtube.png)](https://youtube.com/@giswqs)
 
 ## geemap Tutorials
 
@@ -138,3 +138,10 @@ More video tutorials for geemap and Earth Engine are available on my [YouTube ch
 124. Searching for awesome GEE community datasets ([notebook](https://geemap.org/notebooks/124_more_datasets))
 125. Using Earth Engine datasets example code ([notebook](https://geemap.org/notebooks/125_example_code))
 126. Using the improved Inspector GUI ([notebook](https://geemap.org/notebooks/126_inspector))
+127. Creating multiple legends and add them to the map ([notebook](https://geemap.org/notebooks/127_create_legend))
+128. Adding text, images, HTML, and widgets to the map ([notebook](https://geemap.org/notebooks/128_add_widget))
+129. Creating animated GIF from vector data with only one line of code ([notebook](https://geemap.org/notebooks/129_vector_to_gif))
+130. Printing Earth Engine objects without using the getInfo() function ([notebook](https://geemap.org/notebooks/130_print_objects))
+131. Using Earth Engine with ArcGIS Pro ([notebook](https://geemap.org/notebooks/131_arcgis))
+132. Adding colorbars to a folium map ([notebook](https://geemap.org/notebooks/132_folium_colorbar))
+133. Developing interactive web apps with gradio and geemap ([notebook](https://geemap.org/notebooks/133_gradio))
