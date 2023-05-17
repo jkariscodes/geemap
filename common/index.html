@@ -21,7 +21,7 @@
         <link rel="next" href="../conversion/">
       
       <link rel="icon" href="../assets/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.12">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.13">
     
     
       
@@ -21185,6 +21185,9 @@ such as 'crs_transform'.</p></td>
 <span class="sd">        service_account (bool, optional): If True, use a service account. Defaults to False.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">import</span> <span class="nn">httplib2</span>
+    <span class="kn">from</span> <span class="nn">.__init__</span> <span class="kn">import</span> <span class="n">__version__</span>
+
+    <span class="n">user_agent</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;geemap/</span><span class="si">{</span><span class="n">__version__</span><span class="si">}</span><span class="s2">&quot;</span>
 
     <span class="k">if</span> <span class="n">ee</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">_credentials</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">ee_token</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">token_name</span><span class="p">)</span>
@@ -21246,9 +21249,12 @@ such as 'crs_transform'.</p></td>
                             <span class="n">copy_credentials_to_drive</span><span class="p">()</span>
 
                 <span class="n">ee</span><span class="o">.</span><span class="n">Initialize</span><span class="p">(</span><span class="n">http_transport</span><span class="o">=</span><span class="n">httplib2</span><span class="o">.</span><span class="n">Http</span><span class="p">())</span>
+
             <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
                 <span class="n">ee</span><span class="o">.</span><span class="n">Authenticate</span><span class="p">(</span><span class="n">auth_mode</span><span class="o">=</span><span class="n">auth_mode</span><span class="p">)</span>
                 <span class="n">ee</span><span class="o">.</span><span class="n">Initialize</span><span class="p">(</span><span class="n">http_transport</span><span class="o">=</span><span class="n">httplib2</span><span class="o">.</span><span class="n">Http</span><span class="p">())</span>
+
+        <span class="n">ee</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">setUserAgent</span><span class="p">(</span><span class="n">user_agent</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -21711,7 +21717,7 @@ such as 'crs_transform'.</p></td>
             <span class="s2">&quot;The ee_object must be an ee.Image, ee.Feature, ee.FeatureCollection or ee.Geometry object.&quot;</span>
         <span class="p">)</span>
 
-    <span class="n">bounds</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">bounds</span><span class="p">()</span><span class="o">.</span><span class="n">getInfo</span><span class="p">()[</span><span class="s1">&#39;coordinates&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">bounds</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">bounds</span><span class="p">()</span><span class="o">.</span><span class="n">getInfo</span><span class="p">()[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">xmin</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">ymin</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">xmax</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
@@ -47147,7 +47153,7 @@ such as https://developers.google.com/earth-engine/datasets/catalog/MODIS_051_MC
     <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.highlight", "search.share"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.c2be25ad.min.js"></script>
+      <script src="../assets/javascripts/bundle.b4d07000.min.js"></script>
       
         <script src="../js/timeago.min.js"></script>
       
