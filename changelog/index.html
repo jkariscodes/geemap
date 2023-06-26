@@ -21,7 +21,7 @@
         <link rel="next" href="../basemaps/">
       
       <link rel="icon" href="../assets/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.14">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.17">
     
     
       
@@ -29,10 +29,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.85bb2934.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.26e3688c.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.a6bdf11c.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ecc896b0.min.css">
       
       
 
@@ -463,6 +463,41 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#v0231-jun-24-2023" class="md-nav__link">
+    v0.23.1 - Jun 24, 2023
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v0230-jun-22-2023" class="md-nav__link">
+    v0.23.0 - Jun 22, 2023
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v0221-jun-1-2023" class="md-nav__link">
+    v0.22.1 - Jun 1, 2023
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v0220-may-29-2023" class="md-nav__link">
+    v0.22.0 - May 29, 2023
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v0210-may-29-2023" class="md-nav__link">
+    v0.21.0 - May 29, 2023
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#v0207-may-16-2023" class="md-nav__link">
@@ -3332,8 +3367,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../notebooks/112_cartoee_basemap_X/" class="md-nav__link">
-        112 cartoee basemap X
+      <a href="../notebooks/112_cartoee_basemap_X.ipynb" class="md-nav__link">
+        None
       </a>
     </li>
   
@@ -3662,6 +3697,34 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/136_download_parallel/" class="md-nav__link">
+        136 download parallel
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/137_create_grid/" class="md-nav__link">
+        137 create grid
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -3693,6 +3756,41 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#v0231-jun-24-2023" class="md-nav__link">
+    v0.23.1 - Jun 24, 2023
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v0230-jun-22-2023" class="md-nav__link">
+    v0.23.0 - Jun 22, 2023
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v0221-jun-1-2023" class="md-nav__link">
+    v0.22.1 - Jun 1, 2023
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v0220-may-29-2023" class="md-nav__link">
+    v0.22.0 - May 29, 2023
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v0210-may-29-2023" class="md-nav__link">
+    v0.21.0 - May 29, 2023
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#v0207-may-16-2023" class="md-nav__link">
@@ -4451,6 +4549,59 @@
 
 
 <h1 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">&para;</a></h1>
+<h2 id="v0231-jun-24-2023">v0.23.1 - Jun 24, 2023<a class="headerlink" href="#v0231-jun-24-2023" title="Permanent link">&para;</a></h2>
+<p><strong>New Features</strong></p>
+<ul>
+<li>Added create_grid function for zonal stats (#1582)</li>
+</ul>
+<p><strong>Improvement</strong></p>
+<ul>
+<li>Fixed toolbar GUI bug (#1584)</li>
+</ul>
+<h2 id="v0230-jun-22-2023">v0.23.0 - Jun 22, 2023<a class="headerlink" href="#v0230-jun-22-2023" title="Permanent link">&para;</a></h2>
+<p><strong>Improvement</strong></p>
+<ul>
+<li>Separated ee plot gui from the Map class (#1576)</li>
+<li>Separated toolbar GUI from Map class (#1575)</li>
+<li>Improved Map.add_netcdf method (#1574)</li>
+<li>Suppress gdal open raster warning (#1573)</li>
+<li>Improved Map.add_raster method (#1572)</li>
+<li>Fixed js-py conversion bug (#1571)</li>
+<li>Used sorted function instead of if statements (#1569)</li>
+<li>Added support for downloading images in parallel (#1564)</li>
+<li>Improved ee_initialize function (#1563)</li>
+<li>Added typehinting function parameter for better clarity (#1555)</li>
+<li>Updated layer manager GUI (#1553)</li>
+</ul>
+<p><strong>Contributors</strong></p>
+<p>@slowy07</p>
+<h2 id="v0221-jun-1-2023">v0.22.1 - Jun 1, 2023<a class="headerlink" href="#v0221-jun-1-2023" title="Permanent link">&para;</a></h2>
+<p><strong>Improvement</strong></p>
+<ul>
+<li>Fixed the ipyleaflet SplitControl bug (#1550)</li>
+<li>Added decimals param for Inspector GUI (#1548)</li>
+<li>Added decimals param for Inspector GUI (#1548)</li>
+<li>Add opened param for tool template (#1546)</li>
+<li>Updated SciPy notebook (#1545)</li>
+</ul>
+<h2 id="v0220-may-29-2023">v0.22.0 - May 29, 2023<a class="headerlink" href="#v0220-may-29-2023" title="Permanent link">&para;</a></h2>
+<p><strong>New Features</strong></p>
+<ul>
+<li>Added <code>Map.add_inspector()</code> method (#1544)</li>
+<li>Added <code>Map.add_layer_manager()</code> method (#1544)</li>
+</ul>
+<p><strong>Improvement</strong></p>
+<ul>
+<li>Simplified the geemap module (#1544)</li>
+<li>Deprecated the heremap module (#1543)</li>
+</ul>
+<h2 id="v0210-may-29-2023">v0.21.0 - May 29, 2023<a class="headerlink" href="#v0210-may-29-2023" title="Permanent link">&para;</a></h2>
+<p><strong>New Features</strong></p>
+<ul>
+<li>Added support for Solara (#1541)</li>
+<li>Added segmentation notebook (#1539)</li>
+<li>Added SciPy workshop notebook (#1538)</li>
+</ul>
 <h2 id="v0207-may-16-2023">v0.20.7 - May 16, 2023<a class="headerlink" href="#v0207-may-16-2023" title="Permanent link">&para;</a></h2>
 <p><strong>New Features</strong></p>
 <ul>
@@ -5527,7 +5678,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-05-16T20:04:24+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-05-16</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-06-24T04:53:26+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-06-24</span>
       
         <br>
         Created:
@@ -5647,11 +5798,15 @@
     <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.highlight", "search.share"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.b4d07000.min.js"></script>
+      <script src="../assets/javascripts/bundle.b425cdc4.min.js"></script>
       
-        <script src="../js/timeago.min.js"></script>
+        
+          <script src="../js/timeago.min.js"></script>
+        
       
-        <script src="../js/timeago_mkdocs_material.js"></script>
+        
+          <script src="../js/timeago_mkdocs_material.js"></script>
+        
       
     
   </body>

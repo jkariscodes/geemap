@@ -1,5 +1,65 @@
 # Changelog
 
+## v0.23.1 - Jun 24, 2023
+
+**New Features**
+
+-   Added create_grid function for zonal stats (#1582)
+
+**Improvement**
+
+-   Fixed toolbar GUI bug (#1584)
+
+## v0.23.0 - Jun 22, 2023
+
+**Improvement**
+
+-   Separated ee plot gui from the Map class (#1576)
+-   Separated toolbar GUI from Map class (#1575)
+-   Improved Map.add_netcdf method (#1574)
+-   Suppress gdal open raster warning (#1573)
+-   Improved Map.add_raster method (#1572)
+-   Fixed js-py conversion bug (#1571)
+-   Used sorted function instead of if statements (#1569)
+-   Added support for downloading images in parallel (#1564)
+-   Improved ee_initialize function (#1563)
+-   Added typehinting function parameter for better clarity (#1555)
+-   Updated layer manager GUI (#1553)
+
+**Contributors**
+
+@slowy07
+
+## v0.22.1 - Jun 1, 2023
+
+**Improvement**
+
+-   Fixed the ipyleaflet SplitControl bug (#1550)
+-   Added decimals param for Inspector GUI (#1548)
+-   Added decimals param for Inspector GUI (#1548)
+-   Add opened param for tool template (#1546)
+-   Updated SciPy notebook (#1545)
+
+## v0.22.0 - May 29, 2023
+
+**New Features**
+
+-   Added `Map.add_inspector()` method (#1544)
+-   Added `Map.add_layer_manager()` method (#1544)
+
+**Improvement**
+
+-   Simplified the geemap module (#1544)
+-   Deprecated the heremap module (#1543)
+
+## v0.21.0 - May 29, 2023
+
+**New Features**
+
+-   Added support for Solara (#1541)
+-   Added segmentation notebook (#1539)
+-   Added SciPy workshop notebook (#1538)
+
 ## v0.20.7 - May 16, 2023
 
 **New Features**

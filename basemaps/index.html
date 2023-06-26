@@ -21,7 +21,7 @@
         <link rel="next" href="../cartoee/">
       
       <link rel="icon" href="../assets/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.14">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.17">
     
     
       
@@ -29,10 +29,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.85bb2934.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.26e3688c.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.a6bdf11c.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ecc896b0.min.css">
       
       
 
@@ -583,6 +583,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#geemap.basemaps.qms_to_geemap" class="md-nav__link">
+    qms_to_geemap()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#geemap.basemaps.search_qms" class="md-nav__link">
     search_qms()
   </a>
@@ -592,13 +599,6 @@
         <li class="md-nav__item">
   <a href="#geemap.basemaps.xyz_to_folium" class="md-nav__link">
     xyz_to_folium()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#geemap.basemaps.xyz_to_heremap" class="md-nav__link">
-    xyz_to_heremap()
   </a>
   
 </li>
@@ -2655,8 +2655,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../notebooks/112_cartoee_basemap_X/" class="md-nav__link">
-        112 cartoee basemap X
+      <a href="../notebooks/112_cartoee_basemap_X.ipynb" class="md-nav__link">
+        None
       </a>
     </li>
   
@@ -2985,6 +2985,34 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/136_download_parallel/" class="md-nav__link">
+        136 download parallel
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/137_create_grid/" class="md-nav__link">
+        137 create grid
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -3032,6 +3060,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#geemap.basemaps.qms_to_geemap" class="md-nav__link">
+    qms_to_geemap()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#geemap.basemaps.search_qms" class="md-nav__link">
     search_qms()
   </a>
@@ -3041,13 +3076,6 @@
         <li class="md-nav__item">
   <a href="#geemap.basemaps.xyz_to_folium" class="md-nav__link">
     xyz_to_folium()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#geemap.basemaps.xyz_to_heremap" class="md-nav__link">
-    xyz_to_heremap()
   </a>
   
 </li>
@@ -3136,7 +3164,7 @@
 
 
 <h2 id="geemap.basemaps.get_xyz_dict" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">get_xyz_dict</span><span class="p">(</span><span class="n">free_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">_collection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_output</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">get_xyz_dict</span><span class="p">(</span><span class="n">free_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">france</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
 
 <a href="#geemap.basemaps.get_xyz_dict" class="headerlink" title="Permanent link">&para;</a></h2>
@@ -3162,6 +3190,12 @@
         <td><p>Whether to return only free xyz tile services that do not require an access token. Defaults to True.</p></td>
         <td><code>True</code></td>
       </tr>
+      <tr>
+        <td><code>france</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether include Geoportail France basemaps. Defaults to False.</p></td>
+        <td><code>False</code></td>
+      </tr>
   </tbody>
 </table>
 <p><strong>Returns:</strong></p>
@@ -3181,36 +3215,134 @@
 </table>
         <details class="quote">
           <summary>Source code in <code>geemap/basemaps.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_xyz_dict</span><span class="p">(</span><span class="n">free_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">_collection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_output</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_xyz_dict</span><span class="p">(</span><span class="n">free_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">france</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns a dictionary of xyz services.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        free_only (bool, optional): Whether to return only free xyz tile services that do not require an access token. Defaults to True.</span>
+<span class="sd">        france (bool, optional): Whether include Geoportail France basemaps. Defaults to False.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        dict: A dictionary of xyz services.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="n">_collection</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">_collection</span> <span class="o">=</span> <span class="n">xyz</span>
+    <span class="n">xyz_dict_tmp</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">xyz</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+            <span class="n">tile</span> <span class="o">=</span> <span class="n">_unpack_sub_parameters</span><span class="p">(</span><span class="n">xyz</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">_unpack_sub_parameters</span><span class="p">(</span><span class="n">xyz</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">requires_token</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">free_only</span><span class="p">:</span>
+                    <span class="k">pass</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">xyz_dict_tmp</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">tile</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">xyz_dict_tmp</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">tile</span>
+            <span class="n">tile</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;xyz&quot;</span>
 
-    <span class="k">if</span> <span class="n">_output</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">_output</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">sub_item</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="n">sub_item</span><span class="p">][</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+                <span class="n">tile</span> <span class="o">=</span> <span class="n">_unpack_sub_parameters</span><span class="p">(</span><span class="n">xyz</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">_unpack_sub_parameters</span><span class="p">(</span><span class="n">xyz</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">requires_token</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">free_only</span><span class="p">:</span>
+                        <span class="k">pass</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">xyz_dict_tmp</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">tile</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">xyz_dict_tmp</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">tile</span>
+                <span class="n">tile</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;xyz&quot;</span>
 
-    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">_collection</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">TileProvider</span><span class="p">):</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">requires_token</span><span class="p">()</span> <span class="ow">and</span> <span class="n">free_only</span><span class="p">):</span>
-                <span class="n">_output</span><span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
-        <span class="k">else</span><span class="p">:</span>  <span class="c1"># it&#39;s a Bunch</span>
-            <span class="n">get_xyz_dict</span><span class="p">(</span><span class="n">free_only</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">_output</span><span class="p">)</span>
+    <span class="n">xyz_dict</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="k">return</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">_output</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+    <span class="k">if</span> <span class="n">france</span><span class="p">:</span>
+        <span class="n">xyz_dict</span> <span class="o">=</span> <span class="n">xyz_dict_tmp</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">xyz_dict_tmp</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;France&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">key</span><span class="p">:</span>
+                <span class="n">xyz_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">xyz_dict_tmp</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+    <span class="n">xyz_dict</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">xyz_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+    <span class="k">return</span> <span class="n">xyz_dict</span>
 </code></pre></div>
         </details>
     </div>
 
   </div>
 
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="geemap.basemaps.qms_to_geemap" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">qms_to_geemap</span><span class="p">(</span><span class="n">service_id</span><span class="p">)</span></code>
+
+
+<a href="#geemap.basemaps.qms_to_geemap" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Convert a qms service to an ipyleaflet tile layer.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>service_id</code></td>
+        <td><code>str</code></td>
+        <td><p>Service ID.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>ipyleaflet.TileLayer</code></td>
+      <td><p>An ipyleaflet tile layer.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>geemap/basemaps.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">qms_to_geemap</span><span class="p">(</span><span class="n">service_id</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a qms service to an ipyleaflet tile layer.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        service_id (str): Service ID.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        ipyleaflet.TileLayer: An ipyleaflet tile layer.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">service_details</span> <span class="o">=</span> <span class="n">get_qms</span><span class="p">(</span><span class="n">service_id</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">service_details</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">service_details</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">]</span>
+    <span class="n">attribution</span> <span class="o">=</span> <span class="n">service_details</span><span class="p">[</span><span class="s2">&quot;copyright_text&quot;</span><span class="p">]</span>
+
+    <span class="n">layer</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">TileLayer</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">attribution</span><span class="o">=</span><span class="n">attribution</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">layer</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
 
 
 
@@ -3370,136 +3502,6 @@
 
 
 
-<h2 id="geemap.basemaps.xyz_to_heremap" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">xyz_to_heremap</span><span class="p">()</span></code>
-
-
-<a href="#geemap.basemaps.xyz_to_heremap" class="headerlink" title="Permanent link">&para;</a></h2>
-
-    <div class="doc doc-contents ">
-
-      <p>Convert xyz tile services to hermap tile layers.</p>
-
-<p><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>dict</code></td>
-      <td><p>A dictionary of heremap tile layers.</p></td>
-    </tr>
-  </tbody>
-</table>
-        <details class="quote">
-          <summary>Source code in <code>geemap/basemaps.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">xyz_to_heremap</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert xyz tile services to hermap tile layers.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        dict: A dictionary of heremap tile layers.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">try</span><span class="p">:</span>
-        <span class="kn">import</span> <span class="nn">here_map_widget</span>
-    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-            <span class="s1">&#39;This module requires the hermap package. Please install it using &quot;pip install here-map-widget-for-jupyter&quot;.&#39;</span>
-        <span class="p">)</span>
-
-    <span class="c1"># Built-in heremap tile services.</span>
-    <span class="n">here_tiles</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;HERE_RASTER_NORMAL_MAP&quot;</span><span class="p">:</span> <span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayers</span><span class="p">(</span>
-            <span class="n">layer_name</span><span class="o">=</span><span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayerNames</span><span class="o">.</span><span class="n">raster</span><span class="o">.</span><span class="n">normal</span><span class="o">.</span><span class="n">map</span>
-        <span class="p">),</span>
-        <span class="s2">&quot;HERE_RASTER_NORMAL_BASE&quot;</span><span class="p">:</span> <span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayers</span><span class="p">(</span>
-            <span class="n">layer_name</span><span class="o">=</span><span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayerNames</span><span class="o">.</span><span class="n">raster</span><span class="o">.</span><span class="n">normal</span><span class="o">.</span><span class="n">base</span>
-        <span class="p">),</span>
-        <span class="s2">&quot;HERE_RASTER_NORMAL_BASE_NIGHT&quot;</span><span class="p">:</span> <span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayers</span><span class="p">(</span>
-            <span class="n">layer_name</span><span class="o">=</span><span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayerNames</span><span class="o">.</span><span class="n">raster</span><span class="o">.</span><span class="n">normal</span><span class="o">.</span><span class="n">basenight</span>
-        <span class="p">),</span>
-        <span class="s2">&quot;HERE_RASTER_NORMAL_LABELS&quot;</span><span class="p">:</span> <span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayers</span><span class="p">(</span>
-            <span class="n">layer_name</span><span class="o">=</span><span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayerNames</span><span class="o">.</span><span class="n">raster</span><span class="o">.</span><span class="n">normal</span><span class="o">.</span><span class="n">labels</span>
-        <span class="p">),</span>
-        <span class="s2">&quot;HERE_RASTER_NORMAL_TRANSIT&quot;</span><span class="p">:</span> <span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayers</span><span class="p">(</span>
-            <span class="n">layer_name</span><span class="o">=</span><span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayerNames</span><span class="o">.</span><span class="n">raster</span><span class="o">.</span><span class="n">normal</span><span class="o">.</span><span class="n">transit</span>
-        <span class="p">),</span>
-        <span class="s2">&quot;HERE_RASTER_NORMAL_XBASE&quot;</span><span class="p">:</span> <span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayers</span><span class="p">(</span>
-            <span class="n">layer_name</span><span class="o">=</span><span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayerNames</span><span class="o">.</span><span class="n">raster</span><span class="o">.</span><span class="n">normal</span><span class="o">.</span><span class="n">xbase</span>
-        <span class="p">),</span>
-        <span class="s2">&quot;HERE_RASTER_NORMAL_XBASE_NIGHT&quot;</span><span class="p">:</span> <span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayers</span><span class="p">(</span>
-            <span class="n">layer_name</span><span class="o">=</span><span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayerNames</span><span class="o">.</span><span class="n">raster</span><span class="o">.</span><span class="n">normal</span><span class="o">.</span><span class="n">xbasenight</span>
-        <span class="p">),</span>
-        <span class="s2">&quot;HERE_RASTER_SATELLITE_MAP&quot;</span><span class="p">:</span> <span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayers</span><span class="p">(</span>
-            <span class="n">layer_name</span><span class="o">=</span><span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayerNames</span><span class="o">.</span><span class="n">raster</span><span class="o">.</span><span class="n">satellite</span><span class="o">.</span><span class="n">map</span>
-        <span class="p">),</span>
-        <span class="s2">&quot;HERE_RASTER_SATELLITE_LABELS&quot;</span><span class="p">:</span> <span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayers</span><span class="p">(</span>
-            <span class="n">layer_name</span><span class="o">=</span><span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayerNames</span><span class="o">.</span><span class="n">raster</span><span class="o">.</span><span class="n">satellite</span><span class="o">.</span><span class="n">labels</span>
-        <span class="p">),</span>
-        <span class="s2">&quot;HERE_RASTER_SATELLITE_BASE&quot;</span><span class="p">:</span> <span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayers</span><span class="p">(</span>
-            <span class="n">layer_name</span><span class="o">=</span><span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayerNames</span><span class="o">.</span><span class="n">raster</span><span class="o">.</span><span class="n">satellite</span><span class="o">.</span><span class="n">base</span>
-        <span class="p">),</span>
-        <span class="s2">&quot;HERE_RASTER_SATELLITE_XBASE&quot;</span><span class="p">:</span> <span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayers</span><span class="p">(</span>
-            <span class="n">layer_name</span><span class="o">=</span><span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayerNames</span><span class="o">.</span><span class="n">raster</span><span class="o">.</span><span class="n">satellite</span><span class="o">.</span><span class="n">xbase</span>
-        <span class="p">),</span>
-        <span class="s2">&quot;HERE_RASTER_TERRAIN_MAP&quot;</span><span class="p">:</span> <span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayers</span><span class="p">(</span>
-            <span class="n">layer_name</span><span class="o">=</span><span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayerNames</span><span class="o">.</span><span class="n">raster</span><span class="o">.</span><span class="n">terrain</span><span class="o">.</span><span class="n">map</span>
-        <span class="p">),</span>
-        <span class="s2">&quot;HERE_RASTER_TERRAIN_LABELS&quot;</span><span class="p">:</span> <span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayers</span><span class="p">(</span>
-            <span class="n">layer_name</span><span class="o">=</span><span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayerNames</span><span class="o">.</span><span class="n">raster</span><span class="o">.</span><span class="n">terrain</span><span class="o">.</span><span class="n">labels</span>
-        <span class="p">),</span>
-        <span class="s2">&quot;HERE_RASTER_TERRAIN_BASE&quot;</span><span class="p">:</span> <span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayers</span><span class="p">(</span>
-            <span class="n">layer_name</span><span class="o">=</span><span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayerNames</span><span class="o">.</span><span class="n">raster</span><span class="o">.</span><span class="n">terrain</span><span class="o">.</span><span class="n">base</span>
-        <span class="p">),</span>
-        <span class="s2">&quot;HERE_RASTER_TERRAIN_XBASE&quot;</span><span class="p">:</span> <span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayers</span><span class="p">(</span>
-            <span class="n">layer_name</span><span class="o">=</span><span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayerNames</span><span class="o">.</span><span class="n">raster</span><span class="o">.</span><span class="n">terrain</span><span class="o">.</span><span class="n">xbase</span>
-        <span class="p">),</span>
-        <span class="s2">&quot;HERE_VECTOR_NORMAL_MAP&quot;</span><span class="p">:</span> <span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayers</span><span class="p">(</span>
-            <span class="n">layer_name</span><span class="o">=</span><span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayerNames</span><span class="o">.</span><span class="n">vector</span><span class="o">.</span><span class="n">normal</span><span class="o">.</span><span class="n">map</span>
-        <span class="p">),</span>
-        <span class="s2">&quot;HERE_VECTOR_NORMAL_TRUCK&quot;</span><span class="p">:</span> <span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayers</span><span class="p">(</span>
-            <span class="n">layer_name</span><span class="o">=</span><span class="n">here_map_widget</span><span class="o">.</span><span class="n">DefaultLayerNames</span><span class="o">.</span><span class="n">vector</span><span class="o">.</span><span class="n">normal</span><span class="o">.</span><span class="n">truck</span>
-        <span class="p">),</span>
-    <span class="p">}</span>
-
-    <span class="n">heremap_dict</span> <span class="o">=</span> <span class="p">{}</span>
-
-    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">tile</span> <span class="ow">in</span> <span class="n">xyz_tiles</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">heremap_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">here_map_widget</span><span class="o">.</span><span class="n">TileLayer</span><span class="p">(</span>
-            <span class="n">provider</span><span class="o">=</span><span class="n">here_map_widget</span><span class="o">.</span><span class="n">ImageTileProvider</span><span class="p">(</span>
-                <span class="n">url</span><span class="o">=</span><span class="n">tile</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">],</span> <span class="n">attribution</span><span class="o">=</span><span class="n">tile</span><span class="p">[</span><span class="s2">&quot;attribution&quot;</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="n">tile</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
-            <span class="p">)</span>
-        <span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">get_xyz_dict</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-        <span class="n">heremap_dict</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">here_map_widget</span><span class="o">.</span><span class="n">TileLayer</span><span class="p">(</span>
-            <span class="n">provider</span><span class="o">=</span><span class="n">here_map_widget</span><span class="o">.</span><span class="n">ImageTileProvider</span><span class="p">(</span>
-                <span class="n">url</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">build_url</span><span class="p">(),</span>
-                <span class="n">attribution</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">attribution</span><span class="p">,</span>
-                <span class="n">name</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-                <span class="n">max_zoom</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;max_zoom&quot;</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
-            <span class="p">)</span>
-        <span class="p">)</span>
-
-    <span class="n">heremap_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">here_tiles</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">heremap_dict</span>
-</code></pre></div>
-        </details>
-    </div>
-
-  </div>
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
 <h2 id="geemap.basemaps.xyz_to_leaflet" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">xyz_to_leaflet</span><span class="p">()</span></code>
 
@@ -3535,35 +3537,21 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">leaflet_dict</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">tile</span> <span class="ow">in</span> <span class="n">xyz_tiles</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="n">tile</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="n">tile</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">]</span>
-        <span class="n">attribution</span> <span class="o">=</span> <span class="n">tile</span><span class="p">[</span><span class="s2">&quot;attribution&quot;</span><span class="p">]</span>
-        <span class="n">leaflet_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">TileLayer</span><span class="p">(</span>
-            <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">attribution</span><span class="o">=</span><span class="n">attribution</span><span class="p">,</span> <span class="n">max_zoom</span><span class="o">=</span><span class="mi">22</span>
-        <span class="p">)</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">xyz_tiles</span><span class="p">:</span>
+        <span class="n">xyz_tiles</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;xyz&quot;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">xyz_tiles</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+        <span class="n">leaflet_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">xyz_tiles</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 
-    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">tile</span> <span class="ow">in</span> <span class="n">wms_tiles</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">leaflet_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WMSLayer</span><span class="p">(</span>
-            <span class="n">url</span><span class="o">=</span><span class="n">tile</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">],</span>
-            <span class="n">layers</span><span class="o">=</span><span class="n">tile</span><span class="p">[</span><span class="s2">&quot;layers&quot;</span><span class="p">],</span>
-            <span class="n">name</span><span class="o">=</span><span class="n">tile</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span>
-            <span class="n">attribution</span><span class="o">=</span><span class="n">tile</span><span class="p">[</span><span class="s2">&quot;attribution&quot;</span><span class="p">],</span>
-            <span class="nb">format</span><span class="o">=</span><span class="n">tile</span><span class="p">[</span><span class="s2">&quot;format&quot;</span><span class="p">],</span>
-            <span class="n">transparent</span><span class="o">=</span><span class="n">tile</span><span class="p">[</span><span class="s2">&quot;transparent&quot;</span><span class="p">],</span>
-        <span class="p">)</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">wms_tiles</span><span class="p">:</span>
+        <span class="n">wms_tiles</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;wms&quot;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">wms_tiles</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+        <span class="n">leaflet_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">wms_tiles</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 
-    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">get_xyz_dict</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-        <span class="n">leaflet_dict</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">TileLayer</span><span class="p">(</span>
-            <span class="n">url</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">build_url</span><span class="p">(),</span>
-            <span class="n">name</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-            <span class="n">max_zoom</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;max_zoom&quot;</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
-            <span class="n">attribution</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">attribution</span><span class="p">,</span>
-        <span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PLANET_API_KEY&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">planet_dict</span> <span class="o">=</span> <span class="n">planet_tiles</span><span class="p">(</span><span class="n">tile_format</span><span class="o">=</span><span class="s2">&quot;ipyleaflet&quot;</span><span class="p">)</span>
-        <span class="n">leaflet_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">planet_dict</span><span class="p">)</span>
+    <span class="n">xyz_dict</span> <span class="o">=</span> <span class="n">get_xyz_dict</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">xyz_dict</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">xyz_dict</span><span class="p">[</span><span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">xyz_dict</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="s2">&quot;url&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xyz_dict</span><span class="p">[</span><span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">build_url</span><span class="p">()</span>
+        <span class="n">leaflet_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">xyz_dict</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="n">leaflet_dict</span>
 </code></pre></div>
@@ -3849,11 +3837,15 @@
     <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.highlight", "search.share"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.b4d07000.min.js"></script>
+      <script src="../assets/javascripts/bundle.b425cdc4.min.js"></script>
       
-        <script src="../js/timeago.min.js"></script>
+        
+          <script src="../js/timeago.min.js"></script>
+        
       
-        <script src="../js/timeago_mkdocs_material.js"></script>
+        
+          <script src="../js/timeago_mkdocs_material.js"></script>
+        
       
     
   </body>
