@@ -15,9 +15,13 @@
         <link rel="canonical" href="https://geemap.org/notebooks/112_cartoee_basemap/">
       
       
+        <link rel="prev" href="../111_image_count/">
+      
+      
+        <link rel="next" href="../113_image_area/">
       
       <link rel="icon" href="../../assets/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.17">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.18">
     
     
       
@@ -641,6 +645,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../ee_tile_layers/" class="md-nav__link">
+        ee_tile_layers module
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../examples/" class="md-nav__link">
         examples module
       </a>
@@ -962,14 +980,16 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" checked>
       
       
       
@@ -978,7 +998,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_19">
           <span class="md-nav__icon md-icon"></span>
           Notebooks
@@ -2557,11 +2577,104 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../112_cartoee_basemap_X.ipynb" class="md-nav__link">
-        None
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          112 cartoee basemap
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        112 cartoee basemap
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#import-libraries" class="md-nav__link">
+    Import libraries
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initialize-earth-engine" class="md-nav__link">
+    Initialize Earth Engine
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-earth-engine-dataset" class="md-nav__link">
+    Add Earth Engine dataset
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-google-basemap" class="md-nav__link">
+    Use Google basemap
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-stamen-terrain-basemap" class="md-nav__link">
+    Use Stamen Terrain basemap
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-openstreetmap-basemap" class="md-nav__link">
+    Use OpenStreetMap basemap
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-other-basemaps" class="md-nav__link">
+    Use other basemaps
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-text" class="md-nav__link">
+    Add text
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-scale-maps" class="md-nav__link">
+    Global-scale maps
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -4068,7 +4181,7 @@ Licensed under the Apache License, Version 2.0.
     init_mathjax();
     </script>
     <!-- End of mathjax configuration --><div class="jupyter-wrapper">
-<div id="cell-id=22524325" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div id="cell-id=09eacb4c" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -4088,7 +4201,7 @@ mamba install geemap -c conda-forge
 </div>
 </div>
 </div>
-<div id="cell-id=8aa84f1a" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div id="cell-id=9e8450e7" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -4099,7 +4212,7 @@ mamba install geemap -c conda-forge
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div id="cell-id=9e9eb3b1" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div id="cell-id=aac2a624" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -4145,7 +4258,7 @@ import cartopy.io.img_tiles as cimgt</div>
 
 </div>
 </div>
-<div id="cell-id=6ce1ccae" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div id="cell-id=c2e86b35" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -4156,7 +4269,7 @@ import cartopy.io.img_tiles as cimgt</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div id="cell-id=f330bff8" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div id="cell-id=fe991cf7" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -4188,7 +4301,7 @@ import cartopy.io.img_tiles as cimgt</div>
 
 </div>
 </div>
-<div id="cell-id=deaa5c28" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div id="cell-id=a3876068" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -4199,7 +4312,7 @@ import cartopy.io.img_tiles as cimgt</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div id="cell-id=adf334a3" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div id="cell-id=460b1bb7" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -4239,7 +4352,7 @@ vis = {"bands": ['B5', 'B4', 'B3'], "min": 0, "max": 5000, "gamma": 1.3}</div>
 
 </div>
 </div>
-<div id="cell-id=f63c674d" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div id="cell-id=b4919887" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -4250,7 +4363,7 @@ vis = {"bands": ['B5', 'B4', 'B3'], "min": 0, "max": 5000, "gamma": 1.3}</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div id="cell-id=40ea065e" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div id="cell-id=375f3ff5" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -4310,7 +4423,7 @@ plt.show()</div>
 
 </div>
 </div>
-<div id="cell-id=4b8590c7" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div id="cell-id=8bccf138" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -4321,7 +4434,7 @@ plt.show()</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div id="cell-id=f23be1f3" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div id="cell-id=e274da93" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -4353,7 +4466,7 @@ plt.show()</div>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div id="cell-id=1f2da255" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div id="cell-id=8c324388" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -4413,7 +4526,7 @@ plt.show()</div>
 
 </div>
 </div>
-<div id="cell-id=2568f9a9" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div id="cell-id=5e91f6e7" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -4424,7 +4537,7 @@ plt.show()</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div id="cell-id=365dff0e" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div id="cell-id=e1e2af0d" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -4456,7 +4569,7 @@ plt.show()</div>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div id="cell-id=95be0fc3" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div id="cell-id=e4c9433e" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -4516,7 +4629,7 @@ plt.show()</div>
 
 </div>
 </div>
-<div id="cell-id=e559f93a" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div id="cell-id=d6d502a1" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -4528,7 +4641,7 @@ plt.show()</div>
 </div>
 </div>
 </div>
-<div id="cell-id=2ec21bcd" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div id="cell-id=87e12f30" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -4539,7 +4652,7 @@ plt.show()</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div id="cell-id=694b4136" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div id="cell-id=4da47c3e" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -4573,7 +4686,7 @@ import cartopy.crs as ccrs</div>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div id="cell-id=0b360e53" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div id="cell-id=6b7d6020" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -4701,7 +4814,7 @@ plt.show()</div>
 
 </div>
 </div>
-<div id="cell-id=a901af6a" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div id="cell-id=85993f8d" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -4713,7 +4826,7 @@ plt.show()</div>
 </div>
 </div>
 </div>
-<div id="cell-id=ac8f8165" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div id="cell-id=0cad14fc" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -4724,7 +4837,7 @@ plt.show()</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div id="cell-id=26fdeb69" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div id="cell-id=630d4e48" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -4768,7 +4881,7 @@ ocean = (
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div id="cell-id=143b9cc8" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div id="cell-id=2c0da77c" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -4808,7 +4921,7 @@ bbox = [180, -88, -180, 88]</div>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div id="cell-id=bfd936f1" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div id="cell-id=81288d4c" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -4882,7 +4995,7 @@ plt.show()</div>
 
 </div>
 </div>
-<div id="cell-id=c0349b34" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div id="cell-id=bbf3f715" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -5020,10 +5133,10 @@ plt.show()</div>
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.b425cdc4.min.js"></script>
+      <script src="../../assets/javascripts/bundle.220ee61c.min.js"></script>
       
         
           <script src="../../js/timeago.min.js"></script>

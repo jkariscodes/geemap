@@ -21,7 +21,7 @@
         <link rel="next" href="../geemap/">
       
       <link rel="icon" href="../assets/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.17">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.18">
     
     
       
@@ -635,6 +635,20 @@
     <li class="md-nav__item">
       <a href="../deck/" class="md-nav__link">
         deck module
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ee_tile_layers/" class="md-nav__link">
+        ee_tile_layers module
       </a>
     </li>
   
@@ -3198,8 +3212,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../notebooks/112_cartoee_basemap_X.ipynb" class="md-nav__link">
-        None
+      <a href="../notebooks/112_cartoee_basemap/" class="md-nav__link">
+        112 cartoee basemap
       </a>
     </li>
   
@@ -4216,7 +4230,7 @@
 <a id="geemap.foliumap"></a>
     <div class="doc doc-contents first">
 
-      <p>This module extends the folium Map class. It is designed to be used in Google Colab, as Google Colab currently does not support ipyleaflet.</p>
+      <p>Module for creating interactive maps with the folium library.</p>
 
 
 
@@ -4530,19 +4544,13 @@ Map            (<span title="folium.folium.Map">Map</span>)
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">baseclass</span> <span class="o">=</span> <span class="s2">&quot;folium&quot;</span>
 
-        <span class="c1"># The number of shapes drawn by the user using the DrawControl</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw_count</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="c1"># The list of Earth Engine Geometry objects converted from geojson</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="c1"># The Earth Engine Geometry object converted from the last drawn feature</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">draw_last_feature</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw_last_json</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw_last_bounds</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">user_roi</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">user_rois</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">last_ee_data</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">last_ee_layer</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">search_locations</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">search_loc_marker</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">search_loc_geom</span> <span class="o">=</span> <span class="kc">None</span>
@@ -4630,88 +4638,9 @@ Map            (<span title="folium.folium.Map">Map</span>)
 <span class="sd">            opacity (float, optional): The layer&#39;s opacity represented as a number between 0 and 1. Defaults to 1.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="kn">from</span> <span class="nn">box</span> <span class="kn">import</span> <span class="n">Box</span>
-
-        <span class="n">image</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="n">vis_params</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">vis_params</span> <span class="o">=</span> <span class="p">{}</span>
-
-        <span class="k">if</span> <span class="p">(</span>
-            <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">)</span>
-        <span class="p">):</span>
-            <span class="n">err_str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">The image argument in &#39;addLayer&#39; function must be an instance of one of ee.Image, ee.Geometry, ee.Feature or ee.FeatureCollection.&quot;</span>
-            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">err_str</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="p">(</span>
-            <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">Geometry</span><span class="p">)</span>
-            <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">feature</span><span class="o">.</span><span class="n">Feature</span><span class="p">)</span>
-            <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">featurecollection</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)</span>
-        <span class="p">):</span>
-            <span class="n">features</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
-
-            <span class="n">width</span> <span class="o">=</span> <span class="mi">2</span>
-
-            <span class="k">if</span> <span class="s2">&quot;width&quot;</span> <span class="ow">in</span> <span class="n">vis_params</span><span class="p">:</span>
-                <span class="n">width</span> <span class="o">=</span> <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;width&quot;</span><span class="p">]</span>
-
-            <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;000000&quot;</span>
-
-            <span class="k">if</span> <span class="s2">&quot;color&quot;</span> <span class="ow">in</span> <span class="n">vis_params</span><span class="p">:</span>
-                <span class="n">color</span> <span class="o">=</span> <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">]</span>
-
-            <span class="n">image_fill</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s2">&quot;fillColor&quot;</span><span class="p">:</span> <span class="n">color</span><span class="p">})</span><span class="o">.</span><span class="n">updateMask</span><span class="p">(</span>
-                <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
-            <span class="p">)</span>
-            <span class="n">image_outline</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">style</span><span class="p">(</span>
-                <span class="o">**</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">color</span><span class="p">,</span> <span class="s2">&quot;fillColor&quot;</span><span class="p">:</span> <span class="s2">&quot;00000000&quot;</span><span class="p">,</span> <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="n">width</span><span class="p">}</span>
-            <span class="p">)</span>
-
-            <span class="n">image</span> <span class="o">=</span> <span class="n">image_fill</span><span class="o">.</span><span class="n">blend</span><span class="p">(</span><span class="n">image_outline</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">Image</span><span class="p">):</span>
-            <span class="n">image</span> <span class="o">=</span> <span class="n">ee_object</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">imagecollection</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">):</span>
-            <span class="n">image</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">mosaic</span><span class="p">()</span>
-
-        <span class="k">if</span> <span class="s2">&quot;palette&quot;</span> <span class="ow">in</span> <span class="n">vis_params</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">):</span>
-                <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">])</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="n">Box</span><span class="p">):</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">][</span><span class="s2">&quot;default&quot;</span><span class="p">]</span>
-                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The provided palette is invalid.&quot;</span><span class="p">)</span>
-                    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="nb">str</span><span class="p">):</span>
-                <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">check_cmap</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">])</span>
-            <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s2">&quot;The palette must be a list of colors or a string or a Box object.&quot;</span>
-                <span class="p">)</span>
-
-        <span class="n">map_id_dict</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span><span class="o">.</span><span class="n">getMapId</span><span class="p">(</span><span class="n">vis_params</span><span class="p">)</span>
-
-        <span class="c1"># if a layer starts with a number, add &quot;Layer&quot; to name.</span>
-        <span class="k">if</span> <span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Layer &quot;</span> <span class="o">+</span> <span class="n">name</span>
-
-        <span class="n">url</span> <span class="o">=</span> <span class="n">map_id_dict</span><span class="p">[</span><span class="s2">&quot;tile_fetcher&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">url_format</span>
-        <span class="n">folium</span><span class="o">.</span><span class="n">raster_layers</span><span class="o">.</span><span class="n">TileLayer</span><span class="p">(</span>
-            <span class="n">tiles</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
-            <span class="n">attr</span><span class="o">=</span><span class="s2">&quot;Google Earth Engine&quot;</span><span class="p">,</span>
-            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-            <span class="n">overlay</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">control</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">show</span><span class="o">=</span><span class="n">shown</span><span class="p">,</span>
-            <span class="n">opacity</span><span class="o">=</span><span class="n">opacity</span><span class="p">,</span>
-            <span class="n">max_zoom</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
-            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
-        <span class="n">arc_add_layer</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">EEFoliumTileLayer</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">vis_params</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">arc_add_layer</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">url_format</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
 
     <span class="n">addLayer</span> <span class="o">=</span> <span class="n">add_layer</span>
 
@@ -6170,17 +6099,14 @@ Map            (<span title="folium.folium.Map">Map</span>)
         <span class="n">popup</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">min_width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
         <span class="n">max_width</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
-        <span class="n">layer_name</span><span class="o">=</span><span class="s2">&quot;Marker Cluster&quot;</span><span class="p">,</span>
-        <span class="n">color_column</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">marker_colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">icon_colors</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;white&quot;</span><span class="p">],</span>
-        <span class="n">icon_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;info&quot;</span><span class="p">],</span>
-        <span class="n">angle</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-        <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;fa&quot;</span><span class="p">,</span>
-        <span class="n">add_legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">layer_name</span><span class="o">=</span><span class="s2">&quot;Markers&quot;</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">icon_shape</span><span class="o">=</span><span class="s1">&#39;circle-dot&#39;</span><span class="p">,</span>
+        <span class="n">border_width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">border_color</span><span class="o">=</span><span class="s1">&#39;#0000ff&#39;</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds a marker cluster to the map.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds markers to the map from a csv or Pandas DataFrame containing x, y values.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            data (str | pd.DataFrame): A csv or Pandas DataFrame containing x, y, z values.</span>
@@ -6190,38 +6116,18 @@ Map            (<span title="folium.folium.Map">Map</span>)
 <span class="sd">            min_width (int, optional): The minimum width of the popup. Defaults to 100.</span>
 <span class="sd">            max_width (int, optional): The maximum width of the popup. Defaults to 200.</span>
 <span class="sd">            layer_name (str, optional): The name of the layer. Defaults to &quot;Marker Cluster&quot;.</span>
-<span class="sd">            color_column (str, optional): The column name for the color values. Defaults to None.</span>
-<span class="sd">            marker_colors (list, optional): A list of colors to be used for the markers. Defaults to None.</span>
-<span class="sd">            icon_colors (list, optional): A list of colors to be used for the icons. Defaults to [&#39;white&#39;].</span>
-<span class="sd">            icon_names (list, optional): A list of names to be used for the icons. More icons can be found at https://fontawesome.com/v4/icons or https://getbootstrap.com/docs/3.3/components/?utm_source=pocket_mylist. Defaults to [&#39;info&#39;].</span>
-<span class="sd">            angle (int, optional): The angle of the icon. Defaults to 0.</span>
-<span class="sd">            prefix (str, optional): The prefix states the source of the icon. &#39;fa&#39; for font-awesome or &#39;glyphicon&#39; for bootstrap 3. Defaults to &#39;fa&#39;.</span>
-<span class="sd">            add_legend (bool, optional): If True, a legend will be added to the map. Defaults to True.</span>
+<span class="sd">            icon (str, optional): The Font-Awesome icon name to use to render the marker. Defaults to None.</span>
+<span class="sd">            icon_shape (str, optional): The shape of the marker, such as &quot;retangle-dot&quot;, &quot;circle-dot&quot;. Defaults to &#39;circle-dot&#39;.</span>
+<span class="sd">            border_width (int, optional): The width of the border. Defaults to 3.</span>
+<span class="sd">            border_color (str, optional): The color of the border. Defaults to &#39;#0000ff&#39;.</span>
+<span class="sd">            kwargs (dict, optional): Additional keyword arguments to pass to BeautifyIcon. See</span>
+<span class="sd">                https://python-visualization.github.io/folium/plugins.html#folium.plugins.BeautifyIcon.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
         <span class="kn">from</span> <span class="nn">folium.plugins</span> <span class="kn">import</span> <span class="n">BeautifyIcon</span>
 
-        <span class="n">color_options</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s2">&quot;red&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;blue&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;green&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;purple&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;orange&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;darkred&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;lightred&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;beige&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;darkblue&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;darkgreen&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;cadetblue&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;darkpurple&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;white&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;pink&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;lightblue&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;lightgreen&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;gray&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;black&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;lightgray&quot;</span><span class="p">,</span>
-        <span class="p">]</span>
+        <span class="n">layer_group</span> <span class="o">=</span> <span class="n">folium</span><span class="o">.</span><span class="n">FeatureGroup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">layer_name</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
             <span class="n">df</span> <span class="o">=</span> <span class="n">data</span>
@@ -6232,44 +6138,6 @@ Map            (<span title="folium.folium.Map">Map</span>)
 
         <span class="n">col_names</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="n">color_column</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">color_column</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">col_names</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;The color column </span><span class="si">{</span><span class="n">color_column</span><span class="si">}</span><span class="s2"> does not exist in the dataframe.&quot;</span>
-            <span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">color_column</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">items</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">color_column</span><span class="p">]))</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">items</span> <span class="o">=</span> <span class="kc">None</span>
-
-        <span class="k">if</span> <span class="n">color_column</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">marker_colors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">color_options</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;The number of unique values in the color column </span><span class="si">{</span><span class="n">color_column</span><span class="si">}</span><span class="s2"> is greater than the number of available colors.&quot;</span>
-                <span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">marker_colors</span> <span class="o">=</span> <span class="n">color_options</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)]</span>
-        <span class="k">elif</span> <span class="n">color_column</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">marker_colors</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">marker_colors</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;The number of unique values in the color column </span><span class="si">{</span><span class="n">color_column</span><span class="si">}</span><span class="s2"> is not equal to the number of available colors.&quot;</span>
-                <span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">items</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">icon_colors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">icon_colors</span> <span class="o">=</span> <span class="n">icon_colors</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">icon_colors</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;The number of unique values in the color column </span><span class="si">{</span><span class="n">color_column</span><span class="si">}</span><span class="s2"> is not equal to the number of available colors.&quot;</span>
-                <span class="p">)</span>
-
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">icon_names</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">icon_names</span> <span class="o">=</span> <span class="n">icon_names</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">icon_names</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;The number of unique values in the color column </span><span class="si">{</span><span class="n">color_column</span><span class="si">}</span><span class="s2"> is not equal to the number of available colors.&quot;</span>
-                <span class="p">)</span>
-
         <span class="k">if</span> <span class="n">popup</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">popup</span> <span class="o">=</span> <span class="n">col_names</span>
 
@@ -6279,58 +6147,22 @@ Map            (<span title="folium.folium.Map">Map</span>)
         <span class="k">if</span> <span class="n">y</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">col_names</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;y must be one of the following: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">col_names</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="c1"># marker_cluster = plugins.MarkerCluster(name=layer_name).add_to(self)</span>
         <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">itertuples</span><span class="p">():</span>
             <span class="n">html</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
             <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">popup</span><span class="p">:</span>
                 <span class="n">html</span> <span class="o">=</span> <span class="n">html</span> <span class="o">+</span> <span class="s2">&quot;&lt;b&gt;&quot;</span> <span class="o">+</span> <span class="n">p</span> <span class="o">+</span> <span class="s2">&quot;&lt;/b&gt;&quot;</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;&lt;br&gt;&quot;</span>
             <span class="n">popup_html</span> <span class="o">=</span> <span class="n">folium</span><span class="o">.</span><span class="n">Popup</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="n">min_width</span><span class="o">=</span><span class="n">min_width</span><span class="p">,</span> <span class="n">max_width</span><span class="o">=</span><span class="n">max_width</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">items</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">index</span> <span class="o">=</span> <span class="n">items</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">color_column</span><span class="p">))</span>
-                <span class="n">marker_icon</span> <span class="o">=</span> <span class="n">folium</span><span class="o">.</span><span class="n">Icon</span><span class="p">(</span>
-                    <span class="n">color</span><span class="o">=</span><span class="n">marker_colors</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
-                    <span class="n">icon_color</span><span class="o">=</span><span class="n">icon_colors</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
-                    <span class="n">icon</span><span class="o">=</span><span class="n">icon_names</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
-                    <span class="n">angle</span><span class="o">=</span><span class="n">angle</span><span class="p">,</span>
-                    <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">marker_icon</span> <span class="o">=</span> <span class="kc">None</span>
-
-            <span class="n">icon_square</span> <span class="o">=</span> <span class="n">BeautifyIcon</span><span class="p">(</span>
-                <span class="n">icon_shape</span><span class="o">=</span><span class="s2">&quot;rectangle-dot&quot;</span><span class="p">,</span>
-                <span class="n">border_color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
-                <span class="n">border_width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+            <span class="n">marker_icon</span> <span class="o">=</span> <span class="n">BeautifyIcon</span><span class="p">(</span>
+                <span class="n">icon</span><span class="p">,</span> <span class="n">icon_shape</span><span class="p">,</span> <span class="n">border_width</span><span class="p">,</span> <span class="n">border_color</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
             <span class="p">)</span>
-
-            <span class="n">icon_circle</span> <span class="o">=</span> <span class="n">BeautifyIcon</span><span class="p">(</span>
-                <span class="n">icon_shape</span><span class="o">=</span><span class="s2">&quot;circle-dot&quot;</span><span class="p">,</span>
-                <span class="n">border_color</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span>
-                <span class="n">border_width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="n">icon_star</span> <span class="o">=</span> <span class="n">BeautifyIcon</span><span class="p">(</span>
-                <span class="n">icon</span><span class="o">=</span><span class="s2">&quot;star&quot;</span><span class="p">,</span>
-                <span class="n">inner_icon_style</span><span class="o">=</span><span class="s2">&quot;color:blue;font-size:20px;&quot;</span><span class="p">,</span>
-                <span class="n">background_color</span><span class="o">=</span><span class="s2">&quot;transparent&quot;</span><span class="p">,</span>
-                <span class="n">border_color</span><span class="o">=</span><span class="s2">&quot;transparent&quot;</span><span class="p">,</span>
-            <span class="p">)</span>
-
             <span class="n">folium</span><span class="o">.</span><span class="n">Marker</span><span class="p">(</span>
                 <span class="n">location</span><span class="o">=</span><span class="p">[</span><span class="nb">getattr</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">x</span><span class="p">)],</span>
                 <span class="n">popup</span><span class="o">=</span><span class="n">popup_html</span><span class="p">,</span>
-                <span class="n">icon</span><span class="o">=</span><span class="n">icon_star</span><span class="p">,</span>
-            <span class="p">)</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+                <span class="n">icon</span><span class="o">=</span><span class="n">marker_icon</span><span class="p">,</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="n">layer_group</span><span class="p">)</span>
 
-        <span class="c1"># folium.Marker([50, -70], tooltip=&quot;square&quot;, icon=icon, name=&quot;marker&quot;).add_to(</span>
-        <span class="c1">#     self</span>
-        <span class="c1"># )</span>
-        <span class="c1"># folium.Marker([50, 70], tooltip=&quot;square&quot;, icon=icon2).add_to(self)</span>
-        <span class="k">if</span> <span class="n">items</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">add_legend</span><span class="p">:</span>
-            <span class="n">marker_colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">check_color</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">marker_colors</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">add_legend</span><span class="p">(</span>
-                <span class="n">title</span><span class="o">=</span><span class="n">color_column</span><span class="o">.</span><span class="n">title</span><span class="p">(),</span> <span class="n">colors</span><span class="o">=</span><span class="n">marker_colors</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">items</span>
-            <span class="p">)</span>
+        <span class="n">layer_group</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">add_planet_by_month</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="mi">2016</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">token_name</span><span class="o">=</span><span class="s2">&quot;PLANET_API_KEY&quot;</span>
@@ -7435,88 +7267,9 @@ Map            (<span title="folium.folium.Map">Map</span>)
 <span class="sd">        opacity (float, optional): The layer&#39;s opacity represented as a number between 0 and 1. Defaults to 1.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="kn">from</span> <span class="nn">box</span> <span class="kn">import</span> <span class="n">Box</span>
-
-    <span class="n">image</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="k">if</span> <span class="n">vis_params</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">vis_params</span> <span class="o">=</span> <span class="p">{}</span>
-
-    <span class="k">if</span> <span class="p">(</span>
-        <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">)</span>
-        <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)</span>
-        <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)</span>
-        <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">)</span>
-        <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">)</span>
-    <span class="p">):</span>
-        <span class="n">err_str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">The image argument in &#39;addLayer&#39; function must be an instance of one of ee.Image, ee.Geometry, ee.Feature or ee.FeatureCollection.&quot;</span>
-        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">err_str</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="p">(</span>
-        <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">Geometry</span><span class="p">)</span>
-        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">feature</span><span class="o">.</span><span class="n">Feature</span><span class="p">)</span>
-        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">featurecollection</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)</span>
-    <span class="p">):</span>
-        <span class="n">features</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
-
-        <span class="n">width</span> <span class="o">=</span> <span class="mi">2</span>
-
-        <span class="k">if</span> <span class="s2">&quot;width&quot;</span> <span class="ow">in</span> <span class="n">vis_params</span><span class="p">:</span>
-            <span class="n">width</span> <span class="o">=</span> <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;width&quot;</span><span class="p">]</span>
-
-        <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;000000&quot;</span>
-
-        <span class="k">if</span> <span class="s2">&quot;color&quot;</span> <span class="ow">in</span> <span class="n">vis_params</span><span class="p">:</span>
-            <span class="n">color</span> <span class="o">=</span> <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">]</span>
-
-        <span class="n">image_fill</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s2">&quot;fillColor&quot;</span><span class="p">:</span> <span class="n">color</span><span class="p">})</span><span class="o">.</span><span class="n">updateMask</span><span class="p">(</span>
-            <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
-        <span class="p">)</span>
-        <span class="n">image_outline</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">style</span><span class="p">(</span>
-            <span class="o">**</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">color</span><span class="p">,</span> <span class="s2">&quot;fillColor&quot;</span><span class="p">:</span> <span class="s2">&quot;00000000&quot;</span><span class="p">,</span> <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="n">width</span><span class="p">}</span>
-        <span class="p">)</span>
-
-        <span class="n">image</span> <span class="o">=</span> <span class="n">image_fill</span><span class="o">.</span><span class="n">blend</span><span class="p">(</span><span class="n">image_outline</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">Image</span><span class="p">):</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="n">ee_object</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">imagecollection</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">):</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">mosaic</span><span class="p">()</span>
-
-    <span class="k">if</span> <span class="s2">&quot;palette&quot;</span> <span class="ow">in</span> <span class="n">vis_params</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">):</span>
-            <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">])</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="n">Box</span><span class="p">):</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">][</span><span class="s2">&quot;default&quot;</span><span class="p">]</span>
-            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The provided palette is invalid.&quot;</span><span class="p">)</span>
-                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">check_cmap</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">])</span>
-        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;The palette must be a list of colors or a string or a Box object.&quot;</span>
-            <span class="p">)</span>
-
-    <span class="n">map_id_dict</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span><span class="o">.</span><span class="n">getMapId</span><span class="p">(</span><span class="n">vis_params</span><span class="p">)</span>
-
-    <span class="c1"># if a layer starts with a number, add &quot;Layer&quot; to name.</span>
-    <span class="k">if</span> <span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Layer &quot;</span> <span class="o">+</span> <span class="n">name</span>
-
-    <span class="n">url</span> <span class="o">=</span> <span class="n">map_id_dict</span><span class="p">[</span><span class="s2">&quot;tile_fetcher&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">url_format</span>
-    <span class="n">folium</span><span class="o">.</span><span class="n">raster_layers</span><span class="o">.</span><span class="n">TileLayer</span><span class="p">(</span>
-        <span class="n">tiles</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
-        <span class="n">attr</span><span class="o">=</span><span class="s2">&quot;Google Earth Engine&quot;</span><span class="p">,</span>
-        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-        <span class="n">overlay</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">control</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">show</span><span class="o">=</span><span class="n">shown</span><span class="p">,</span>
-        <span class="n">opacity</span><span class="o">=</span><span class="n">opacity</span><span class="p">,</span>
-        <span class="n">max_zoom</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
-    <span class="n">arc_add_layer</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
+    <span class="n">layer</span> <span class="o">=</span> <span class="n">EEFoliumTileLayer</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">vis_params</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">layer</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">arc_add_layer</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">url_format</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -9860,88 +9613,9 @@ Any value other than "on_hover" or "on_click" will be treated as None. Defaults 
 <span class="sd">        opacity (float, optional): The layer&#39;s opacity represented as a number between 0 and 1. Defaults to 1.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="kn">from</span> <span class="nn">box</span> <span class="kn">import</span> <span class="n">Box</span>
-
-    <span class="n">image</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="k">if</span> <span class="n">vis_params</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">vis_params</span> <span class="o">=</span> <span class="p">{}</span>
-
-    <span class="k">if</span> <span class="p">(</span>
-        <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">)</span>
-        <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)</span>
-        <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)</span>
-        <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">)</span>
-        <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">)</span>
-    <span class="p">):</span>
-        <span class="n">err_str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">The image argument in &#39;addLayer&#39; function must be an instance of one of ee.Image, ee.Geometry, ee.Feature or ee.FeatureCollection.&quot;</span>
-        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">err_str</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="p">(</span>
-        <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">Geometry</span><span class="p">)</span>
-        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">feature</span><span class="o">.</span><span class="n">Feature</span><span class="p">)</span>
-        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">featurecollection</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)</span>
-    <span class="p">):</span>
-        <span class="n">features</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
-
-        <span class="n">width</span> <span class="o">=</span> <span class="mi">2</span>
-
-        <span class="k">if</span> <span class="s2">&quot;width&quot;</span> <span class="ow">in</span> <span class="n">vis_params</span><span class="p">:</span>
-            <span class="n">width</span> <span class="o">=</span> <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;width&quot;</span><span class="p">]</span>
-
-        <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;000000&quot;</span>
-
-        <span class="k">if</span> <span class="s2">&quot;color&quot;</span> <span class="ow">in</span> <span class="n">vis_params</span><span class="p">:</span>
-            <span class="n">color</span> <span class="o">=</span> <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">]</span>
-
-        <span class="n">image_fill</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s2">&quot;fillColor&quot;</span><span class="p">:</span> <span class="n">color</span><span class="p">})</span><span class="o">.</span><span class="n">updateMask</span><span class="p">(</span>
-            <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
-        <span class="p">)</span>
-        <span class="n">image_outline</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">style</span><span class="p">(</span>
-            <span class="o">**</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">color</span><span class="p">,</span> <span class="s2">&quot;fillColor&quot;</span><span class="p">:</span> <span class="s2">&quot;00000000&quot;</span><span class="p">,</span> <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="n">width</span><span class="p">}</span>
-        <span class="p">)</span>
-
-        <span class="n">image</span> <span class="o">=</span> <span class="n">image_fill</span><span class="o">.</span><span class="n">blend</span><span class="p">(</span><span class="n">image_outline</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">Image</span><span class="p">):</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="n">ee_object</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">imagecollection</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">):</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">mosaic</span><span class="p">()</span>
-
-    <span class="k">if</span> <span class="s2">&quot;palette&quot;</span> <span class="ow">in</span> <span class="n">vis_params</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">):</span>
-            <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">])</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="n">Box</span><span class="p">):</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">][</span><span class="s2">&quot;default&quot;</span><span class="p">]</span>
-            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The provided palette is invalid.&quot;</span><span class="p">)</span>
-                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">check_cmap</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">])</span>
-        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;The palette must be a list of colors or a string or a Box object.&quot;</span>
-            <span class="p">)</span>
-
-    <span class="n">map_id_dict</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span><span class="o">.</span><span class="n">getMapId</span><span class="p">(</span><span class="n">vis_params</span><span class="p">)</span>
-
-    <span class="c1"># if a layer starts with a number, add &quot;Layer&quot; to name.</span>
-    <span class="k">if</span> <span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Layer &quot;</span> <span class="o">+</span> <span class="n">name</span>
-
-    <span class="n">url</span> <span class="o">=</span> <span class="n">map_id_dict</span><span class="p">[</span><span class="s2">&quot;tile_fetcher&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">url_format</span>
-    <span class="n">folium</span><span class="o">.</span><span class="n">raster_layers</span><span class="o">.</span><span class="n">TileLayer</span><span class="p">(</span>
-        <span class="n">tiles</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
-        <span class="n">attr</span><span class="o">=</span><span class="s2">&quot;Google Earth Engine&quot;</span><span class="p">,</span>
-        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-        <span class="n">overlay</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">control</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">show</span><span class="o">=</span><span class="n">shown</span><span class="p">,</span>
-        <span class="n">opacity</span><span class="o">=</span><span class="n">opacity</span><span class="p">,</span>
-        <span class="n">max_zoom</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
-    <span class="n">arc_add_layer</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
+    <span class="n">layer</span> <span class="o">=</span> <span class="n">EEFoliumTileLayer</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">vis_params</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">layer</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">arc_add_layer</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">url_format</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -10403,14 +10077,14 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 
 
 <h3 id="geemap.foliumap.Map.add_markers_from_xy" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">add_markers_from_xy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span> <span class="n">popup</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">max_width</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">layer_name</span><span class="o">=</span><span class="s1">&#39;Marker Cluster&#39;</span><span class="p">,</span> <span class="n">color_column</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">marker_colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">icon_colors</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;white&#39;</span><span class="p">],</span> <span class="n">icon_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;info&#39;</span><span class="p">],</span> <span class="n">angle</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;fa&#39;</span><span class="p">,</span> <span class="n">add_legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">add_markers_from_xy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span> <span class="n">popup</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">max_width</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">layer_name</span><span class="o">=</span><span class="s1">&#39;Markers&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">icon_shape</span><span class="o">=</span><span class="s1">&#39;circle-dot&#39;</span><span class="p">,</span> <span class="n">border_width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">border_color</span><span class="o">=</span><span class="s1">&#39;#0000ff&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 
 <a href="#geemap.foliumap.Map.add_markers_from_xy" class="headerlink" title="Permanent link">&para;</a></h3>
 
     <div class="doc doc-contents ">
 
-      <p>Adds a marker cluster to the map.</p>
+      <p>Adds markers to the map from a csv or Pandas DataFrame containing x, y values.</p>
 
 <p><strong>Parameters:</strong></p>
 <table>
@@ -10463,49 +10137,38 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
         <td><code>layer_name</code></td>
         <td><code>str</code></td>
         <td><p>The name of the layer. Defaults to "Marker Cluster".</p></td>
-        <td><code>&#39;Marker Cluster&#39;</code></td>
+        <td><code>&#39;Markers&#39;</code></td>
       </tr>
       <tr>
-        <td><code>color_column</code></td>
+        <td><code>icon</code></td>
         <td><code>str</code></td>
-        <td><p>The column name for the color values. Defaults to None.</p></td>
+        <td><p>The Font-Awesome icon name to use to render the marker. Defaults to None.</p></td>
         <td><code>None</code></td>
       </tr>
       <tr>
-        <td><code>marker_colors</code></td>
-        <td><code>list</code></td>
-        <td><p>A list of colors to be used for the markers. Defaults to None.</p></td>
-        <td><code>None</code></td>
+        <td><code>icon_shape</code></td>
+        <td><code>str</code></td>
+        <td><p>The shape of the marker, such as "retangle-dot", "circle-dot". Defaults to 'circle-dot'.</p></td>
+        <td><code>&#39;circle-dot&#39;</code></td>
       </tr>
       <tr>
-        <td><code>icon_colors</code></td>
-        <td><code>list</code></td>
-        <td><p>A list of colors to be used for the icons. Defaults to ['white'].</p></td>
-        <td><code>[&#39;white&#39;]</code></td>
-      </tr>
-      <tr>
-        <td><code>icon_names</code></td>
-        <td><code>list</code></td>
-        <td><p>A list of names to be used for the icons. More icons can be found at https://fontawesome.com/v4/icons or https://getbootstrap.com/docs/3.3/components/?utm_source=pocket_mylist. Defaults to ['info'].</p></td>
-        <td><code>[&#39;info&#39;]</code></td>
-      </tr>
-      <tr>
-        <td><code>angle</code></td>
+        <td><code>border_width</code></td>
         <td><code>int</code></td>
-        <td><p>The angle of the icon. Defaults to 0.</p></td>
-        <td><code>0</code></td>
+        <td><p>The width of the border. Defaults to 3.</p></td>
+        <td><code>3</code></td>
       </tr>
       <tr>
-        <td><code>prefix</code></td>
+        <td><code>border_color</code></td>
         <td><code>str</code></td>
-        <td><p>The prefix states the source of the icon. 'fa' for font-awesome or 'glyphicon' for bootstrap 3. Defaults to 'fa'.</p></td>
-        <td><code>&#39;fa&#39;</code></td>
+        <td><p>The color of the border. Defaults to '#0000ff'.</p></td>
+        <td><code>&#39;#0000ff&#39;</code></td>
       </tr>
       <tr>
-        <td><code>add_legend</code></td>
-        <td><code>bool</code></td>
-        <td><p>If True, a legend will be added to the map. Defaults to True.</p></td>
-        <td><code>True</code></td>
+        <td><code>kwargs</code></td>
+        <td><code>dict</code></td>
+        <td><p>Additional keyword arguments to pass to BeautifyIcon. See
+https://python-visualization.github.io/folium/plugins.html#folium.plugins.BeautifyIcon.</p></td>
+        <td><code>{}</code></td>
       </tr>
   </tbody>
 </table>
@@ -10519,17 +10182,14 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
     <span class="n">popup</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">min_width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
     <span class="n">max_width</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
-    <span class="n">layer_name</span><span class="o">=</span><span class="s2">&quot;Marker Cluster&quot;</span><span class="p">,</span>
-    <span class="n">color_column</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">marker_colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">icon_colors</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;white&quot;</span><span class="p">],</span>
-    <span class="n">icon_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;info&quot;</span><span class="p">],</span>
-    <span class="n">angle</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-    <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;fa&quot;</span><span class="p">,</span>
-    <span class="n">add_legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">layer_name</span><span class="o">=</span><span class="s2">&quot;Markers&quot;</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">icon_shape</span><span class="o">=</span><span class="s1">&#39;circle-dot&#39;</span><span class="p">,</span>
+    <span class="n">border_width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">border_color</span><span class="o">=</span><span class="s1">&#39;#0000ff&#39;</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Adds a marker cluster to the map.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Adds markers to the map from a csv or Pandas DataFrame containing x, y values.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        data (str | pd.DataFrame): A csv or Pandas DataFrame containing x, y, z values.</span>
@@ -10539,38 +10199,18 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 <span class="sd">        min_width (int, optional): The minimum width of the popup. Defaults to 100.</span>
 <span class="sd">        max_width (int, optional): The maximum width of the popup. Defaults to 200.</span>
 <span class="sd">        layer_name (str, optional): The name of the layer. Defaults to &quot;Marker Cluster&quot;.</span>
-<span class="sd">        color_column (str, optional): The column name for the color values. Defaults to None.</span>
-<span class="sd">        marker_colors (list, optional): A list of colors to be used for the markers. Defaults to None.</span>
-<span class="sd">        icon_colors (list, optional): A list of colors to be used for the icons. Defaults to [&#39;white&#39;].</span>
-<span class="sd">        icon_names (list, optional): A list of names to be used for the icons. More icons can be found at https://fontawesome.com/v4/icons or https://getbootstrap.com/docs/3.3/components/?utm_source=pocket_mylist. Defaults to [&#39;info&#39;].</span>
-<span class="sd">        angle (int, optional): The angle of the icon. Defaults to 0.</span>
-<span class="sd">        prefix (str, optional): The prefix states the source of the icon. &#39;fa&#39; for font-awesome or &#39;glyphicon&#39; for bootstrap 3. Defaults to &#39;fa&#39;.</span>
-<span class="sd">        add_legend (bool, optional): If True, a legend will be added to the map. Defaults to True.</span>
+<span class="sd">        icon (str, optional): The Font-Awesome icon name to use to render the marker. Defaults to None.</span>
+<span class="sd">        icon_shape (str, optional): The shape of the marker, such as &quot;retangle-dot&quot;, &quot;circle-dot&quot;. Defaults to &#39;circle-dot&#39;.</span>
+<span class="sd">        border_width (int, optional): The width of the border. Defaults to 3.</span>
+<span class="sd">        border_color (str, optional): The color of the border. Defaults to &#39;#0000ff&#39;.</span>
+<span class="sd">        kwargs (dict, optional): Additional keyword arguments to pass to BeautifyIcon. See</span>
+<span class="sd">            https://python-visualization.github.io/folium/plugins.html#folium.plugins.BeautifyIcon.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
     <span class="kn">from</span> <span class="nn">folium.plugins</span> <span class="kn">import</span> <span class="n">BeautifyIcon</span>
 
-    <span class="n">color_options</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s2">&quot;red&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;blue&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;green&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;purple&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;orange&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;darkred&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;lightred&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;beige&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;darkblue&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;darkgreen&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;cadetblue&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;darkpurple&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;white&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;pink&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;lightblue&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;lightgreen&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;gray&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;black&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;lightgray&quot;</span><span class="p">,</span>
-    <span class="p">]</span>
+    <span class="n">layer_group</span> <span class="o">=</span> <span class="n">folium</span><span class="o">.</span><span class="n">FeatureGroup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">layer_name</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">data</span>
@@ -10581,44 +10221,6 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 
     <span class="n">col_names</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 
-    <span class="k">if</span> <span class="n">color_column</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">color_column</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">col_names</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;The color column </span><span class="si">{</span><span class="n">color_column</span><span class="si">}</span><span class="s2"> does not exist in the dataframe.&quot;</span>
-        <span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">color_column</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">items</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">color_column</span><span class="p">]))</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">items</span> <span class="o">=</span> <span class="kc">None</span>
-
-    <span class="k">if</span> <span class="n">color_column</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">marker_colors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">color_options</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;The number of unique values in the color column </span><span class="si">{</span><span class="n">color_column</span><span class="si">}</span><span class="s2"> is greater than the number of available colors.&quot;</span>
-            <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">marker_colors</span> <span class="o">=</span> <span class="n">color_options</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)]</span>
-    <span class="k">elif</span> <span class="n">color_column</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">marker_colors</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">marker_colors</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;The number of unique values in the color column </span><span class="si">{</span><span class="n">color_column</span><span class="si">}</span><span class="s2"> is not equal to the number of available colors.&quot;</span>
-            <span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">items</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">icon_colors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">icon_colors</span> <span class="o">=</span> <span class="n">icon_colors</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">icon_colors</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;The number of unique values in the color column </span><span class="si">{</span><span class="n">color_column</span><span class="si">}</span><span class="s2"> is not equal to the number of available colors.&quot;</span>
-            <span class="p">)</span>
-
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">icon_names</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">icon_names</span> <span class="o">=</span> <span class="n">icon_names</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">icon_names</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;The number of unique values in the color column </span><span class="si">{</span><span class="n">color_column</span><span class="si">}</span><span class="s2"> is not equal to the number of available colors.&quot;</span>
-            <span class="p">)</span>
-
     <span class="k">if</span> <span class="n">popup</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">popup</span> <span class="o">=</span> <span class="n">col_names</span>
 
@@ -10628,58 +10230,22 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
     <span class="k">if</span> <span class="n">y</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">col_names</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;y must be one of the following: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">col_names</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="c1"># marker_cluster = plugins.MarkerCluster(name=layer_name).add_to(self)</span>
     <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">itertuples</span><span class="p">():</span>
         <span class="n">html</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">popup</span><span class="p">:</span>
             <span class="n">html</span> <span class="o">=</span> <span class="n">html</span> <span class="o">+</span> <span class="s2">&quot;&lt;b&gt;&quot;</span> <span class="o">+</span> <span class="n">p</span> <span class="o">+</span> <span class="s2">&quot;&lt;/b&gt;&quot;</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;&lt;br&gt;&quot;</span>
         <span class="n">popup_html</span> <span class="o">=</span> <span class="n">folium</span><span class="o">.</span><span class="n">Popup</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="n">min_width</span><span class="o">=</span><span class="n">min_width</span><span class="p">,</span> <span class="n">max_width</span><span class="o">=</span><span class="n">max_width</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">items</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">index</span> <span class="o">=</span> <span class="n">items</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">color_column</span><span class="p">))</span>
-            <span class="n">marker_icon</span> <span class="o">=</span> <span class="n">folium</span><span class="o">.</span><span class="n">Icon</span><span class="p">(</span>
-                <span class="n">color</span><span class="o">=</span><span class="n">marker_colors</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
-                <span class="n">icon_color</span><span class="o">=</span><span class="n">icon_colors</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
-                <span class="n">icon</span><span class="o">=</span><span class="n">icon_names</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
-                <span class="n">angle</span><span class="o">=</span><span class="n">angle</span><span class="p">,</span>
-                <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span>
-            <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">marker_icon</span> <span class="o">=</span> <span class="kc">None</span>
-
-        <span class="n">icon_square</span> <span class="o">=</span> <span class="n">BeautifyIcon</span><span class="p">(</span>
-            <span class="n">icon_shape</span><span class="o">=</span><span class="s2">&quot;rectangle-dot&quot;</span><span class="p">,</span>
-            <span class="n">border_color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
-            <span class="n">border_width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">marker_icon</span> <span class="o">=</span> <span class="n">BeautifyIcon</span><span class="p">(</span>
+            <span class="n">icon</span><span class="p">,</span> <span class="n">icon_shape</span><span class="p">,</span> <span class="n">border_width</span><span class="p">,</span> <span class="n">border_color</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">)</span>
-
-        <span class="n">icon_circle</span> <span class="o">=</span> <span class="n">BeautifyIcon</span><span class="p">(</span>
-            <span class="n">icon_shape</span><span class="o">=</span><span class="s2">&quot;circle-dot&quot;</span><span class="p">,</span>
-            <span class="n">border_color</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span>
-            <span class="n">border_width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="n">icon_star</span> <span class="o">=</span> <span class="n">BeautifyIcon</span><span class="p">(</span>
-            <span class="n">icon</span><span class="o">=</span><span class="s2">&quot;star&quot;</span><span class="p">,</span>
-            <span class="n">inner_icon_style</span><span class="o">=</span><span class="s2">&quot;color:blue;font-size:20px;&quot;</span><span class="p">,</span>
-            <span class="n">background_color</span><span class="o">=</span><span class="s2">&quot;transparent&quot;</span><span class="p">,</span>
-            <span class="n">border_color</span><span class="o">=</span><span class="s2">&quot;transparent&quot;</span><span class="p">,</span>
-        <span class="p">)</span>
-
         <span class="n">folium</span><span class="o">.</span><span class="n">Marker</span><span class="p">(</span>
             <span class="n">location</span><span class="o">=</span><span class="p">[</span><span class="nb">getattr</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">x</span><span class="p">)],</span>
             <span class="n">popup</span><span class="o">=</span><span class="n">popup_html</span><span class="p">,</span>
-            <span class="n">icon</span><span class="o">=</span><span class="n">icon_star</span><span class="p">,</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">icon</span><span class="o">=</span><span class="n">marker_icon</span><span class="p">,</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="n">layer_group</span><span class="p">)</span>
 
-    <span class="c1"># folium.Marker([50, -70], tooltip=&quot;square&quot;, icon=icon, name=&quot;marker&quot;).add_to(</span>
-    <span class="c1">#     self</span>
-    <span class="c1"># )</span>
-    <span class="c1"># folium.Marker([50, 70], tooltip=&quot;square&quot;, icon=icon2).add_to(self)</span>
-    <span class="k">if</span> <span class="n">items</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">add_legend</span><span class="p">:</span>
-        <span class="n">marker_colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">check_color</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">marker_colors</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_legend</span><span class="p">(</span>
-            <span class="n">title</span><span class="o">=</span><span class="n">color_column</span><span class="o">.</span><span class="n">title</span><span class="p">(),</span> <span class="n">colors</span><span class="o">=</span><span class="n">marker_colors</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">items</span>
-        <span class="p">)</span>
+    <span class="n">layer_group</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -16160,10 +15726,10 @@ sidebyside.add_to(m)</p>
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.highlight", "search.share"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.highlight", "search.share"], "search": "../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.b425cdc4.min.js"></script>
+      <script src="../assets/javascripts/bundle.220ee61c.min.js"></script>
       
         
           <script src="../js/timeago.min.js"></script>
