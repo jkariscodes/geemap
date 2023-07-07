@@ -4950,6 +4950,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;basemap&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">check_basemap</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;basemap&quot;</span><span class="p">])</span>
             <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;basemap&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">basemaps</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;basemap&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_basemap</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;basemap&quot;</span><span class="p">])</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;add_google_map&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;basemap&quot;</span><span class="p">)</span>
 
@@ -5624,6 +5625,8 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
         <span class="n">position</span><span class="o">=</span><span class="s2">&quot;bottomright&quot;</span><span class="p">,</span>
         <span class="n">builtin_legend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">layer_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">add_header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">widget_args</span><span class="o">=</span><span class="p">{},</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds a customized basemap to the map.</span>
@@ -5636,6 +5639,9 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="sd">            position (str, optional): Position of the legend. Defaults to &#39;bottomright&#39;.</span>
 <span class="sd">            builtin_legend (str, optional): Name of the builtin legend to add to the map. Defaults to None.</span>
 <span class="sd">            layer_name (str, optional): Layer name of the legend to be associated with. Defaults to None.</span>
+<span class="sd">            add_header (bool, optional): Whether the legend can be closed or not. Defaults to True.</span>
+<span class="sd">            widget_args (dict, optional): Additional arguments passed to the widget_template() function. Defaults to {}.</span>
+
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
@@ -5779,7 +5785,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
         <span class="n">legend_text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">legend_html</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">legend_output_widget</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Output</span><span class="p">(</span>
+            <span class="n">legend_output</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Output</span><span class="p">(</span>
                 <span class="n">layout</span><span class="o">=</span><span class="p">{</span>
                     <span class="c1"># &quot;border&quot;: &quot;1px solid black&quot;,</span>
                     <span class="s2">&quot;max_width&quot;</span><span class="p">:</span> <span class="n">max_width</span><span class="p">,</span>
@@ -5791,11 +5797,28 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
                     <span class="s2">&quot;overflow&quot;</span><span class="p">:</span> <span class="s2">&quot;scroll&quot;</span><span class="p">,</span>
                 <span class="p">}</span>
             <span class="p">)</span>
+            <span class="n">legend_widget</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">legend_text</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">add_header</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s2">&quot;show_close_button&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">widget_args</span><span class="p">:</span>
+                    <span class="n">widget_args</span><span class="p">[</span><span class="s2">&quot;show_close_button&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">if</span> <span class="s2">&quot;widget_icon&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">widget_args</span><span class="p">:</span>
+                    <span class="n">widget_args</span><span class="p">[</span><span class="s2">&quot;widget_icon&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;bars&quot;</span>
+
+                <span class="n">legend_output_widget</span> <span class="o">=</span> <span class="n">widget_template</span><span class="p">(</span>
+                    <span class="n">legend_output</span><span class="p">,</span>
+                    <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
+                    <span class="n">display_widget</span><span class="o">=</span><span class="n">legend_widget</span><span class="p">,</span>
+                    <span class="o">**</span><span class="n">widget_args</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">legend_output_widget</span> <span class="o">=</span> <span class="n">legend_output</span>
+
             <span class="n">legend_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span>
                 <span class="n">widget</span><span class="o">=</span><span class="n">legend_output_widget</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span>
             <span class="p">)</span>
-            <span class="n">legend_widget</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">legend_text</span><span class="p">)</span>
-            <span class="k">with</span> <span class="n">legend_output_widget</span><span class="p">:</span>
+            <span class="c1"># legend_output.append_display_data(legend_widget)</span>
+            <span class="k">with</span> <span class="n">legend_output</span><span class="p">:</span>
                 <span class="n">display</span><span class="p">(</span><span class="n">legend_widget</span><span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_legend_widget</span> <span class="o">=</span> <span class="n">legend_output_widget</span>
@@ -11258,13 +11281,34 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">bbox_coords</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">user_roi</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="n">decimals</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">add_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;bottomright&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add_widget</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">content</span><span class="p">,</span>
+        <span class="n">position</span><span class="o">=</span><span class="s2">&quot;bottomright&quot;</span><span class="p">,</span>
+        <span class="n">add_header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">opened</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">show_close_button</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">widget_icon</span><span class="o">=</span><span class="s1">&#39;gear&#39;</span><span class="p">,</span>
+        <span class="n">close_button_icon</span><span class="o">=</span><span class="s2">&quot;times&quot;</span><span class="p">,</span>
+        <span class="n">widget_args</span><span class="o">=</span><span class="p">{},</span>
+        <span class="n">close_button_args</span><span class="o">=</span><span class="p">{},</span>
+        <span class="n">display_widget</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a widget (e.g., text, HTML, figure) to the map.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            content (str | ipywidgets.Widget | object): The widget to add.</span>
 <span class="sd">            position (str, optional): The position of the widget. Defaults to &quot;bottomright&quot;.</span>
-<span class="sd">            **kwargs: Other keyword arguments for ipywidgets.HTML().</span>
+<span class="sd">            add_header (bool, optional): Whether to add a header with close buttons to the widget. Defaults to True.</span>
+<span class="sd">            opened (bool, optional): Whether to open the toolbar. Defaults to True.</span>
+<span class="sd">            show_close_button (bool, optional): Whether to show the close button. Defaults to True.</span>
+<span class="sd">            widget_icon (str, optional): The icon name for the toolbar button. Defaults to &#39;gear&#39;.</span>
+<span class="sd">            close_button_icon (str, optional): The icon name for the close button. Defaults to &quot;times&quot;.</span>
+<span class="sd">            widget_args (dict, optional): Additional arguments to pass to the toolbar button. Defaults to {}.</span>
+<span class="sd">            close_button_args (dict, optional): Additional arguments to pass to the close button. Defaults to {}.</span>
+<span class="sd">            display_widget (ipywidgets.Widget, optional): The widget to be displayed when the toolbar is clicked.</span>
+<span class="sd">            **kwargs: Additional arguments to pass to the HTML or Output widgets</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">allowed_positions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;topleft&quot;</span><span class="p">,</span> <span class="s2">&quot;topright&quot;</span><span class="p">,</span> <span class="s2">&quot;bottomleft&quot;</span><span class="p">,</span> <span class="s2">&quot;bottomright&quot;</span><span class="p">]</span>
@@ -11275,15 +11319,33 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
         <span class="k">if</span> <span class="s2">&quot;layout&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;layout&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Layout</span><span class="p">(</span><span class="n">padding</span><span class="o">=</span><span class="s2">&quot;0px 4px 0px 4px&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-                <span class="n">widget</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">content</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-                <span class="n">control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">widget</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">add_header</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                    <span class="n">widget</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">content</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">widget</span> <span class="o">=</span> <span class="n">content</span>
+
+                <span class="n">widget_template</span><span class="p">(</span>
+                    <span class="n">widget</span><span class="p">,</span>
+                    <span class="n">opened</span><span class="p">,</span>
+                    <span class="n">show_close_button</span><span class="p">,</span>
+                    <span class="n">widget_icon</span><span class="p">,</span>
+                    <span class="n">close_button_icon</span><span class="p">,</span>
+                    <span class="n">widget_args</span><span class="p">,</span>
+                    <span class="n">close_button_args</span><span class="p">,</span>
+                    <span class="n">display_widget</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="p">,</span>
+                    <span class="n">position</span><span class="p">,</span>
+                <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">output</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Output</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-                <span class="k">with</span> <span class="n">output</span><span class="p">:</span>
-                    <span class="n">display</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
-                <span class="n">control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">output</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">control</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                    <span class="n">widget</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">content</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">widget</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Output</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                    <span class="k">with</span> <span class="n">widget</span><span class="p">:</span>
+                        <span class="n">display</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+                <span class="n">control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">widget</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">control</span><span class="p">)</span>
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error adding widget: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -11638,6 +11700,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
         <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;basemap&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">check_basemap</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;basemap&quot;</span><span class="p">])</span>
         <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;basemap&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">basemaps</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;basemap&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_basemap</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;basemap&quot;</span><span class="p">])</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;add_google_map&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;basemap&quot;</span><span class="p">)</span>
 
@@ -15225,7 +15288,7 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
 
 
 <h3 id="geemap.geemap.Map.add_legend" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">add_legend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Legend&#39;</span><span class="p">,</span> <span class="n">legend_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s1">&#39;bottomright&#39;</span><span class="p">,</span> <span class="n">builtin_legend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">layer_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">add_legend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Legend&#39;</span><span class="p">,</span> <span class="n">legend_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s1">&#39;bottomright&#39;</span><span class="p">,</span> <span class="n">builtin_legend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">layer_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">add_header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">widget_args</span><span class="o">=</span><span class="p">{},</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 
 <a href="#geemap.geemap.Map.add_legend" class="headerlink" title="Permanent link">&para;</a></h3>
@@ -15287,6 +15350,18 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
         <td><p>Layer name of the legend to be associated with. Defaults to None.</p></td>
         <td><code>None</code></td>
       </tr>
+      <tr>
+        <td><code>add_header</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether the legend can be closed or not. Defaults to True.</p></td>
+        <td><code>True</code></td>
+      </tr>
+      <tr>
+        <td><code>widget_args</code></td>
+        <td><code>dict</code></td>
+        <td><p>Additional arguments passed to the widget_template() function. Defaults to {}.</p></td>
+        <td><code>{}</code></td>
+      </tr>
   </tbody>
 </table>
         <details class="quote">
@@ -15300,6 +15375,8 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
     <span class="n">position</span><span class="o">=</span><span class="s2">&quot;bottomright&quot;</span><span class="p">,</span>
     <span class="n">builtin_legend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">layer_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">add_header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">widget_args</span><span class="o">=</span><span class="p">{},</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Adds a customized basemap to the map.</span>
@@ -15312,6 +15389,9 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
 <span class="sd">        position (str, optional): Position of the legend. Defaults to &#39;bottomright&#39;.</span>
 <span class="sd">        builtin_legend (str, optional): Name of the builtin legend to add to the map. Defaults to None.</span>
 <span class="sd">        layer_name (str, optional): Layer name of the legend to be associated with. Defaults to None.</span>
+<span class="sd">        add_header (bool, optional): Whether the legend can be closed or not. Defaults to True.</span>
+<span class="sd">        widget_args (dict, optional): Additional arguments passed to the widget_template() function. Defaults to {}.</span>
+
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
@@ -15455,7 +15535,7 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
     <span class="n">legend_text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">legend_html</span><span class="p">)</span>
 
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">legend_output_widget</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Output</span><span class="p">(</span>
+        <span class="n">legend_output</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Output</span><span class="p">(</span>
             <span class="n">layout</span><span class="o">=</span><span class="p">{</span>
                 <span class="c1"># &quot;border&quot;: &quot;1px solid black&quot;,</span>
                 <span class="s2">&quot;max_width&quot;</span><span class="p">:</span> <span class="n">max_width</span><span class="p">,</span>
@@ -15467,11 +15547,28 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
                 <span class="s2">&quot;overflow&quot;</span><span class="p">:</span> <span class="s2">&quot;scroll&quot;</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">)</span>
+        <span class="n">legend_widget</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">legend_text</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">add_header</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;show_close_button&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">widget_args</span><span class="p">:</span>
+                <span class="n">widget_args</span><span class="p">[</span><span class="s2">&quot;show_close_button&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="s2">&quot;widget_icon&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">widget_args</span><span class="p">:</span>
+                <span class="n">widget_args</span><span class="p">[</span><span class="s2">&quot;widget_icon&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;bars&quot;</span>
+
+            <span class="n">legend_output_widget</span> <span class="o">=</span> <span class="n">widget_template</span><span class="p">(</span>
+                <span class="n">legend_output</span><span class="p">,</span>
+                <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
+                <span class="n">display_widget</span><span class="o">=</span><span class="n">legend_widget</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">widget_args</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">legend_output_widget</span> <span class="o">=</span> <span class="n">legend_output</span>
+
         <span class="n">legend_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span>
             <span class="n">widget</span><span class="o">=</span><span class="n">legend_output_widget</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span>
         <span class="p">)</span>
-        <span class="n">legend_widget</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">legend_text</span><span class="p">)</span>
-        <span class="k">with</span> <span class="n">legend_output_widget</span><span class="p">:</span>
+        <span class="c1"># legend_output.append_display_data(legend_widget)</span>
+        <span class="k">with</span> <span class="n">legend_output</span><span class="p">:</span>
             <span class="n">display</span><span class="p">(</span><span class="n">legend_widget</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_legend_widget</span> <span class="o">=</span> <span class="n">legend_output_widget</span>
@@ -19757,7 +19854,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 
 
 <h3 id="geemap.geemap.Map.add_widget" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">add_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s1">&#39;bottomright&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">add_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s1">&#39;bottomright&#39;</span><span class="p">,</span> <span class="n">add_header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">opened</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_close_button</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">widget_icon</span><span class="o">=</span><span class="s1">&#39;gear&#39;</span><span class="p">,</span> <span class="n">close_button_icon</span><span class="o">=</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="n">widget_args</span><span class="o">=</span><span class="p">{},</span> <span class="n">close_button_args</span><span class="o">=</span><span class="p">{},</span> <span class="n">display_widget</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 
 <a href="#geemap.geemap.Map.add_widget" class="headerlink" title="Permanent link">&para;</a></h3>
@@ -19790,22 +19887,91 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
         <td><code>&#39;bottomright&#39;</code></td>
       </tr>
       <tr>
+        <td><code>add_header</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether to add a header with close buttons to the widget. Defaults to True.</p></td>
+        <td><code>True</code></td>
+      </tr>
+      <tr>
+        <td><code>opened</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether to open the toolbar. Defaults to True.</p></td>
+        <td><code>True</code></td>
+      </tr>
+      <tr>
+        <td><code>show_close_button</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether to show the close button. Defaults to True.</p></td>
+        <td><code>True</code></td>
+      </tr>
+      <tr>
+        <td><code>widget_icon</code></td>
+        <td><code>str</code></td>
+        <td><p>The icon name for the toolbar button. Defaults to 'gear'.</p></td>
+        <td><code>&#39;gear&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>close_button_icon</code></td>
+        <td><code>str</code></td>
+        <td><p>The icon name for the close button. Defaults to "times".</p></td>
+        <td><code>&#39;times&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>widget_args</code></td>
+        <td><code>dict</code></td>
+        <td><p>Additional arguments to pass to the toolbar button. Defaults to {}.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+      <tr>
+        <td><code>close_button_args</code></td>
+        <td><code>dict</code></td>
+        <td><p>Additional arguments to pass to the close button. Defaults to {}.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+      <tr>
+        <td><code>display_widget</code></td>
+        <td><code>ipywidgets.Widget</code></td>
+        <td><p>The widget to be displayed when the toolbar is clicked.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
         <td><code>**kwargs</code></td>
         <td></td>
-        <td><p>Other keyword arguments for ipywidgets.HTML().</p></td>
+        <td><p>Additional arguments to pass to the HTML or Output widgets</p></td>
         <td><code>{}</code></td>
       </tr>
   </tbody>
 </table>
         <details class="quote">
           <summary>Source code in <code>geemap/geemap.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">add_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;bottomright&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">add_widget</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">content</span><span class="p">,</span>
+    <span class="n">position</span><span class="o">=</span><span class="s2">&quot;bottomright&quot;</span><span class="p">,</span>
+    <span class="n">add_header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">opened</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">show_close_button</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">widget_icon</span><span class="o">=</span><span class="s1">&#39;gear&#39;</span><span class="p">,</span>
+    <span class="n">close_button_icon</span><span class="o">=</span><span class="s2">&quot;times&quot;</span><span class="p">,</span>
+    <span class="n">widget_args</span><span class="o">=</span><span class="p">{},</span>
+    <span class="n">close_button_args</span><span class="o">=</span><span class="p">{},</span>
+    <span class="n">display_widget</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a widget (e.g., text, HTML, figure) to the map.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        content (str | ipywidgets.Widget | object): The widget to add.</span>
 <span class="sd">        position (str, optional): The position of the widget. Defaults to &quot;bottomright&quot;.</span>
-<span class="sd">        **kwargs: Other keyword arguments for ipywidgets.HTML().</span>
+<span class="sd">        add_header (bool, optional): Whether to add a header with close buttons to the widget. Defaults to True.</span>
+<span class="sd">        opened (bool, optional): Whether to open the toolbar. Defaults to True.</span>
+<span class="sd">        show_close_button (bool, optional): Whether to show the close button. Defaults to True.</span>
+<span class="sd">        widget_icon (str, optional): The icon name for the toolbar button. Defaults to &#39;gear&#39;.</span>
+<span class="sd">        close_button_icon (str, optional): The icon name for the close button. Defaults to &quot;times&quot;.</span>
+<span class="sd">        widget_args (dict, optional): Additional arguments to pass to the toolbar button. Defaults to {}.</span>
+<span class="sd">        close_button_args (dict, optional): Additional arguments to pass to the close button. Defaults to {}.</span>
+<span class="sd">        display_widget (ipywidgets.Widget, optional): The widget to be displayed when the toolbar is clicked.</span>
+<span class="sd">        **kwargs: Additional arguments to pass to the HTML or Output widgets</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">allowed_positions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;topleft&quot;</span><span class="p">,</span> <span class="s2">&quot;topright&quot;</span><span class="p">,</span> <span class="s2">&quot;bottomleft&quot;</span><span class="p">,</span> <span class="s2">&quot;bottomright&quot;</span><span class="p">]</span>
@@ -19816,15 +19982,33 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
     <span class="k">if</span> <span class="s2">&quot;layout&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;layout&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Layout</span><span class="p">(</span><span class="n">padding</span><span class="o">=</span><span class="s2">&quot;0px 4px 0px 4px&quot;</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="n">widget</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">content</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-            <span class="n">control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">widget</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">add_header</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">widget</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">content</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">widget</span> <span class="o">=</span> <span class="n">content</span>
+
+            <span class="n">widget_template</span><span class="p">(</span>
+                <span class="n">widget</span><span class="p">,</span>
+                <span class="n">opened</span><span class="p">,</span>
+                <span class="n">show_close_button</span><span class="p">,</span>
+                <span class="n">widget_icon</span><span class="p">,</span>
+                <span class="n">close_button_icon</span><span class="p">,</span>
+                <span class="n">widget_args</span><span class="p">,</span>
+                <span class="n">close_button_args</span><span class="p">,</span>
+                <span class="n">display_widget</span><span class="p">,</span>
+                <span class="bp">self</span><span class="p">,</span>
+                <span class="n">position</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">output</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Output</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-            <span class="k">with</span> <span class="n">output</span><span class="p">:</span>
-                <span class="n">display</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
-            <span class="n">control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">output</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">control</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">widget</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">content</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">widget</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Output</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="k">with</span> <span class="n">widget</span><span class="p">:</span>
+                    <span class="n">display</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+            <span class="n">control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">widget</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">control</span><span class="p">)</span>
 
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error adding widget: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
