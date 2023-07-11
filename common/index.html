@@ -28586,6 +28586,9 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = f&#39;{os.environ[&#39;JUP
         <span class="k">else</span><span class="p">:</span>
             <span class="n">layer_name</span> <span class="o">=</span> <span class="s2">&quot;LocalTile_&quot;</span> <span class="o">+</span> <span class="n">random_string</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 
+    <span class="k">if</span> <span class="s2">&quot;cmap&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cmap&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">palette</span>
+
     <span class="k">with</span> <span class="n">output</span><span class="p">:</span>
         <span class="n">tile_client</span> <span class="o">=</span> <span class="n">TileClient</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="n">debug</span><span class="p">)</span>
 
@@ -28596,7 +28599,6 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = f&#39;{os.environ[&#39;JUP
                 <span class="n">debug</span><span class="o">=</span><span class="n">debug</span><span class="p">,</span>
                 <span class="n">projection</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span>
                 <span class="n">band</span><span class="o">=</span><span class="n">band</span><span class="p">,</span>
-                <span class="n">palette</span><span class="o">=</span><span class="n">palette</span><span class="p">,</span>
                 <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span>
                 <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span>
                 <span class="n">nodata</span><span class="o">=</span><span class="n">nodata</span><span class="p">,</span>
@@ -28613,7 +28615,6 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = f&#39;{os.environ[&#39;JUP
                 <span class="n">debug</span><span class="o">=</span><span class="n">debug</span><span class="p">,</span>
                 <span class="n">projection</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span>
                 <span class="n">band</span><span class="o">=</span><span class="n">band</span><span class="p">,</span>
-                <span class="n">palette</span><span class="o">=</span><span class="n">palette</span><span class="p">,</span>
                 <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span>
                 <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span>
                 <span class="n">nodata</span><span class="o">=</span><span class="n">nodata</span><span class="p">,</span>
@@ -44054,6 +44055,9 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = f&#39;{os.environ[&#39;JUP
 
     <span class="n">titiler_endpoint</span> <span class="o">=</span> <span class="n">check_titiler_endpoint</span><span class="p">(</span><span class="n">titiler_endpoint</span><span class="p">)</span>
 
+    <span class="k">if</span> <span class="s2">&quot;expression&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="p">(</span><span class="s2">&quot;asset_as_band&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;asset_as_band&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">titiler_endpoint</span><span class="p">,</span> <span class="n">PlanetaryComputerEndpoint</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bands</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">bands</span> <span class="o">=</span> <span class="n">bands</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
@@ -46553,7 +46557,7 @@ such as https://developers.google.com/earth-engine/datasets/catalog/MODIS_051_MC
     <span class="n">widget</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">opened</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">show_close_button</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">widget_icon</span><span class="o">=</span><span class="s1">&#39;gear&#39;</span><span class="p">,</span>
+    <span class="n">widget_icon</span><span class="o">=</span><span class="s2">&quot;gear&quot;</span><span class="p">,</span>
     <span class="n">close_button_icon</span><span class="o">=</span><span class="s2">&quot;times&quot;</span><span class="p">,</span>
     <span class="n">widget_args</span><span class="o">=</span><span class="p">{},</span>
     <span class="n">close_button_args</span><span class="o">=</span><span class="p">{},</span>
