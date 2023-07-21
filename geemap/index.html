@@ -21,7 +21,7 @@
         <link rel="next" href="../kepler/">
       
       <link rel="icon" href="../assets/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.18">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.19">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.26e3688c.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.eebd395e.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ecc896b0.min.css">
@@ -871,6 +871,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#geemap.geemap.Map.add_gui" class="md-nav__link">
+    add_gui()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#geemap.geemap.Map.add_heatmap" class="md-nav__link">
     add_heatmap()
   </a>
@@ -1132,6 +1139,13 @@
           <li class="md-nav__item">
   <a href="#geemap.geemap.Map.add_time_slider" class="md-nav__link">
     add_time_slider()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geemap.geemap.Map.add_toolbar" class="md-nav__link">
+    add_toolbar()
   </a>
   
 </li>
@@ -3984,6 +3998,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#geemap.geemap.Map.add_gui" class="md-nav__link">
+    add_gui()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#geemap.geemap.Map.add_heatmap" class="md-nav__link">
     add_heatmap()
   </a>
@@ -4245,6 +4266,13 @@
           <li class="md-nav__item">
   <a href="#geemap.geemap.Map.add_time_slider" class="md-nav__link">
     add_time_slider()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geemap.geemap.Map.add_toolbar" class="md-nav__link">
+    add_toolbar()
   </a>
   
 </li>
@@ -7636,6 +7664,8 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 
 <span class="sd">        Args:</span>
 <span class="sd">            position (str, optional): The position of the Layer Manager. Defaults to &quot;topright&quot;.</span>
+<span class="sd">            opened (bool, optional): Whether the control is opened. Defaults to True.</span>
+<span class="sd">            show_close_button (bool, optional): Whether to show the close button. Defaults to True.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.toolbar</span> <span class="kn">import</span> <span class="n">layer_manager_gui</span>
 
@@ -7648,7 +7678,11 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
         <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="n">layer_manager_gui</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">return_widget</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">add_draw_control</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topleft&quot;</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a draw control to the map&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a draw control to the map</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            position (str, optional): The position of the draw control. Defaults to &quot;topleft&quot;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">draw_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">DrawControl</span><span class="p">(</span>
             <span class="n">marker</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;shapeOptions&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;#3388ff&quot;</span><span class="p">}},</span>
@@ -7707,7 +7741,11 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
         <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span> <span class="o">=</span> <span class="n">draw_control</span>
 
     <span class="k">def</span> <span class="nf">add_draw_control_lite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topleft&quot;</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a lite version draw control to the map for the plotting tool.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a lite version draw control to the map for the plotting tool.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            position (str, optional): The position of the draw control. Defaults to &quot;topleft&quot;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">draw_control_lite</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">DrawControl</span><span class="p">(</span>
             <span class="n">marker</span><span class="o">=</span><span class="p">{},</span>
@@ -7723,6 +7761,12 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
         <span class="bp">self</span><span class="o">.</span><span class="n">draw_control_lite</span> <span class="o">=</span> <span class="n">draw_control_lite</span>
 
     <span class="k">def</span> <span class="nf">add_toolbar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topright&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a toolbar to the map.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            position (str, optional): The position of the toolbar. Defaults to &quot;topright&quot;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="kn">from</span> <span class="nn">.toolbar</span> <span class="kn">import</span> <span class="n">main_toolbar</span>
 
         <span class="n">main_toolbar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -7741,6 +7785,14 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
     <span class="k">def</span> <span class="nf">add_gui</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topright&quot;</span><span class="p">,</span> <span class="n">opened</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_close_button</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a GUI to the map.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name (str): The name of the GUI. Options include &quot;layer_manager&quot;, &quot;inspector&quot;, &quot;plot&quot;, and &quot;timelapse&quot;.</span>
+<span class="sd">            position (str, optional): The position of the GUI. Defaults to &quot;topright&quot;.</span>
+<span class="sd">            opened (bool, optional): Whether the GUI is opened. Defaults to True.</span>
+<span class="sd">            show_close_button (bool, optional): Whether to show the close button. Defaults to True.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;layer_manager&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_layer_manager</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">opened</span><span class="p">,</span> <span class="n">show_close_button</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -13417,10 +13469,33 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
 
       <p>Add a draw control to the map</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>position</code></td>
+        <td><code>str</code></td>
+        <td><p>The position of the draw control. Defaults to "topleft".</p></td>
+        <td><code>&#39;topleft&#39;</code></td>
+      </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>geemap/geemap.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">add_draw_control</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topleft&quot;</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a draw control to the map&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a draw control to the map</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        position (str, optional): The position of the draw control. Defaults to &quot;topleft&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">draw_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">DrawControl</span><span class="p">(</span>
         <span class="n">marker</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;shapeOptions&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;#3388ff&quot;</span><span class="p">}},</span>
@@ -13499,10 +13574,33 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
 
       <p>Add a lite version draw control to the map for the plotting tool.</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>position</code></td>
+        <td><code>str</code></td>
+        <td><p>The position of the draw control. Defaults to "topleft".</p></td>
+        <td><code>&#39;topleft&#39;</code></td>
+      </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>geemap/geemap.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">add_draw_control_lite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topleft&quot;</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a lite version draw control to the map for the plotting tool.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a lite version draw control to the map for the plotting tool.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        position (str, optional): The position of the draw control. Defaults to &quot;topleft&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">draw_control_lite</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">DrawControl</span><span class="p">(</span>
         <span class="n">marker</span><span class="o">=</span><span class="p">{},</span>
@@ -14203,6 +14301,93 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
 
   </div>
 
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="geemap.geemap.Map.add_gui" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">add_gui</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s1">&#39;topright&#39;</span><span class="p">,</span> <span class="n">opened</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_close_button</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+
+<a href="#geemap.geemap.Map.add_gui" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Add a GUI to the map.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>name</code></td>
+        <td><code>str</code></td>
+        <td><p>The name of the GUI. Options include "layer_manager", "inspector", "plot", and "timelapse".</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>position</code></td>
+        <td><code>str</code></td>
+        <td><p>The position of the GUI. Defaults to "topright".</p></td>
+        <td><code>&#39;topright&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>opened</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether the GUI is opened. Defaults to True.</p></td>
+        <td><code>True</code></td>
+      </tr>
+      <tr>
+        <td><code>show_close_button</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether to show the close button. Defaults to True.</p></td>
+        <td><code>True</code></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>geemap/geemap.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">add_gui</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topright&quot;</span><span class="p">,</span> <span class="n">opened</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_close_button</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a GUI to the map.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name (str): The name of the GUI. Options include &quot;layer_manager&quot;, &quot;inspector&quot;, &quot;plot&quot;, and &quot;timelapse&quot;.</span>
+<span class="sd">        position (str, optional): The position of the GUI. Defaults to &quot;topright&quot;.</span>
+<span class="sd">        opened (bool, optional): Whether the GUI is opened. Defaults to True.</span>
+<span class="sd">        show_close_button (bool, optional): Whether to show the close button. Defaults to True.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;layer_manager&quot;</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_layer_manager</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">opened</span><span class="p">,</span> <span class="n">show_close_button</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;inspector&quot;</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_inspector</span><span class="p">(</span>
+            <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
+            <span class="n">opened</span><span class="o">=</span><span class="n">opened</span><span class="p">,</span>
+            <span class="n">show_close_button</span><span class="o">=</span><span class="n">show_close_button</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;plot&quot;</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_plot_gui</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;timelapse&quot;</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">.toolbar</span> <span class="kn">import</span> <span class="n">timelapse_gui</span>
+
+        <span class="n">timelapse_gui</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
 
 
 
@@ -15293,6 +15478,18 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
         <td><p>The position of the Layer Manager. Defaults to "topright".</p></td>
         <td><code>&#39;topright&#39;</code></td>
       </tr>
+      <tr>
+        <td><code>opened</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether the control is opened. Defaults to True.</p></td>
+        <td><code>True</code></td>
+      </tr>
+      <tr>
+        <td><code>show_close_button</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether to show the close button. Defaults to True.</p></td>
+        <td><code>True</code></td>
+      </tr>
   </tbody>
 </table>
         <details class="quote">
@@ -15304,6 +15501,8 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
 
 <span class="sd">    Args:</span>
 <span class="sd">        position (str, optional): The position of the Layer Manager. Defaults to &quot;topright&quot;.</span>
+<span class="sd">        opened (bool, optional): Whether the control is opened. Defaults to True.</span>
+<span class="sd">        show_close_button (bool, optional): Whether to show the close button. Defaults to True.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">.toolbar</span> <span class="kn">import</span> <span class="n">layer_manager_gui</span>
 
@@ -19475,6 +19674,58 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 
   </div>
 
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="geemap.geemap.Map.add_toolbar" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">add_toolbar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s1">&#39;topright&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+
+<a href="#geemap.geemap.Map.add_toolbar" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Add a toolbar to the map.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>position</code></td>
+        <td><code>str</code></td>
+        <td><p>The position of the toolbar. Defaults to "topright".</p></td>
+        <td><code>&#39;topright&#39;</code></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>geemap/geemap.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">add_toolbar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topright&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a toolbar to the map.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        position (str, optional): The position of the toolbar. Defaults to &quot;topright&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="kn">from</span> <span class="nn">.toolbar</span> <span class="kn">import</span> <span class="n">main_toolbar</span>
+
+    <span class="n">main_toolbar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
 
 
 
