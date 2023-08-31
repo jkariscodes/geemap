@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.5">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.6">
     
     
       
@@ -6271,13 +6271,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 
         <span class="c1"># Map attributes for layers</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">geojson_layers</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_names</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layers</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layer_names</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="c1"># ipyleaflet built-in layer control</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layer_control</span> <span class="o">=</span> <span class="kc">None</span>
@@ -6286,6 +6280,53 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
         <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;ee_initialize&quot;</span><span class="p">]:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">roi_reducer</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Reducer</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">roi_reducer_scale</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ee_layer_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;ee_layer_names is deprecated. Use ee_layers.keys() instead.&quot;</span><span class="p">,</span>
+            <span class="ne">DeprecationWarning</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ee_layer_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;ee_layer_dict is deprecated. Use ee_layers instead.&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ee_raster_layer_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;ee_raster_layer_names is deprecated. Use self.ee_raster_layers.keys() instead.&quot;</span><span class="p">,</span>
+            <span class="ne">DeprecationWarning</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ee_vector_layer_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;ee_vector_layer_names is deprecated. Use self.ee_vector_layers.keys() instead.&quot;</span><span class="p">,</span>
+            <span class="ne">DeprecationWarning</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layers</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ee_raster_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_raster_filter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ee_vector_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_vector_filter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+
+    <span class="k">def</span> <span class="nf">_raster_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pair</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;ee_object&quot;</span><span class="p">],</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_vector_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pair</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;ee_object&quot;</span><span class="p">],</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds a layer or control to the map.</span>
@@ -6399,30 +6440,21 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 
         <span class="n">layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_layer</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">existing_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;ee_object&quot;</span><span class="p">]</span>
+            <span class="n">existing_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;ee_object&quot;</span><span class="p">]</span>
 
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">existing_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">existing_object</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
                 <span class="k">if</span> <span class="p">(</span>
                     <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_plot_dropdown_widget&quot;</span><span class="p">)</span>
                     <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
                 <span class="p">):</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
                     <span class="p">)</span>
-            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">existing_object</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layer_names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">existing_object</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">remove_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_names</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;ee_object&quot;</span><span class="p">:</span> <span class="n">ee_object</span><span class="p">,</span>
             <span class="s2">&quot;ee_layer&quot;</span><span class="p">:</span> <span class="n">tile_layer</span><span class="p">,</span>
             <span class="s2">&quot;vis_params&quot;</span><span class="p">:</span> <span class="n">vis_params</span><span class="p">,</span>
@@ -6431,16 +6463,11 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tile_layer</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
             <span class="k">if</span> <span class="p">(</span>
                 <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_plot_dropdown_widget&quot;</span><span class="p">)</span>
                 <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
             <span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layer_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 
         <span class="n">arc_add_layer</span><span class="p">(</span><span class="n">tile_layer</span><span class="o">.</span><span class="n">url_format</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
 
@@ -6452,17 +6479,9 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="sd">        Args:</span>
 <span class="sd">            name (str): The name of the Earth Engine layer to remove.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">:</span>
-            <span class="n">ee_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;ee_object&quot;</span><span class="p">]</span>
-            <span class="n">ee_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;ee_layer&quot;</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layer_names</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layer_names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">:</span>
+            <span class="n">ee_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;ee_layer&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">ee_layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">remove_layer</span><span class="p">(</span><span class="n">ee_layer</span><span class="p">)</span>
 
@@ -7091,8 +7110,8 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">legends</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">legend_control</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">layer_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_names</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">layer_name</span><span class="p">][</span><span class="s2">&quot;legend&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">legend_control</span>
+            <span class="k">if</span> <span class="n">layer_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">layer_name</span><span class="p">][</span><span class="s2">&quot;legend&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">legend_control</span>
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
@@ -7153,10 +7172,10 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_colorbar</span> <span class="o">=</span> <span class="n">colormap_ctrl</span>
-        <span class="k">if</span> <span class="n">layer_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_names</span><span class="p">:</span>
-            <span class="k">if</span> <span class="s2">&quot;colorbar&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">layer_name</span><span class="p">]:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">remove_control</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">layer_name</span><span class="p">][</span><span class="s2">&quot;colorbar&quot;</span><span class="p">])</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">layer_name</span><span class="p">][</span><span class="s2">&quot;colorbar&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">colormap_ctrl</span>
+        <span class="k">if</span> <span class="n">layer_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;colorbar&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">layer_name</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">remove_control</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">layer_name</span><span class="p">][</span><span class="s2">&quot;colorbar&quot;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">layer_name</span><span class="p">][</span><span class="s2">&quot;colorbar&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">colormap_ctrl</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;colorbars&quot;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">colorbars</span> <span class="o">=</span> <span class="p">[</span><span class="n">colormap_ctrl</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
@@ -7193,7 +7212,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a GUI for changing layer visualization parameters interactively.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            layer_dict (dict): A dict containning information about the layer. It is an element from Map.ee_layer_dict.</span>
+<span class="sd">            layer_dict (dict): A dict containing information about the layer. It is an element from Map.ee_layers.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            object: An ipywidget.</span>
@@ -8420,16 +8439,16 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
             <span class="k">def</span> <span class="nf">apply_btn_clicked</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
                 <span class="n">compute_label</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;Computing ...&quot;</span>
 
-                <span class="k">if</span> <span class="n">new_layer_name</span><span class="o">.</span><span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_names</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">new_layer_name</span><span class="o">.</span><span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">:</span>
                     <span class="n">old_layer</span> <span class="o">=</span> <span class="n">new_layer_name</span><span class="o">.</span><span class="n">value</span>
 
-                    <span class="k">if</span> <span class="s2">&quot;legend&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">old_layer</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                        <span class="n">legend</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">old_layer</span><span class="p">][</span><span class="s2">&quot;legend&quot;</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="s2">&quot;legend&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">old_layer</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                        <span class="n">legend</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">old_layer</span><span class="p">][</span><span class="s2">&quot;legend&quot;</span><span class="p">]</span>
                         <span class="k">if</span> <span class="n">legend</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="p">:</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">remove_control</span><span class="p">(</span><span class="n">legend</span><span class="p">)</span>
                         <span class="n">legend</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-                    <span class="k">if</span> <span class="s2">&quot;colorbar&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">old_layer</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                        <span class="n">colorbar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">old_layer</span><span class="p">][</span><span class="s2">&quot;colorbar&quot;</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="s2">&quot;colorbar&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">old_layer</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                        <span class="n">colorbar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">old_layer</span><span class="p">][</span><span class="s2">&quot;colorbar&quot;</span><span class="p">]</span>
                         <span class="k">if</span> <span class="n">colorbar</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="p">:</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">remove_control</span><span class="p">(</span><span class="n">colorbar</span><span class="p">)</span>
                         <span class="n">colorbar</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
@@ -8612,7 +8631,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
                 <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_control</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="k">def</span> <span class="nf">_on_open_vis</span><span class="p">(</span><span class="n">layer_name</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">create_vis_widget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">layer_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">create_vis_widget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">layer_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span> <span class="o">=</span> <span class="n">map_widgets</span><span class="o">.</span><span class="n">LayerManager</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span><span class="o">.</span><span class="n">collapsed</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">opened</span>
@@ -9130,7 +9149,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
         <span class="bp">self</span><span class="o">.</span><span class="n">default_style</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;cursor&quot;</span><span class="p">:</span> <span class="s2">&quot;crosshair&quot;</span><span class="p">}</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;The plot function can only be used on ee.Image or ee.ImageCollection with more than one band.&quot;</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">ee_object</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">ee_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">ee_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">values</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;ee_object&quot;</span><span class="p">]</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">):</span>
                 <span class="n">ee_object</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">mosaic</span><span class="p">()</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">):</span>
@@ -9702,8 +9721,8 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">colorbars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">colormap_ctrl</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">layer_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_names</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">layer_name</span><span class="p">][</span><span class="s2">&quot;colorbar&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">colormap_ctrl</span>
+        <span class="k">if</span> <span class="n">layer_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">layer_name</span><span class="p">][</span><span class="s2">&quot;colorbar&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">colormap_ctrl</span>
 
     <span class="k">def</span> <span class="nf">image_overlay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Overlays an image from the Internet or locally on the map.</span>
@@ -11127,7 +11146,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
                     <span class="n">ee_object</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">region</span><span class="p">)</span>
                 <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">):</span>
                     <span class="n">ee_object</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">clipToCollection</span><span class="p">(</span><span class="n">region</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">layer_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">layer_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">addLayer</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="p">{},</span> <span class="n">layer_name</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
             <span class="n">band_names</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">bandNames</span><span class="p">()</span>
             <span class="n">ee_object</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">(</span>
@@ -11171,7 +11190,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 
         <span class="n">first</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">ee_object</span><span class="o">.</span><span class="n">first</span><span class="p">())</span>
 
-        <span class="k">if</span> <span class="n">layer_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">layer_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">addLayer</span><span class="p">(</span><span class="n">ee_object</span><span class="o">.</span><span class="n">toBands</span><span class="p">(),</span> <span class="p">{},</span> <span class="n">layer_name</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">addLayer</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">vis_params</span><span class="p">,</span> <span class="s2">&quot;Image X&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
 
@@ -11238,7 +11257,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
             <span class="n">index</span> <span class="o">=</span> <span class="n">slider</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="mi">1</span>
             <span class="n">label</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
             <span class="n">image</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">ee_object</span><span class="o">.</span><span class="n">toList</span><span class="p">(</span><span class="n">ee_object</span><span class="o">.</span><span class="n">size</span><span class="p">())</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
-            <span class="k">if</span> <span class="n">layer_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">layer_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">addLayer</span><span class="p">(</span><span class="n">ee_object</span><span class="o">.</span><span class="n">toBands</span><span class="p">(),</span> <span class="p">{},</span> <span class="n">layer_name</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">addLayer</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">vis_params</span><span class="p">,</span> <span class="s2">&quot;Image X&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">default_style</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;cursor&quot;</span><span class="p">:</span> <span class="s2">&quot;default&quot;</span><span class="p">}</span>
@@ -12465,6 +12484,12 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 
 
 
+
+
+
+
+
+
   <div class="doc doc-object doc-method">
 
 
@@ -12745,13 +12770,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 
     <span class="c1"># Map attributes for layers</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">geojson_layers</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_names</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layers</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layer_names</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="c1"># ipyleaflet built-in layer control</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">layer_control</span> <span class="o">=</span> <span class="kc">None</span>
@@ -12905,30 +12924,21 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 
     <span class="n">layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_layer</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">existing_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;ee_object&quot;</span><span class="p">]</span>
+        <span class="n">existing_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;ee_object&quot;</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">existing_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">existing_object</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
             <span class="k">if</span> <span class="p">(</span>
                 <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_plot_dropdown_widget&quot;</span><span class="p">)</span>
                 <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
             <span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
                 <span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">existing_object</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layer_names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">existing_object</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">remove_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_names</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;ee_object&quot;</span><span class="p">:</span> <span class="n">ee_object</span><span class="p">,</span>
         <span class="s2">&quot;ee_layer&quot;</span><span class="p">:</span> <span class="n">tile_layer</span><span class="p">,</span>
         <span class="s2">&quot;vis_params&quot;</span><span class="p">:</span> <span class="n">vis_params</span><span class="p">,</span>
@@ -12937,16 +12947,11 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
     <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tile_layer</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_plot_dropdown_widget&quot;</span><span class="p">)</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layer_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 
     <span class="n">arc_add_layer</span><span class="p">(</span><span class="n">tile_layer</span><span class="o">.</span><span class="n">url_format</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
 </code></pre></div>
@@ -13652,10 +13657,10 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
     <span class="p">)</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">_colorbar</span> <span class="o">=</span> <span class="n">colormap_ctrl</span>
-    <span class="k">if</span> <span class="n">layer_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_names</span><span class="p">:</span>
-        <span class="k">if</span> <span class="s2">&quot;colorbar&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">layer_name</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">remove_control</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">layer_name</span><span class="p">][</span><span class="s2">&quot;colorbar&quot;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">layer_name</span><span class="p">][</span><span class="s2">&quot;colorbar&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">colormap_ctrl</span>
+    <span class="k">if</span> <span class="n">layer_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">&quot;colorbar&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">layer_name</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">remove_control</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">layer_name</span><span class="p">][</span><span class="s2">&quot;colorbar&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">layer_name</span><span class="p">][</span><span class="s2">&quot;colorbar&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">colormap_ctrl</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;colorbars&quot;</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">colorbars</span> <span class="o">=</span> <span class="p">[</span><span class="n">colormap_ctrl</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
@@ -13844,8 +13849,8 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
     <span class="k">else</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">colorbars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">colormap_ctrl</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">layer_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_names</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">layer_name</span><span class="p">][</span><span class="s2">&quot;colorbar&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">colormap_ctrl</span>
+    <span class="k">if</span> <span class="n">layer_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">layer_name</span><span class="p">][</span><span class="s2">&quot;colorbar&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">colormap_ctrl</span>
 </code></pre></div>
         </details>
     </div>
@@ -14450,30 +14455,21 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
 
     <span class="n">layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_layer</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">existing_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;ee_object&quot;</span><span class="p">]</span>
+        <span class="n">existing_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;ee_object&quot;</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">existing_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">existing_object</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
             <span class="k">if</span> <span class="p">(</span>
                 <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_plot_dropdown_widget&quot;</span><span class="p">)</span>
                 <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
             <span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
                 <span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">existing_object</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layer_names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">existing_object</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">remove_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_names</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;ee_object&quot;</span><span class="p">:</span> <span class="n">ee_object</span><span class="p">,</span>
         <span class="s2">&quot;ee_layer&quot;</span><span class="p">:</span> <span class="n">tile_layer</span><span class="p">,</span>
         <span class="s2">&quot;vis_params&quot;</span><span class="p">:</span> <span class="n">vis_params</span><span class="p">,</span>
@@ -14482,16 +14478,11 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
     <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tile_layer</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_plot_dropdown_widget&quot;</span><span class="p">)</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layer_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 
     <span class="n">arc_add_layer</span><span class="p">(</span><span class="n">tile_layer</span><span class="o">.</span><span class="n">url_format</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
 </code></pre></div>
@@ -16279,7 +16270,7 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
             <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_control</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">_on_open_vis</span><span class="p">(</span><span class="n">layer_name</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">create_vis_widget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">layer_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_vis_widget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">layer_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span> <span class="o">=</span> <span class="n">map_widgets</span><span class="o">.</span><span class="n">LayerManager</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span><span class="o">.</span><span class="n">collapsed</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">opened</span>
@@ -16596,8 +16587,8 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">legends</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">legend_control</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">layer_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_names</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">layer_name</span><span class="p">][</span><span class="s2">&quot;legend&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">legend_control</span>
+        <span class="k">if</span> <span class="n">layer_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">layer_name</span><span class="p">][</span><span class="s2">&quot;legend&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">legend_control</span>
 
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
@@ -20318,7 +20309,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
                 <span class="n">ee_object</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">region</span><span class="p">)</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">):</span>
                 <span class="n">ee_object</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">clipToCollection</span><span class="p">(</span><span class="n">region</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">layer_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">layer_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">addLayer</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="p">{},</span> <span class="n">layer_name</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
         <span class="n">band_names</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">bandNames</span><span class="p">()</span>
         <span class="n">ee_object</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">(</span>
@@ -20362,7 +20353,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 
     <span class="n">first</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">ee_object</span><span class="o">.</span><span class="n">first</span><span class="p">())</span>
 
-    <span class="k">if</span> <span class="n">layer_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">layer_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">addLayer</span><span class="p">(</span><span class="n">ee_object</span><span class="o">.</span><span class="n">toBands</span><span class="p">(),</span> <span class="p">{},</span> <span class="n">layer_name</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">addLayer</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">vis_params</span><span class="p">,</span> <span class="s2">&quot;Image X&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
 
@@ -20429,7 +20420,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
         <span class="n">index</span> <span class="o">=</span> <span class="n">slider</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="mi">1</span>
         <span class="n">label</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
         <span class="n">image</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">ee_object</span><span class="o">.</span><span class="n">toList</span><span class="p">(</span><span class="n">ee_object</span><span class="o">.</span><span class="n">size</span><span class="p">())</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
-        <span class="k">if</span> <span class="n">layer_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">layer_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">addLayer</span><span class="p">(</span><span class="n">ee_object</span><span class="o">.</span><span class="n">toBands</span><span class="p">(),</span> <span class="p">{},</span> <span class="n">layer_name</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">addLayer</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">vis_params</span><span class="p">,</span> <span class="s2">&quot;Image X&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">default_style</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;cursor&quot;</span><span class="p">:</span> <span class="s2">&quot;default&quot;</span><span class="p">}</span>
@@ -21741,7 +21732,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
       <tr>
         <td><code>layer_dict</code></td>
         <td><code>dict</code></td>
-        <td><p>A dict containning information about the layer. It is an element from Map.ee_layer_dict.</p></td>
+        <td><p>A dict containing information about the layer. It is an element from Map.ee_layers.</p></td>
         <td><em>required</em></td>
       </tr>
   </tbody>
@@ -21767,7 +21758,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a GUI for changing layer visualization parameters interactively.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        layer_dict (dict): A dict containning information about the layer. It is an element from Map.ee_layer_dict.</span>
+<span class="sd">        layer_dict (dict): A dict containing information about the layer. It is an element from Map.ee_layers.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        object: An ipywidget.</span>
@@ -23088,7 +23079,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
     <span class="bp">self</span><span class="o">.</span><span class="n">default_style</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;cursor&quot;</span><span class="p">:</span> <span class="s2">&quot;crosshair&quot;</span><span class="p">}</span>
     <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;The plot function can only be used on ee.Image or ee.ImageCollection with more than one band.&quot;</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">ee_object</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">ee_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">ee_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">values</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;ee_object&quot;</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">):</span>
             <span class="n">ee_object</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">mosaic</span><span class="p">()</span>
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">):</span>
@@ -23326,17 +23317,9 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 <span class="sd">    Args:</span>
 <span class="sd">        name (str): The name of the Earth Engine layer to remove.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">:</span>
-        <span class="n">ee_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;ee_object&quot;</span><span class="p">]</span>
-        <span class="n">ee_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;ee_layer&quot;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layer_names</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layer_names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">:</span>
+        <span class="n">ee_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;ee_layer&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">ee_layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">remove_layer</span><span class="p">(</span><span class="n">ee_layer</span><span class="p">)</span>
 </code></pre></div>
