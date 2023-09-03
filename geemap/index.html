@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.6">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.7">
     
     
       
@@ -30,7 +30,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.0e669242.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.046329b4.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.85d0ee34.min.css">
@@ -931,6 +931,13 @@
           <li class="md-nav__item">
   <a href="#geemap.geemap.Map.add_basemap" class="md-nav__link">
     add_basemap()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geemap.geemap.Map.add_basemap_widget" class="md-nav__link">
+    add_basemap_widget()
   </a>
   
 </li>
@@ -2159,6 +2166,26 @@
   
   <span class="md-ellipsis">
     SciPy 2023
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workshops/City_Plus_2023/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Plus 2023
   </span>
   
 
@@ -5080,6 +5107,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#geemap.geemap.Map.add_basemap_widget" class="md-nav__link">
+    add_basemap_widget()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#geemap.geemap.Map.add_census_data" class="md-nav__link">
     add_census_data()
   </a>
@@ -6182,6 +6216,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
         <span class="n">zoom</span> <span class="o">=</span> <span class="mi">2</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_control</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -8647,6 +8682,36 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the Layer Manager.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span><span class="o">.</span><span class="n">refresh_layers</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">add_basemap_widget</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">value</span><span class="o">=</span><span class="s2">&quot;OpenStreetMap&quot;</span><span class="p">,</span>
+        <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topright&quot;</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add the Basemap GUI to the map.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (str): The default value from basemaps to select. Defaults to &quot;OpenStreetMap&quot;.</span>
+<span class="sd">            position (str, optional): The position of the Inspector GUI. Defaults to &quot;topright&quot;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">def</span> <span class="nf">_on_close</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">toolbar_reset</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">remove_control</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">basemap_widget</span> <span class="o">=</span> <span class="n">map_widgets</span><span class="o">.</span><span class="n">Basemap</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">basemaps</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="n">value</span><span class="p">,</span> <span class="n">get_xyz_dict</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">basemap_widget</span><span class="o">.</span><span class="n">on_close</span> <span class="o">=</span> <span class="n">_on_close</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span>
+            <span class="n">widget</span><span class="o">=</span><span class="n">basemap_widget</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">add_draw_control</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topleft&quot;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a draw control to the map</span>
@@ -12681,6 +12746,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
     <span class="n">zoom</span> <span class="o">=</span> <span class="mi">2</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_control</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -13122,6 +13188,84 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
                 <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">basemaps</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
             <span class="p">)</span>
         <span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="geemap.geemap.Map.add_basemap_widget" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">add_basemap_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;OpenStreetMap&#39;</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s1">&#39;topright&#39;</span><span class="p">)</span></code>
+
+
+<a href="#geemap.geemap.Map.add_basemap_widget" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Add the Basemap GUI to the map.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>value</code></td>
+        <td><code>str</code></td>
+        <td><p>The default value from basemaps to select. Defaults to "OpenStreetMap".</p></td>
+        <td><code>&#39;OpenStreetMap&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>position</code></td>
+        <td><code>str</code></td>
+        <td><p>The position of the Inspector GUI. Defaults to "topright".</p></td>
+        <td><code>&#39;topright&#39;</code></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>geemap/geemap.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">add_basemap_widget</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">value</span><span class="o">=</span><span class="s2">&quot;OpenStreetMap&quot;</span><span class="p">,</span>
+    <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topright&quot;</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add the Basemap GUI to the map.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        value (str): The default value from basemaps to select. Defaults to &quot;OpenStreetMap&quot;.</span>
+<span class="sd">        position (str, optional): The position of the Inspector GUI. Defaults to &quot;topright&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">_on_close</span><span class="p">():</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar_reset</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">remove_control</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">basemap_widget</span> <span class="o">=</span> <span class="n">map_widgets</span><span class="o">.</span><span class="n">Basemap</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">basemaps</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="n">value</span><span class="p">,</span> <span class="n">get_xyz_dict</span><span class="p">()</span>
+    <span class="p">)</span>
+    <span class="n">basemap_widget</span><span class="o">.</span><span class="n">on_close</span> <span class="o">=</span> <span class="n">_on_close</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span>
+        <span class="n">widget</span><span class="o">=</span><span class="n">basemap_widget</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span>
+    <span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -26320,7 +26464,7 @@ MapDrawControl            (<span title="ipyleaflet.leaflet.DrawControl">DrawCont
     <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.highlight", "search.share"], "search": "../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.78eede0e.min.js"></script>
+      <script src="../assets/javascripts/bundle.dff1b7c8.min.js"></script>
       
         <script src="../js/timeago.min.js"></script>
       
