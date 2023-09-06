@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.7">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.8">
     
     
       
@@ -6267,8 +6267,8 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
                 <span class="bp">self</span><span class="o">.</span><span class="n">sandbox_path</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="c1"># Add Google Maps as the default basemap</span>
-        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;add_google_map&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;Google Maps&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;add_google_map&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span><span class="s2">&quot;ROADMAP&quot;</span><span class="p">)</span>
 
         <span class="c1"># Remove all default controls</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clear_controls</span><span class="p">()</span>
@@ -6614,11 +6614,11 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 
     <span class="n">getScale</span> <span class="o">=</span> <span class="n">get_scale</span>
 
-    <span class="k">def</span> <span class="nf">add_basemap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">basemap</span><span class="o">=</span><span class="s2">&quot;HYBRID&quot;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add_basemap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">basemap</span><span class="o">=</span><span class="s2">&quot;ROADMAP&quot;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds a basemap to the map.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            basemap (str, optional): Can be one of string from basemaps. Defaults to &#39;HYBRID&#39;.</span>
+<span class="sd">            basemap (str, optional): Can be one of string from basemaps. Defaults to &#39;ROADMAP&#39;.</span>
 <span class="sd">            visible (bool, optional): Whether the basemap is visible or not. Defaults to True.</span>
 <span class="sd">            **kwargs: Keyword arguments for the TileLayer.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -6628,15 +6628,20 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
             <span class="n">layer_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_layer_names</span><span class="p">()</span>
 
             <span class="n">map_dict</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;ROADMAP&quot;</span><span class="p">:</span> <span class="s2">&quot;Google Maps&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;SATELLITE&quot;</span><span class="p">:</span> <span class="s2">&quot;Google Satellite&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;TERRAIN&quot;</span><span class="p">:</span> <span class="s2">&quot;Google Terrain&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;HYBRID&quot;</span><span class="p">:</span> <span class="s2">&quot;Google Hybrid&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;ROADMAP&quot;</span><span class="p">:</span> <span class="s2">&quot;Esri.WorldStreetMap&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;SATELLITE&quot;</span><span class="p">:</span> <span class="s2">&quot;Esri.WorldImagery&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;TERRAIN&quot;</span><span class="p">:</span> <span class="s2">&quot;Esri.WorldTopoMap&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;HYBRID&quot;</span><span class="p">:</span> <span class="s2">&quot;Esri.WorldImagery&quot;</span><span class="p">,</span>
             <span class="p">}</span>
 
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">basemap</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">basemap</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">in</span> <span class="n">map_dict</span><span class="p">:</span>
-                    <span class="n">basemap</span> <span class="o">=</span> <span class="n">map_dict</span><span class="p">[</span><span class="n">basemap</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span>
+                    <span class="k">if</span> <span class="n">basemap</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="s2">&quot;name&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">basemap</span>
+                        <span class="n">basemap</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">basemap</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">basemap</span> <span class="o">=</span> <span class="n">map_dict</span><span class="p">[</span><span class="n">basemap</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span>
 
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">basemap</span><span class="p">,</span> <span class="n">xyzservices</span><span class="o">.</span><span class="n">TileProvider</span><span class="p">):</span>
                 <span class="n">name</span> <span class="o">=</span> <span class="n">basemap</span><span class="o">.</span><span class="n">name</span>
@@ -6662,6 +6667,8 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
                 <span class="n">arc_add_layer</span><span class="p">(</span><span class="n">basemaps</span><span class="p">[</span><span class="n">basemap</span><span class="p">]</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">basemap</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">basemap</span> <span class="ow">in</span> <span class="n">basemaps</span> <span class="ow">and</span> <span class="n">basemaps</span><span class="p">[</span><span class="n">basemap</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">layer_names</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">basemap</span><span class="si">}</span><span class="s2"> has been already added before.&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">basemap</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_tile_layer</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">basemap</span><span class="p">,</span> <span class="n">shown</span><span class="o">=</span><span class="n">show</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span>
                     <span class="s2">&quot;Basemap can only be one of the following:</span><span class="se">\n</span><span class="s2">  </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
@@ -9557,14 +9564,14 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
             <span class="k">return</span>
 
         <span class="n">left_layer</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">TileLayer</span><span class="p">(</span>
-            <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://mt1.google.com/vt/lyrs=m&amp;x=</span><span class="si">{x}</span><span class="s2">&amp;y=</span><span class="si">{y}</span><span class="s2">&amp;z=</span><span class="si">{z}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">attribution</span><span class="o">=</span><span class="s2">&quot;Google&quot;</span><span class="p">,</span>
-            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Google Maps&quot;</span><span class="p">,</span>
+            <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/</span><span class="si">{z}</span><span class="s2">/</span><span class="si">{y}</span><span class="s2">/</span><span class="si">{x}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">attribution</span><span class="o">=</span><span class="s2">&quot;Esri&quot;</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Esri.WorldStreetMap&quot;</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">right_layer</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">TileLayer</span><span class="p">(</span>
-            <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://mt1.google.com/vt/lyrs=m&amp;x=</span><span class="si">{x}</span><span class="s2">&amp;y=</span><span class="si">{y}</span><span class="s2">&amp;z=</span><span class="si">{z}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">attribution</span><span class="o">=</span><span class="s2">&quot;Google&quot;</span><span class="p">,</span>
-            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Google Maps&quot;</span><span class="p">,</span>
+            <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/</span><span class="si">{z}</span><span class="s2">/</span><span class="si">{y}</span><span class="s2">/</span><span class="si">{x}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">attribution</span><span class="o">=</span><span class="s2">&quot;Esri&quot;</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Esri.WorldStreetMap&quot;</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">clear_controls</span><span class="p">()</span>
@@ -12797,8 +12804,8 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
             <span class="bp">self</span><span class="o">.</span><span class="n">sandbox_path</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="c1"># Add Google Maps as the default basemap</span>
-    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;add_google_map&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;Google Maps&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;add_google_map&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span><span class="s2">&quot;ROADMAP&quot;</span><span class="p">)</span>
 
     <span class="c1"># Remove all default controls</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">clear_controls</span><span class="p">()</span>
@@ -13085,7 +13092,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 
 
 <h3 id="geemap.geemap.Map.add_basemap" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">add_basemap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">basemap</span><span class="o">=</span><span class="s1">&#39;HYBRID&#39;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">add_basemap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">basemap</span><span class="o">=</span><span class="s1">&#39;ROADMAP&#39;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 
 <a href="#geemap.geemap.Map.add_basemap" class="headerlink" title="Permanent link">&para;</a></h3>
@@ -13108,8 +13115,8 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
       <tr>
         <td><code>basemap</code></td>
         <td><code>str</code></td>
-        <td><p>Can be one of string from basemaps. Defaults to 'HYBRID'.</p></td>
-        <td><code>&#39;HYBRID&#39;</code></td>
+        <td><p>Can be one of string from basemaps. Defaults to 'ROADMAP'.</p></td>
+        <td><code>&#39;ROADMAP&#39;</code></td>
       </tr>
       <tr>
         <td><code>visible</code></td>
@@ -13127,11 +13134,11 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 </table>
         <details class="quote">
           <summary>Source code in <code>geemap/geemap.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">add_basemap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">basemap</span><span class="o">=</span><span class="s2">&quot;HYBRID&quot;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">add_basemap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">basemap</span><span class="o">=</span><span class="s2">&quot;ROADMAP&quot;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Adds a basemap to the map.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        basemap (str, optional): Can be one of string from basemaps. Defaults to &#39;HYBRID&#39;.</span>
+<span class="sd">        basemap (str, optional): Can be one of string from basemaps. Defaults to &#39;ROADMAP&#39;.</span>
 <span class="sd">        visible (bool, optional): Whether the basemap is visible or not. Defaults to True.</span>
 <span class="sd">        **kwargs: Keyword arguments for the TileLayer.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -13141,15 +13148,20 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
         <span class="n">layer_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_layer_names</span><span class="p">()</span>
 
         <span class="n">map_dict</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;ROADMAP&quot;</span><span class="p">:</span> <span class="s2">&quot;Google Maps&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;SATELLITE&quot;</span><span class="p">:</span> <span class="s2">&quot;Google Satellite&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;TERRAIN&quot;</span><span class="p">:</span> <span class="s2">&quot;Google Terrain&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;HYBRID&quot;</span><span class="p">:</span> <span class="s2">&quot;Google Hybrid&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ROADMAP&quot;</span><span class="p">:</span> <span class="s2">&quot;Esri.WorldStreetMap&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;SATELLITE&quot;</span><span class="p">:</span> <span class="s2">&quot;Esri.WorldImagery&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;TERRAIN&quot;</span><span class="p">:</span> <span class="s2">&quot;Esri.WorldTopoMap&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;HYBRID&quot;</span><span class="p">:</span> <span class="s2">&quot;Esri.WorldImagery&quot;</span><span class="p">,</span>
         <span class="p">}</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">basemap</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">basemap</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">in</span> <span class="n">map_dict</span><span class="p">:</span>
-                <span class="n">basemap</span> <span class="o">=</span> <span class="n">map_dict</span><span class="p">[</span><span class="n">basemap</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span>
+                <span class="k">if</span> <span class="n">basemap</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="s2">&quot;name&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">basemap</span>
+                    <span class="n">basemap</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">basemap</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">basemap</span> <span class="o">=</span> <span class="n">map_dict</span><span class="p">[</span><span class="n">basemap</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">basemap</span><span class="p">,</span> <span class="n">xyzservices</span><span class="o">.</span><span class="n">TileProvider</span><span class="p">):</span>
             <span class="n">name</span> <span class="o">=</span> <span class="n">basemap</span><span class="o">.</span><span class="n">name</span>
@@ -13175,6 +13187,8 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
             <span class="n">arc_add_layer</span><span class="p">(</span><span class="n">basemaps</span><span class="p">[</span><span class="n">basemap</span><span class="p">]</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">basemap</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">basemap</span> <span class="ow">in</span> <span class="n">basemaps</span> <span class="ow">and</span> <span class="n">basemaps</span><span class="p">[</span><span class="n">basemap</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">layer_names</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">basemap</span><span class="si">}</span><span class="s2"> has been already added before.&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">basemap</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_tile_layer</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">basemap</span><span class="p">,</span> <span class="n">shown</span><span class="o">=</span><span class="n">show</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span>
                 <span class="s2">&quot;Basemap can only be one of the following:</span><span class="se">\n</span><span class="s2">  </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
@@ -25041,14 +25055,14 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
         <span class="k">return</span>
 
     <span class="n">left_layer</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">TileLayer</span><span class="p">(</span>
-        <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://mt1.google.com/vt/lyrs=m&amp;x=</span><span class="si">{x}</span><span class="s2">&amp;y=</span><span class="si">{y}</span><span class="s2">&amp;z=</span><span class="si">{z}</span><span class="s2">&quot;</span><span class="p">,</span>
-        <span class="n">attribution</span><span class="o">=</span><span class="s2">&quot;Google&quot;</span><span class="p">,</span>
-        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Google Maps&quot;</span><span class="p">,</span>
+        <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/</span><span class="si">{z}</span><span class="s2">/</span><span class="si">{y}</span><span class="s2">/</span><span class="si">{x}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">attribution</span><span class="o">=</span><span class="s2">&quot;Esri&quot;</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Esri.WorldStreetMap&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">right_layer</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">TileLayer</span><span class="p">(</span>
-        <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://mt1.google.com/vt/lyrs=m&amp;x=</span><span class="si">{x}</span><span class="s2">&amp;y=</span><span class="si">{y}</span><span class="s2">&amp;z=</span><span class="si">{z}</span><span class="s2">&quot;</span><span class="p">,</span>
-        <span class="n">attribution</span><span class="o">=</span><span class="s2">&quot;Google&quot;</span><span class="p">,</span>
-        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Google Maps&quot;</span><span class="p">,</span>
+        <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/</span><span class="si">{z}</span><span class="s2">/</span><span class="si">{y}</span><span class="s2">/</span><span class="si">{x}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">attribution</span><span class="o">=</span><span class="s2">&quot;Esri&quot;</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Esri.WorldStreetMap&quot;</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">clear_controls</span><span class="p">()</span>
