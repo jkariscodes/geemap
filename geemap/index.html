@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.8">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.3.1">
     
     
       
@@ -9338,12 +9338,13 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 
     <span class="k">def</span> <span class="nf">split_map</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">left_layer</span><span class="o">=</span><span class="s2">&quot;HYBRID&quot;</span><span class="p">,</span>
-        <span class="n">right_layer</span><span class="o">=</span><span class="s2">&quot;ROADMAP&quot;</span><span class="p">,</span>
+        <span class="n">left_layer</span><span class="o">=</span><span class="s2">&quot;OpenTopoMap&quot;</span><span class="p">,</span>
+        <span class="n">right_layer</span><span class="o">=</span><span class="s2">&quot;Esri.WorldTopoMap&quot;</span><span class="p">,</span>
         <span class="n">zoom_control</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">fullscreen_control</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">layer_control</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">add_close_button</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">close_button_position</span><span class="o">=</span><span class="s2">&quot;topright&quot;</span><span class="p">,</span>
         <span class="n">left_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">right_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">left_position</span><span class="o">=</span><span class="s2">&quot;bottomleft&quot;</span><span class="p">,</span>
@@ -9354,12 +9355,13 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds split map.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            left_layer (str, optional): The layer tile layer. Defaults to &#39;HYBRID&#39;.</span>
-<span class="sd">            right_layer (str, optional): The right tile layer. Defaults to &#39;ROADMAP&#39;.</span>
+<span class="sd">            left_layer (str, optional): The layer tile layer. Defaults to &#39;OpenTopoMap&#39;.</span>
+<span class="sd">            right_layer (str, optional): The right tile layer. Defaults to &#39;Esri.WorldTopoMap&#39;.</span>
 <span class="sd">            zoom_control (bool, optional): Whether to show the zoom control. Defaults to True.</span>
 <span class="sd">            fullscreen_control (bool, optional): Whether to show the full screen control. Defaults to True.</span>
 <span class="sd">            layer_control (bool, optional): Whether to show the layer control. Defaults to True.</span>
 <span class="sd">            add_close_button (bool, optional): Whether to add a close button. Defaults to False.</span>
+<span class="sd">            close_button_position (str, optional): The position of the close button. Defaults to &#39;topright&#39;.</span>
 <span class="sd">            left_label (str, optional): The label for the left map. Defaults to None.</span>
 <span class="sd">            right_label (str, optional): The label for the right map. Defaults to None.</span>
 <span class="sd">            left_position (str, optional): The position of the left label. Defaults to &#39;bottomleft&#39;.</span>
@@ -9491,7 +9493,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 
             <span class="n">close_button</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">close_btn_click</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">)</span>
             <span class="n">close_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span>
-                <span class="n">widget</span><span class="o">=</span><span class="n">close_button</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;bottomright&quot;</span>
+                <span class="n">widget</span><span class="o">=</span><span class="n">close_button</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">close_button_position</span>
             <span class="p">)</span>
 
             <span class="k">if</span> <span class="n">add_close_button</span><span class="p">:</span>
@@ -24202,7 +24204,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 
 
 <h3 id="geemap.geemap.Map.split_map" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">split_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">left_layer</span><span class="o">=</span><span class="s1">&#39;HYBRID&#39;</span><span class="p">,</span> <span class="n">right_layer</span><span class="o">=</span><span class="s1">&#39;ROADMAP&#39;</span><span class="p">,</span> <span class="n">zoom_control</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fullscreen_control</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">layer_control</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">add_close_button</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">left_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">right_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">left_position</span><span class="o">=</span><span class="s1">&#39;bottomleft&#39;</span><span class="p">,</span> <span class="n">right_position</span><span class="o">=</span><span class="s1">&#39;bottomright&#39;</span><span class="p">,</span> <span class="n">widget_layout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">split_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">left_layer</span><span class="o">=</span><span class="s1">&#39;OpenTopoMap&#39;</span><span class="p">,</span> <span class="n">right_layer</span><span class="o">=</span><span class="s1">&#39;Esri.WorldTopoMap&#39;</span><span class="p">,</span> <span class="n">zoom_control</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fullscreen_control</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">layer_control</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">add_close_button</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">close_button_position</span><span class="o">=</span><span class="s1">&#39;topright&#39;</span><span class="p">,</span> <span class="n">left_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">right_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">left_position</span><span class="o">=</span><span class="s1">&#39;bottomleft&#39;</span><span class="p">,</span> <span class="n">right_position</span><span class="o">=</span><span class="s1">&#39;bottomright&#39;</span><span class="p">,</span> <span class="n">widget_layout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 
 <a href="#geemap.geemap.Map.split_map" class="headerlink" title="Permanent link">&para;</a></h3>
@@ -24225,14 +24227,14 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
       <tr>
         <td><code>left_layer</code></td>
         <td><code>str</code></td>
-        <td><p>The layer tile layer. Defaults to 'HYBRID'.</p></td>
-        <td><code>&#39;HYBRID&#39;</code></td>
+        <td><p>The layer tile layer. Defaults to 'OpenTopoMap'.</p></td>
+        <td><code>&#39;OpenTopoMap&#39;</code></td>
       </tr>
       <tr>
         <td><code>right_layer</code></td>
         <td><code>str</code></td>
-        <td><p>The right tile layer. Defaults to 'ROADMAP'.</p></td>
-        <td><code>&#39;ROADMAP&#39;</code></td>
+        <td><p>The right tile layer. Defaults to 'Esri.WorldTopoMap'.</p></td>
+        <td><code>&#39;Esri.WorldTopoMap&#39;</code></td>
       </tr>
       <tr>
         <td><code>zoom_control</code></td>
@@ -24257,6 +24259,12 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
         <td><code>bool</code></td>
         <td><p>Whether to add a close button. Defaults to False.</p></td>
         <td><code>False</code></td>
+      </tr>
+      <tr>
+        <td><code>close_button_position</code></td>
+        <td><code>str</code></td>
+        <td><p>The position of the close button. Defaults to 'topright'.</p></td>
+        <td><code>&#39;topright&#39;</code></td>
       </tr>
       <tr>
         <td><code>left_label</code></td>
@@ -24300,12 +24308,13 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
           <summary>Source code in <code>geemap/geemap.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">split_map</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
-    <span class="n">left_layer</span><span class="o">=</span><span class="s2">&quot;HYBRID&quot;</span><span class="p">,</span>
-    <span class="n">right_layer</span><span class="o">=</span><span class="s2">&quot;ROADMAP&quot;</span><span class="p">,</span>
+    <span class="n">left_layer</span><span class="o">=</span><span class="s2">&quot;OpenTopoMap&quot;</span><span class="p">,</span>
+    <span class="n">right_layer</span><span class="o">=</span><span class="s2">&quot;Esri.WorldTopoMap&quot;</span><span class="p">,</span>
     <span class="n">zoom_control</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">fullscreen_control</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">layer_control</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">add_close_button</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">close_button_position</span><span class="o">=</span><span class="s2">&quot;topright&quot;</span><span class="p">,</span>
     <span class="n">left_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">right_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">left_position</span><span class="o">=</span><span class="s2">&quot;bottomleft&quot;</span><span class="p">,</span>
@@ -24316,12 +24325,13 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Adds split map.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        left_layer (str, optional): The layer tile layer. Defaults to &#39;HYBRID&#39;.</span>
-<span class="sd">        right_layer (str, optional): The right tile layer. Defaults to &#39;ROADMAP&#39;.</span>
+<span class="sd">        left_layer (str, optional): The layer tile layer. Defaults to &#39;OpenTopoMap&#39;.</span>
+<span class="sd">        right_layer (str, optional): The right tile layer. Defaults to &#39;Esri.WorldTopoMap&#39;.</span>
 <span class="sd">        zoom_control (bool, optional): Whether to show the zoom control. Defaults to True.</span>
 <span class="sd">        fullscreen_control (bool, optional): Whether to show the full screen control. Defaults to True.</span>
 <span class="sd">        layer_control (bool, optional): Whether to show the layer control. Defaults to True.</span>
 <span class="sd">        add_close_button (bool, optional): Whether to add a close button. Defaults to False.</span>
+<span class="sd">        close_button_position (str, optional): The position of the close button. Defaults to &#39;topright&#39;.</span>
 <span class="sd">        left_label (str, optional): The label for the left map. Defaults to None.</span>
 <span class="sd">        right_label (str, optional): The label for the right map. Defaults to None.</span>
 <span class="sd">        left_position (str, optional): The position of the left label. Defaults to &#39;bottomleft&#39;.</span>
@@ -24453,7 +24463,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 
         <span class="n">close_button</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">close_btn_click</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">)</span>
         <span class="n">close_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span>
-            <span class="n">widget</span><span class="o">=</span><span class="n">close_button</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;bottomright&quot;</span>
+            <span class="n">widget</span><span class="o">=</span><span class="n">close_button</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">close_button_position</span>
         <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">add_close_button</span><span class="p">:</span>
