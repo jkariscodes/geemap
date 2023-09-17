@@ -733,6 +733,26 @@
   
   
     <li class="md-nav__item">
+      <a href="../core/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    core module
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../datasets/" class="md-nav__link">
         
   
@@ -1657,13 +1677,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#geemap.geemap.Map.update_layer_manager" class="md-nav__link">
-    update_layer_manager()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#geemap.geemap.Map.user_roi_coords" class="md-nav__link">
     user_roi_coords()
   </a>
@@ -1905,6 +1918,26 @@
   
   <span class="md-ellipsis">
     plotlymap module
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../report/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    report module
   </span>
   
 
@@ -5828,13 +5861,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#geemap.geemap.Map.update_layer_manager" class="md-nav__link">
-    update_layer_manager()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#geemap.geemap.Map.user_roi_coords" class="md-nav__link">
     user_roi_coords()
   </a>
@@ -6115,7 +6141,7 @@ ImageOverlay            (<span title="ipyleaflet.leaflet.ImageOverlay">ImageOver
 
 <h2 id="geemap.geemap.Map" class="doc doc-heading">
         <code>
-Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
+Map            (<a class="autorefs autorefs-internal" title="geemap.core.Map" href="../core/#geemap.core.Map">Map</a>)
         </code>
 
 
@@ -6124,7 +6150,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 
     <div class="doc doc-contents ">
 
-      <p>The Map class inherits the ipyleaflet Map class. The arguments you can pass to the Map initialization
+      <p>The Map class inherits the core Map class. The arguments you can pass to the Map initialization
     can be found at https://ipyleaflet.readthedocs.io/en/latest/map_and_basemaps/map.html.
     By default, the Map will add Google Maps as the basemap. Set add_google_map = False
     to use OpenStreetMap as the basemap.</p>
@@ -6146,8 +6172,8 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 </table>
         <details class="quote">
           <summary>Source code in <code>geemap/geemap.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Map</span><span class="p">(</span><span class="n">ipyleaflet</span><span class="o">.</span><span class="n">Map</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;The Map class inherits the ipyleaflet Map class. The arguments you can pass to the Map initialization</span>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Map</span><span class="p">(</span><span class="n">core</span><span class="o">.</span><span class="n">Map</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The Map class inherits the core Map class. The arguments you can pass to the Map initialization</span>
 <span class="sd">        can be found at https://ipyleaflet.readthedocs.io/en/latest/map_and_basemaps/map.html.</span>
 <span class="sd">        By default, the Map will add Google Maps as the basemap. Set add_google_map = False</span>
 <span class="sd">        to use OpenStreetMap as the basemap.</span>
@@ -6204,41 +6230,13 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
-        <span class="c1"># Authenticates Earth Engine and initializes an Earth Engine session</span>
-        <span class="k">if</span> <span class="s2">&quot;ee_initialize&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;ee_initialize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-
-        <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;ee_initialize&quot;</span><span class="p">]:</span>
-            <span class="n">ee_initialize</span><span class="p">()</span>
-
-        <span class="c1"># Default map center center (lat, lon) and zoom level</span>
-        <span class="n">center</span> <span class="o">=</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-        <span class="n">zoom</span> <span class="o">=</span> <span class="mi">2</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_control</span> <span class="o">=</span> <span class="kc">None</span>
-
-        <span class="c1"># Set map width and height</span>
-        <span class="k">if</span> <span class="s2">&quot;height&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;height&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;600px&quot;</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;height&quot;</span><span class="p">],</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">),</span> <span class="nb">int</span><span class="p">):</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;height&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;height&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span>
-        <span class="k">if</span> <span class="s2">&quot;width&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;width&quot;</span><span class="p">],</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;width&quot;</span><span class="p">),</span> <span class="nb">int</span><span class="p">):</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;width&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;width&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span>
 
-        <span class="c1"># Set map center and zoom level</span>
-        <span class="k">if</span> <span class="s2">&quot;center&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;center&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">center</span>
-        <span class="k">if</span> <span class="s2">&quot;zoom&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;zoom&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">zoom</span>
         <span class="k">if</span> <span class="s2">&quot;max_zoom&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;max_zoom&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">24</span>
-
-        <span class="c1"># Enable scroll wheel zoom by default</span>
-        <span class="k">if</span> <span class="s2">&quot;scroll_wheel_zoom&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;scroll_wheel_zoom&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="c1"># Use any basemap available through the basemap module, such as &#39;ROADMAP&#39;, &#39;OpenTopoMap&#39;</span>
         <span class="k">if</span> <span class="s2">&quot;basemap&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
@@ -6249,12 +6247,11 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;basemap&quot;</span><span class="p">)</span>
 
-        <span class="c1"># Inherits the ipyleaflet Map class</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span> <span class="o">=</span> <span class="kc">None</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">baseclass</span> <span class="o">=</span> <span class="s2">&quot;ipyleaflet&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;height&quot;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="s2">&quot;width&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;width&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="c1"># sandbox path for Voila app to restrict access to system directories.</span>
         <span class="k">if</span> <span class="s2">&quot;sandbox_path&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
@@ -6270,51 +6267,26 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
         <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;add_google_map&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span><span class="s2">&quot;ROADMAP&quot;</span><span class="p">)</span>
 
-        <span class="c1"># Remove all default controls</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">clear_controls</span><span class="p">()</span>
-
-        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;lite_mode&quot;</span><span class="p">):</span>  <span class="c1"># Lite mode with only the zoom control</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">add_controls</span><span class="p">(</span><span class="s2">&quot;zoom_ctrl&quot;</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topleft&quot;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>  <span class="c1"># full mode with all controls</span>
-            <span class="n">topleft_controls</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="s2">&quot;data_ctrl&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;zoom_ctrl&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;fullscreen_ctrl&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;draw_ctrl&quot;</span><span class="p">,</span>
-            <span class="p">]</span>
-            <span class="n">bottomleft_controls</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="s2">&quot;scale_ctrl&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;measure_ctrl&quot;</span><span class="p">,</span>
-            <span class="p">]</span>
-            <span class="n">topright_controls</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="s2">&quot;toolbar_ctrl&quot;</span><span class="p">,</span>
-            <span class="p">]</span>
-            <span class="n">bottomright_controls</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;attribution_ctrl&quot;</span><span class="p">]</span>
-
-            <span class="k">for</span> <span class="n">control</span> <span class="ow">in</span> <span class="n">topleft_controls</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">add_controls</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topleft&quot;</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">control</span> <span class="ow">in</span> <span class="n">bottomleft_controls</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">add_controls</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;bottomleft&quot;</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">control</span> <span class="ow">in</span> <span class="n">topright_controls</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">add_controls</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topright&quot;</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">control</span> <span class="ow">in</span> <span class="n">bottomright_controls</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">add_controls</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;bottomright&quot;</span><span class="p">)</span>
-
-        <span class="c1"># Map attributes for layers</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">geojson_layers</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span> <span class="o">=</span> <span class="p">{}</span>
-
         <span class="c1"># ipyleaflet built-in layer control</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layer_control</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="s2">&quot;ee_initialize&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;ee_initialize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="c1"># Default reducer to use</span>
         <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;ee_initialize&quot;</span><span class="p">]:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">roi_reducer</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Reducer</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">roi_reducer_scale</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_control_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;lite_mode&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;topleft&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;zoom_control&quot;</span><span class="p">]}</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;topleft&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;data_ctrl&quot;</span><span class="p">,</span> <span class="s2">&quot;zoom_ctrl&quot;</span><span class="p">,</span> <span class="s2">&quot;fullscreen_ctrl&quot;</span><span class="p">,</span> <span class="s2">&quot;draw_ctrl&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;bottomleft&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;scale_ctrl&quot;</span><span class="p">,</span> <span class="s2">&quot;measure_ctrl&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;topright&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;toolbar_ctrl&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;bottomright&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;attribution_ctrl&quot;</span><span class="p">],</span>
+        <span class="p">}</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ee_layer_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -6363,22 +6335,50 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
             <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;ee_object&quot;</span><span class="p">],</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)</span>
         <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topright&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds a layer or control to the map.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            object (object): The layer or control to add to the map.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="nb">object</span> <span class="o">=</span> <span class="n">check_basemap</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">basemap</span> <span class="o">=</span> <span class="n">check_basemap</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">basemap</span> <span class="ow">in</span> <span class="n">basemaps</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">get_basemap</span><span class="p">(</span><span class="n">basemap</span><span class="p">))</span>
+                <span class="k">return</span>
 
-            <span class="k">if</span> <span class="nb">object</span> <span class="ow">in</span> <span class="n">basemaps</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                <span class="nb">object</span> <span class="o">=</span> <span class="n">get_basemap</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span>
 
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;layer_manager_widget&quot;</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">update_layer_manager</span><span class="p">()</span>
+        <span class="n">backward_compatibilities</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;zoom_ctrl&quot;</span><span class="p">:</span> <span class="s2">&quot;zoom_control&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;fullscreen_ctrl&quot;</span><span class="p">:</span> <span class="s2">&quot;fullscreen_control&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;scale_ctrl&quot;</span><span class="p">:</span> <span class="s2">&quot;scale_control&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;toolbar_ctrl&quot;</span><span class="p">:</span> <span class="s2">&quot;toolbar&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">backward_compatibilities</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">obj</span> <span class="o">==</span> <span class="s2">&quot;data_ctrl&quot;</span><span class="p">:</span>
+            <span class="n">toolbar</span><span class="o">.</span><span class="n">search_data_gui</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">obj</span> <span class="o">==</span> <span class="s2">&quot;search_ctrl&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_search_control</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">obj</span> <span class="o">==</span> <span class="s2">&quot;draw_ctrl&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_draw_control</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">obj</span> <span class="o">==</span> <span class="s2">&quot;measure_ctrl&quot;</span><span class="p">:</span>
+            <span class="n">measure</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">MeasureControl</span><span class="p">(</span>
+                <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
+                <span class="n">active_color</span><span class="o">=</span><span class="s2">&quot;orange&quot;</span><span class="p">,</span>
+                <span class="n">primary_length_unit</span><span class="o">=</span><span class="s2">&quot;kilometers&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">measure</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">obj</span> <span class="o">==</span> <span class="s2">&quot;layer_ctrl&quot;</span><span class="p">:</span>
+            <span class="n">layer_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">LayersControl</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layer_control</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">add_controls</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">controls</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topleft&quot;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds a list of controls to the map.</span>
@@ -6390,54 +6390,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">controls</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="n">controls</span> <span class="o">=</span> <span class="p">[</span><span class="n">controls</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">control</span> <span class="ow">in</span> <span class="n">controls</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-                <span class="n">control</span> <span class="o">=</span> <span class="n">control</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-
-                <span class="k">if</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;data_ctrl&quot;</span><span class="p">:</span>
-                    <span class="kn">from</span> <span class="nn">.toolbar</span> <span class="kn">import</span> <span class="n">search_data_gui</span>
-
-                    <span class="n">search_data_gui</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
-
-                <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;zoom_ctrl&quot;</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ipyleaflet</span><span class="o">.</span><span class="n">ZoomControl</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">))</span>
-
-                <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;fullscreen_ctrl&quot;</span><span class="p">:</span>
-                    <span class="n">fullscreen</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">FullScreenControl</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">fullscreen</span><span class="p">)</span>
-
-                <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;search_ctrl&quot;</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">add_search_control</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
-
-                <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;draw_ctrl&quot;</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">add_draw_control</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
-
-                <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;scale_ctrl&quot;</span><span class="p">:</span>
-                    <span class="n">scale_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">ScaleControl</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">scale_control</span><span class="p">)</span>
-
-                <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;measure_ctrl&quot;</span><span class="p">:</span>
-                    <span class="n">measure</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">MeasureControl</span><span class="p">(</span>
-                        <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
-                        <span class="n">active_color</span><span class="o">=</span><span class="s2">&quot;orange&quot;</span><span class="p">,</span>
-                        <span class="n">primary_length_unit</span><span class="o">=</span><span class="s2">&quot;kilometers&quot;</span><span class="p">,</span>
-                    <span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">measure</span><span class="p">)</span>
-
-                <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;toolbar_ctrl&quot;</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">add_toolbar</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
-
-                <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;layer_ctrl&quot;</span><span class="p">:</span>
-                    <span class="n">layer_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">LayersControl</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layer_control</span><span class="p">)</span>
-
-                <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;attribution_ctrl&quot;</span><span class="p">:</span>
-                    <span class="n">attribution</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">AttributionControl</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">attribution</span><span class="p">)</span>
-
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported control: </span><span class="si">{</span><span class="n">control</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">control</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">set_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapTypeId</span><span class="o">=</span><span class="s2">&quot;HYBRID&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds Google basemap and controls to the ipyleaflet map.</span>
@@ -6468,43 +6421,29 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="sd">            shown (bool, optional): A flag indicating whether the layer should be on by default. Defaults to True.</span>
 <span class="sd">            opacity (float, optional): The layer&#39;s opacity represented as a number between 0 and 1. Defaults to 1.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">layer_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Layer &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">layer_count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="n">tile_layer</span> <span class="o">=</span> <span class="n">EELeafletTileLayer</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">vis_params</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
+        <span class="n">has_plot_dropdown</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_plot_dropdown_widget&quot;</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="p">)</span>
 
-        <span class="n">layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_layer</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">ee_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">ee_layer</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ee_layer&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">existing_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;ee_object&quot;</span><span class="p">]</span>
-
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">existing_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)):</span>
-                <span class="k">if</span> <span class="p">(</span>
-                    <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_plot_dropdown_widget&quot;</span><span class="p">)</span>
-                    <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-                <span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_layer</span><span class="p">[</span><span class="s2">&quot;ee_object&quot;</span><span class="p">],</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">has_plot_dropdown</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
                     <span class="p">)</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">remove_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;ee_object&quot;</span><span class="p">:</span> <span class="n">ee_object</span><span class="p">,</span>
-            <span class="s2">&quot;ee_layer&quot;</span><span class="p">:</span> <span class="n">tile_layer</span><span class="p">,</span>
-            <span class="s2">&quot;vis_params&quot;</span><span class="p">:</span> <span class="n">vis_params</span><span class="p">,</span>
-        <span class="p">}</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tile_layer</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">vis_params</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)):</span>
-            <span class="k">if</span> <span class="p">(</span>
-                <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_plot_dropdown_widget&quot;</span><span class="p">)</span>
-                <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-            <span class="p">):</span>
+            <span class="k">if</span> <span class="n">has_plot_dropdown</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 
-        <span class="n">arc_add_layer</span><span class="p">(</span><span class="n">tile_layer</span><span class="o">.</span><span class="n">url_format</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
+        <span class="n">tile_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ee_layer&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">tile_layer</span><span class="p">:</span>
+            <span class="n">arc_add_layer</span><span class="p">(</span><span class="n">tile_layer</span><span class="o">.</span><span class="n">url_format</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
 
     <span class="n">addLayer</span> <span class="o">=</span> <span class="n">add_ee_layer</span>
 
@@ -6528,10 +6467,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="sd">            lat (float): The latitude of the center, in degrees.</span>
 <span class="sd">            zoom (int, optional): The zoom level, from 1 to 24. Defaults to None.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">zoom</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="n">zoom</span>
-
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">set_center</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">zoom</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">is_arcpy</span><span class="p">():</span>
             <span class="n">arc_zoom_to_extent</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">)</span>
 
@@ -6544,44 +6480,10 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="sd">            ee_object (Element|Geometry): An Earth Engine object to center on a geometry, image or feature.</span>
 <span class="sd">            zoom (int, optional): The zoom level, from 1 to 24. Defaults to None.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">maxError</span> <span class="o">=</span> <span class="mf">0.001</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">):</span>
-            <span class="n">geometry</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">maxError</span><span class="o">=</span><span class="n">maxError</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">geometry</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="n">maxError</span><span class="o">=</span><span class="n">maxError</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span>
-                    <span class="n">maxError</span><span class="o">=</span><span class="n">maxError</span>
-                <span class="p">)</span>
-            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
-                    <span class="s2">&quot;ee_object must be an instance of one of ee.Geometry, ee.FeatureCollection, ee.Image, or ee.ImageCollection.&quot;</span>
-                <span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">zoom</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">zoom</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Zoom must be an integer.&quot;</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">centroid</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">centroid</span><span class="p">(</span><span class="n">maxError</span><span class="o">=</span><span class="n">maxError</span><span class="p">)</span><span class="o">.</span><span class="n">getInfo</span><span class="p">()[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">]</span>
-                <span class="n">lat</span> <span class="o">=</span> <span class="n">centroid</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-                <span class="n">lon</span> <span class="o">=</span> <span class="n">centroid</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">set_center</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">zoom</span><span class="p">)</span>
-
-                <span class="k">if</span> <span class="n">is_arcpy</span><span class="p">():</span>
-                    <span class="n">arc_zoom_to_extent</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">)</span>
-
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">coordinates</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">bounds</span><span class="p">(</span><span class="n">maxError</span><span class="p">)</span><span class="o">.</span><span class="n">getInfo</span><span class="p">()[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">coordinates</span><span class="p">]</span>
-            <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">coordinates</span><span class="p">]</span>
-            <span class="n">xmin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-            <span class="n">xmax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-            <span class="n">ymin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-            <span class="n">ymax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-            <span class="n">bounds</span> <span class="o">=</span> <span class="p">[[</span><span class="n">ymin</span><span class="p">,</span> <span class="n">xmin</span><span class="p">],</span> <span class="p">[</span><span class="n">ymax</span><span class="p">,</span> <span class="n">xmax</span><span class="p">]]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">fit_bounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">)</span>
-
-            <span class="k">if</span> <span class="n">is_arcpy</span><span class="p">():</span>
-                <span class="n">arc_zoom_to_extent</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">center_object</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">zoom</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_arcpy</span><span class="p">():</span>
+            <span class="n">bds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span>
+            <span class="n">arc_zoom_to_extent</span><span class="p">(</span><span class="n">bds</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">bds</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">bds</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">bds</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
 
     <span class="n">centerObject</span> <span class="o">=</span> <span class="n">center_object</span>
 
@@ -6600,17 +6502,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="sd">        Returns:</span>
 <span class="sd">            float: Map resolution in meters.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">math</span>
-
-        <span class="n">zoom_level</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zoom</span>
-        <span class="n">center_lat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-        <span class="c1"># Reference:</span>
-        <span class="c1"># - https://blogs.bing.com/maps/2006/02/25/map-control-zoom-levels-gt-resolution</span>
-        <span class="c1"># - https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Resolution_and_Scale</span>
-        <span class="n">center_lat_cos</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">center_lat</span><span class="p">))</span>
-        <span class="n">resolution</span> <span class="o">=</span> <span class="mf">156543.04</span> <span class="o">*</span> <span class="n">center_lat_cos</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">zoom_level</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">resolution</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_scale</span><span class="p">()</span>
 
     <span class="n">getScale</span> <span class="o">=</span> <span class="n">get_scale</span>
 
@@ -8631,25 +8523,14 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="sd">            position (str, optional): The position of the Inspector GUI. Defaults to &quot;topright&quot;.</span>
 <span class="sd">            opened (bool, optional): Whether the control is opened. Defaults to True.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span><span class="p">:</span>
-            <span class="k">return</span>
-
-        <span class="k">def</span> <span class="nf">_on_close</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">toolbar_reset</span><span class="p">()</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">remove_control</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span> <span class="o">=</span> <span class="kc">None</span>
-
-        <span class="n">inspector</span> <span class="o">=</span> <span class="n">map_widgets</span><span class="o">.</span><span class="n">Inspector</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">visible</span><span class="p">,</span> <span class="n">decimals</span><span class="p">,</span> <span class="n">opened</span><span class="p">,</span> <span class="n">show_close_button</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_add_inspector</span><span class="p">(</span>
+            <span class="n">position</span><span class="p">,</span>
+            <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span>
+            <span class="n">visible</span><span class="o">=</span><span class="n">visible</span><span class="p">,</span>
+            <span class="n">decimals</span><span class="o">=</span><span class="n">decimals</span><span class="p">,</span>
+            <span class="n">opened</span><span class="o">=</span><span class="n">opened</span><span class="p">,</span>
+            <span class="n">show_close_button</span><span class="o">=</span><span class="n">show_close_button</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="n">inspector</span><span class="o">.</span><span class="n">on_close</span> <span class="o">=</span> <span class="n">_on_close</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span>
-            <span class="n">widget</span><span class="o">=</span><span class="n">inspector</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">add_layer_manager</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topright&quot;</span><span class="p">,</span> <span class="n">opened</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_close_button</span><span class="o">=</span><span class="kc">True</span>
@@ -8661,34 +8542,9 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="sd">            opened (bool, optional): Whether the control is opened. Defaults to True.</span>
 <span class="sd">            show_close_button (bool, optional): Whether to show the close button. Defaults to True.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_control</span><span class="p">:</span>
-            <span class="k">return</span>
-
-        <span class="k">def</span> <span class="nf">_on_close</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">toolbar_reset</span><span class="p">()</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_control</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_control</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">remove_control</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_control</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_control</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_control</span> <span class="o">=</span> <span class="kc">None</span>
-
-        <span class="k">def</span> <span class="nf">_on_open_vis</span><span class="p">(</span><span class="n">layer_name</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">create_vis_widget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">layer_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span> <span class="o">=</span> <span class="n">map_widgets</span><span class="o">.</span><span class="n">LayerManager</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_add_layer_manager</span><span class="p">(</span><span class="s2">&quot;layer_manager&quot;</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span><span class="o">.</span><span class="n">collapsed</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">opened</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span><span class="o">.</span><span class="n">close_button_hidden</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">show_close_button</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span><span class="o">.</span><span class="n">on_close</span> <span class="o">=</span> <span class="n">_on_close</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span><span class="o">.</span><span class="n">on_open_vis</span> <span class="o">=</span> <span class="n">_on_open_vis</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span>
-            <span class="n">widget</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_control</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">update_layer_manager</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the Layer Manager.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span><span class="o">.</span><span class="n">refresh_layers</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">add_basemap_widget</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -8765,14 +8621,13 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="sd">        Args:</span>
 <span class="sd">            position (str, optional): The position of the toolbar. Defaults to &quot;topright&quot;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;toolbar&quot;</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-        <span class="kn">from</span> <span class="nn">.toolbar</span> <span class="kn">import</span> <span class="n">Toolbar</span><span class="p">,</span> <span class="n">main_tools</span><span class="p">,</span> <span class="n">extra_tools</span>
+    <span class="k">def</span> <span class="nf">_toolbar_main_tools</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">toolbar</span><span class="o">.</span><span class="n">main_tools</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_toolbar</span> <span class="o">=</span> <span class="n">Toolbar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">main_tools</span><span class="p">,</span> <span class="n">extra_tools</span><span class="p">)</span>
-        <span class="n">toolbar_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span>
-            <span class="n">widget</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_toolbar</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">toolbar_control</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_toolbar_extra_tools</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">toolbar</span><span class="o">.</span><span class="n">extra_tools</span>
 
     <span class="k">def</span> <span class="nf">add_plot_gui</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topright&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds the plot widget to the map.</span>
@@ -9478,16 +9333,16 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
             <span class="p">)</span>
 
             <span class="k">def</span> <span class="nf">close_btn_click</span><span class="p">(</span><span class="n">change</span><span class="p">):</span>
-                <span class="k">if</span> <span class="n">change</span><span class="p">[</span><span class="s2">&quot;new&quot;</span><span class="p">]:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">controls</span> <span class="o">=</span> <span class="n">controls</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">layers</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-
                 <span class="k">if</span> <span class="n">left_label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">remove_control</span><span class="p">(</span><span class="n">left_control</span><span class="p">)</span>
 
                 <span class="k">if</span> <span class="n">right_label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">remove_control</span><span class="p">(</span><span class="n">right_control</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">change</span><span class="p">[</span><span class="s2">&quot;new&quot;</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">controls</span> <span class="o">=</span> <span class="n">controls</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">layers</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 
                 <span class="bp">self</span><span class="o">.</span><span class="n">dragging</span> <span class="o">=</span> <span class="kc">True</span>
 
@@ -12353,7 +12208,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">content</span><span class="p">,</span>
         <span class="n">position</span><span class="o">=</span><span class="s2">&quot;bottomright&quot;</span><span class="p">,</span>
-        <span class="n">add_header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">add_header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">opened</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">show_close_button</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">widget_icon</span><span class="o">=</span><span class="s2">&quot;gear&quot;</span><span class="p">,</span>
@@ -12368,7 +12223,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="sd">        Args:</span>
 <span class="sd">            content (str | ipywidgets.Widget | object): The widget to add.</span>
 <span class="sd">            position (str, optional): The position of the widget. Defaults to &quot;bottomright&quot;.</span>
-<span class="sd">            add_header (bool, optional): Whether to add a header with close buttons to the widget. Defaults to True.</span>
+<span class="sd">            add_header (bool, optional): Whether to add a header with close buttons to the widget. Defaults to False.</span>
 <span class="sd">            opened (bool, optional): Whether to open the toolbar. Defaults to True.</span>
 <span class="sd">            show_close_button (bool, optional): Whether to show the close button. Defaults to True.</span>
 <span class="sd">            widget_icon (str, optional): The icon name for the toolbar button. Defaults to &#39;gear&#39;.</span>
@@ -12439,7 +12294,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Invalid image&quot;</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_widget</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_widget</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">add_html</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;bottomright&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add HTML to the map.</span>
@@ -12743,41 +12598,13 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
-    <span class="c1"># Authenticates Earth Engine and initializes an Earth Engine session</span>
-    <span class="k">if</span> <span class="s2">&quot;ee_initialize&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;ee_initialize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-
-    <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;ee_initialize&quot;</span><span class="p">]:</span>
-        <span class="n">ee_initialize</span><span class="p">()</span>
-
-    <span class="c1"># Default map center center (lat, lon) and zoom level</span>
-    <span class="n">center</span> <span class="o">=</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-    <span class="n">zoom</span> <span class="o">=</span> <span class="mi">2</span>
-
-    <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_control</span> <span class="o">=</span> <span class="kc">None</span>
-
-    <span class="c1"># Set map width and height</span>
-    <span class="k">if</span> <span class="s2">&quot;height&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;height&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;600px&quot;</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;height&quot;</span><span class="p">],</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">),</span> <span class="nb">int</span><span class="p">):</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;height&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;height&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span>
-    <span class="k">if</span> <span class="s2">&quot;width&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;width&quot;</span><span class="p">],</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;width&quot;</span><span class="p">),</span> <span class="nb">int</span><span class="p">):</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;width&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;width&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span>
 
-    <span class="c1"># Set map center and zoom level</span>
-    <span class="k">if</span> <span class="s2">&quot;center&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;center&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">center</span>
-    <span class="k">if</span> <span class="s2">&quot;zoom&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;zoom&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">zoom</span>
     <span class="k">if</span> <span class="s2">&quot;max_zoom&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;max_zoom&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">24</span>
-
-    <span class="c1"># Enable scroll wheel zoom by default</span>
-    <span class="k">if</span> <span class="s2">&quot;scroll_wheel_zoom&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;scroll_wheel_zoom&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="c1"># Use any basemap available through the basemap module, such as &#39;ROADMAP&#39;, &#39;OpenTopoMap&#39;</span>
     <span class="k">if</span> <span class="s2">&quot;basemap&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
@@ -12788,12 +12615,11 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
         <span class="k">else</span><span class="p">:</span>
             <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;basemap&quot;</span><span class="p">)</span>
 
-    <span class="c1"># Inherits the ipyleaflet Map class</span>
-    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span> <span class="o">=</span> <span class="kc">None</span>
+
     <span class="bp">self</span><span class="o">.</span><span class="n">baseclass</span> <span class="o">=</span> <span class="s2">&quot;ipyleaflet&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;height&quot;</span><span class="p">]</span>
-    <span class="k">if</span> <span class="s2">&quot;width&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;width&quot;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="c1"># sandbox path for Voila app to restrict access to system directories.</span>
     <span class="k">if</span> <span class="s2">&quot;sandbox_path&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
@@ -12809,46 +12635,11 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
     <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;add_google_map&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span><span class="s2">&quot;ROADMAP&quot;</span><span class="p">)</span>
 
-    <span class="c1"># Remove all default controls</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">clear_controls</span><span class="p">()</span>
-
-    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;lite_mode&quot;</span><span class="p">):</span>  <span class="c1"># Lite mode with only the zoom control</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_controls</span><span class="p">(</span><span class="s2">&quot;zoom_ctrl&quot;</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topleft&quot;</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>  <span class="c1"># full mode with all controls</span>
-        <span class="n">topleft_controls</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s2">&quot;data_ctrl&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;zoom_ctrl&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;fullscreen_ctrl&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;draw_ctrl&quot;</span><span class="p">,</span>
-        <span class="p">]</span>
-        <span class="n">bottomleft_controls</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s2">&quot;scale_ctrl&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;measure_ctrl&quot;</span><span class="p">,</span>
-        <span class="p">]</span>
-        <span class="n">topright_controls</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s2">&quot;toolbar_ctrl&quot;</span><span class="p">,</span>
-        <span class="p">]</span>
-        <span class="n">bottomright_controls</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;attribution_ctrl&quot;</span><span class="p">]</span>
-
-        <span class="k">for</span> <span class="n">control</span> <span class="ow">in</span> <span class="n">topleft_controls</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add_controls</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topleft&quot;</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">control</span> <span class="ow">in</span> <span class="n">bottomleft_controls</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add_controls</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;bottomleft&quot;</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">control</span> <span class="ow">in</span> <span class="n">topright_controls</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add_controls</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topright&quot;</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">control</span> <span class="ow">in</span> <span class="n">bottomright_controls</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add_controls</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;bottomright&quot;</span><span class="p">)</span>
-
-    <span class="c1"># Map attributes for layers</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">geojson_layers</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span> <span class="o">=</span> <span class="p">{}</span>
-
     <span class="c1"># ipyleaflet built-in layer control</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">layer_control</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="s2">&quot;ee_initialize&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;ee_initialize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="c1"># Default reducer to use</span>
     <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;ee_initialize&quot;</span><span class="p">]:</span>
@@ -12867,7 +12658,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 
 
 <h3 id="geemap.geemap.Map.add" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">object</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s1">&#39;topright&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 
 <a href="#geemap.geemap.Map.add" class="headerlink" title="Permanent link">&para;</a></h3>
@@ -12897,22 +12688,50 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 </table>
         <details class="quote">
           <summary>Source code in <code>geemap/geemap.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topright&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Adds a layer or control to the map.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        object (object): The layer or control to add to the map.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="nb">object</span> <span class="o">=</span> <span class="n">check_basemap</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">basemap</span> <span class="o">=</span> <span class="n">check_basemap</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">basemap</span> <span class="ow">in</span> <span class="n">basemaps</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">get_basemap</span><span class="p">(</span><span class="n">basemap</span><span class="p">))</span>
+            <span class="k">return</span>
 
-        <span class="k">if</span> <span class="nb">object</span> <span class="ow">in</span> <span class="n">basemaps</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-            <span class="nb">object</span> <span class="o">=</span> <span class="n">get_basemap</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span>
 
-    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
 
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;layer_manager_widget&quot;</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">update_layer_manager</span><span class="p">()</span>
+    <span class="n">backward_compatibilities</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;zoom_ctrl&quot;</span><span class="p">:</span> <span class="s2">&quot;zoom_control&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fullscreen_ctrl&quot;</span><span class="p">:</span> <span class="s2">&quot;fullscreen_control&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;scale_ctrl&quot;</span><span class="p">:</span> <span class="s2">&quot;scale_control&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;toolbar_ctrl&quot;</span><span class="p">:</span> <span class="s2">&quot;toolbar&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">backward_compatibilities</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">obj</span> <span class="o">==</span> <span class="s2">&quot;data_ctrl&quot;</span><span class="p">:</span>
+        <span class="n">toolbar</span><span class="o">.</span><span class="n">search_data_gui</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">obj</span> <span class="o">==</span> <span class="s2">&quot;search_ctrl&quot;</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_search_control</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">obj</span> <span class="o">==</span> <span class="s2">&quot;draw_ctrl&quot;</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_draw_control</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">obj</span> <span class="o">==</span> <span class="s2">&quot;measure_ctrl&quot;</span><span class="p">:</span>
+        <span class="n">measure</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">MeasureControl</span><span class="p">(</span>
+            <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
+            <span class="n">active_color</span><span class="o">=</span><span class="s2">&quot;orange&quot;</span><span class="p">,</span>
+            <span class="n">primary_length_unit</span><span class="o">=</span><span class="s2">&quot;kilometers&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">measure</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">obj</span> <span class="o">==</span> <span class="s2">&quot;layer_ctrl&quot;</span><span class="p">:</span>
+        <span class="n">layer_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">LayersControl</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layer_control</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -12992,43 +12811,29 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="sd">        shown (bool, optional): A flag indicating whether the layer should be on by default. Defaults to True.</span>
 <span class="sd">        opacity (float, optional): The layer&#39;s opacity represented as a number between 0 and 1. Defaults to 1.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">layer_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Layer &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">layer_count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">tile_layer</span> <span class="o">=</span> <span class="n">EELeafletTileLayer</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">vis_params</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
+    <span class="n">has_plot_dropdown</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_plot_dropdown_widget&quot;</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="p">)</span>
 
-    <span class="n">layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_layer</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">ee_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="n">layer</span> <span class="o">=</span> <span class="n">ee_layer</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ee_layer&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">existing_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;ee_object&quot;</span><span class="p">]</span>
-
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">existing_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)):</span>
-            <span class="k">if</span> <span class="p">(</span>
-                <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_plot_dropdown_widget&quot;</span><span class="p">)</span>
-                <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-            <span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_layer</span><span class="p">[</span><span class="s2">&quot;ee_object&quot;</span><span class="p">],</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">has_plot_dropdown</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
                 <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">remove_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
-
-    <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;ee_object&quot;</span><span class="p">:</span> <span class="n">ee_object</span><span class="p">,</span>
-        <span class="s2">&quot;ee_layer&quot;</span><span class="p">:</span> <span class="n">tile_layer</span><span class="p">,</span>
-        <span class="s2">&quot;vis_params&quot;</span><span class="p">:</span> <span class="n">vis_params</span><span class="p">,</span>
-    <span class="p">}</span>
-
-    <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tile_layer</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">vis_params</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)):</span>
-        <span class="k">if</span> <span class="p">(</span>
-            <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_plot_dropdown_widget&quot;</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="p">):</span>
+        <span class="k">if</span> <span class="n">has_plot_dropdown</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 
-    <span class="n">arc_add_layer</span><span class="p">(</span><span class="n">tile_layer</span><span class="o">.</span><span class="n">url_format</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
+    <span class="n">tile_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ee_layer&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tile_layer</span><span class="p">:</span>
+        <span class="n">arc_add_layer</span><span class="p">(</span><span class="n">tile_layer</span><span class="o">.</span><span class="n">url_format</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -14070,54 +13875,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">controls</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
         <span class="n">controls</span> <span class="o">=</span> <span class="p">[</span><span class="n">controls</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">control</span> <span class="ow">in</span> <span class="n">controls</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="n">control</span> <span class="o">=</span> <span class="n">control</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-
-            <span class="k">if</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;data_ctrl&quot;</span><span class="p">:</span>
-                <span class="kn">from</span> <span class="nn">.toolbar</span> <span class="kn">import</span> <span class="n">search_data_gui</span>
-
-                <span class="n">search_data_gui</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
-
-            <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;zoom_ctrl&quot;</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ipyleaflet</span><span class="o">.</span><span class="n">ZoomControl</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">))</span>
-
-            <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;fullscreen_ctrl&quot;</span><span class="p">:</span>
-                <span class="n">fullscreen</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">FullScreenControl</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">fullscreen</span><span class="p">)</span>
-
-            <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;search_ctrl&quot;</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add_search_control</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
-
-            <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;draw_ctrl&quot;</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add_draw_control</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
-
-            <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;scale_ctrl&quot;</span><span class="p">:</span>
-                <span class="n">scale_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">ScaleControl</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">scale_control</span><span class="p">)</span>
-
-            <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;measure_ctrl&quot;</span><span class="p">:</span>
-                <span class="n">measure</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">MeasureControl</span><span class="p">(</span>
-                    <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
-                    <span class="n">active_color</span><span class="o">=</span><span class="s2">&quot;orange&quot;</span><span class="p">,</span>
-                    <span class="n">primary_length_unit</span><span class="o">=</span><span class="s2">&quot;kilometers&quot;</span><span class="p">,</span>
-                <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">measure</span><span class="p">)</span>
-
-            <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;toolbar_ctrl&quot;</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add_toolbar</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
-
-            <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;layer_ctrl&quot;</span><span class="p">:</span>
-                <span class="n">layer_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">LayersControl</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layer_control</span><span class="p">)</span>
-
-            <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;attribution_ctrl&quot;</span><span class="p">:</span>
-                <span class="n">attribution</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">AttributionControl</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">attribution</span><span class="p">)</span>
-
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported control: </span><span class="si">{</span><span class="n">control</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">control</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -14608,43 +14366,29 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
 <span class="sd">        shown (bool, optional): A flag indicating whether the layer should be on by default. Defaults to True.</span>
 <span class="sd">        opacity (float, optional): The layer&#39;s opacity represented as a number between 0 and 1. Defaults to 1.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">layer_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Layer &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">layer_count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">tile_layer</span> <span class="o">=</span> <span class="n">EELeafletTileLayer</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">vis_params</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
+    <span class="n">has_plot_dropdown</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_plot_dropdown_widget&quot;</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="p">)</span>
 
-    <span class="n">layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_layer</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">ee_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="n">layer</span> <span class="o">=</span> <span class="n">ee_layer</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ee_layer&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">existing_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;ee_object&quot;</span><span class="p">]</span>
-
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">existing_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)):</span>
-            <span class="k">if</span> <span class="p">(</span>
-                <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_plot_dropdown_widget&quot;</span><span class="p">)</span>
-                <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-            <span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_layer</span><span class="p">[</span><span class="s2">&quot;ee_object&quot;</span><span class="p">],</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">has_plot_dropdown</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
                 <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">remove_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
-
-    <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;ee_object&quot;</span><span class="p">:</span> <span class="n">ee_object</span><span class="p">,</span>
-        <span class="s2">&quot;ee_layer&quot;</span><span class="p">:</span> <span class="n">tile_layer</span><span class="p">,</span>
-        <span class="s2">&quot;vis_params&quot;</span><span class="p">:</span> <span class="n">vis_params</span><span class="p">,</span>
-    <span class="p">}</span>
-
-    <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tile_layer</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">vis_params</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)):</span>
-        <span class="k">if</span> <span class="p">(</span>
-            <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_plot_dropdown_widget&quot;</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="p">):</span>
+        <span class="k">if</span> <span class="n">has_plot_dropdown</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_plot_dropdown_widget</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 
-    <span class="n">arc_add_layer</span><span class="p">(</span><span class="n">tile_layer</span><span class="o">.</span><span class="n">url_format</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
+    <span class="n">tile_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ee_layer&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tile_layer</span><span class="p">:</span>
+        <span class="n">arc_add_layer</span><span class="p">(</span><span class="n">tile_layer</span><span class="o">.</span><span class="n">url_format</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -15544,7 +15288,7 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Invalid image&quot;</span><span class="p">)</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">add_widget</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_widget</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -15630,25 +15374,14 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
 <span class="sd">        position (str, optional): The position of the Inspector GUI. Defaults to &quot;topright&quot;.</span>
 <span class="sd">        opened (bool, optional): Whether the control is opened. Defaults to True.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span><span class="p">:</span>
-        <span class="k">return</span>
-
-    <span class="k">def</span> <span class="nf">_on_close</span><span class="p">():</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar_reset</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">remove_control</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span> <span class="o">=</span> <span class="kc">None</span>
-
-    <span class="n">inspector</span> <span class="o">=</span> <span class="n">map_widgets</span><span class="o">.</span><span class="n">Inspector</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">visible</span><span class="p">,</span> <span class="n">decimals</span><span class="p">,</span> <span class="n">opened</span><span class="p">,</span> <span class="n">show_close_button</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_add_inspector</span><span class="p">(</span>
+        <span class="n">position</span><span class="p">,</span>
+        <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span>
+        <span class="n">visible</span><span class="o">=</span><span class="n">visible</span><span class="p">,</span>
+        <span class="n">decimals</span><span class="o">=</span><span class="n">decimals</span><span class="p">,</span>
+        <span class="n">opened</span><span class="o">=</span><span class="n">opened</span><span class="p">,</span>
+        <span class="n">show_close_button</span><span class="o">=</span><span class="n">show_close_button</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">inspector</span><span class="o">.</span><span class="n">on_close</span> <span class="o">=</span> <span class="n">_on_close</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span>
-        <span class="n">widget</span><span class="o">=</span><span class="n">inspector</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span>
-    <span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -16418,29 +16151,9 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
 <span class="sd">        opened (bool, optional): Whether the control is opened. Defaults to True.</span>
 <span class="sd">        show_close_button (bool, optional): Whether to show the close button. Defaults to True.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_control</span><span class="p">:</span>
-        <span class="k">return</span>
-
-    <span class="k">def</span> <span class="nf">_on_close</span><span class="p">():</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar_reset</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_control</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_control</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">remove_control</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_control</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_control</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_control</span> <span class="o">=</span> <span class="kc">None</span>
-
-    <span class="k">def</span> <span class="nf">_on_open_vis</span><span class="p">(</span><span class="n">layer_name</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">create_vis_widget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_layers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">layer_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
-
-    <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span> <span class="o">=</span> <span class="n">map_widgets</span><span class="o">.</span><span class="n">LayerManager</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_add_layer_manager</span><span class="p">(</span><span class="s2">&quot;layer_manager&quot;</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span><span class="o">.</span><span class="n">collapsed</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">opened</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span><span class="o">.</span><span class="n">close_button_hidden</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">show_close_button</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span><span class="o">.</span><span class="n">on_close</span> <span class="o">=</span> <span class="n">_on_close</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span><span class="o">.</span><span class="n">on_open_vis</span> <span class="o">=</span> <span class="n">_on_open_vis</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span>
-        <span class="n">widget</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span>
-    <span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_control</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -20651,14 +20364,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 <span class="sd">    Args:</span>
 <span class="sd">        position (str, optional): The position of the toolbar. Defaults to &quot;topright&quot;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="kn">from</span> <span class="nn">.toolbar</span> <span class="kn">import</span> <span class="n">Toolbar</span><span class="p">,</span> <span class="n">main_tools</span><span class="p">,</span> <span class="n">extra_tools</span>
-
-    <span class="bp">self</span><span class="o">.</span><span class="n">_toolbar</span> <span class="o">=</span> <span class="n">Toolbar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">main_tools</span><span class="p">,</span> <span class="n">extra_tools</span><span class="p">)</span>
-    <span class="n">toolbar_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span>
-        <span class="n">widget</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_toolbar</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span>
-    <span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">toolbar_control</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;toolbar&quot;</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -21077,7 +20783,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 
 
 <h3 id="geemap.geemap.Map.add_widget" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">add_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s1">&#39;bottomright&#39;</span><span class="p">,</span> <span class="n">add_header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">opened</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_close_button</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">widget_icon</span><span class="o">=</span><span class="s1">&#39;gear&#39;</span><span class="p">,</span> <span class="n">close_button_icon</span><span class="o">=</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="n">widget_args</span><span class="o">=</span><span class="p">{},</span> <span class="n">close_button_args</span><span class="o">=</span><span class="p">{},</span> <span class="n">display_widget</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">add_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s1">&#39;bottomright&#39;</span><span class="p">,</span> <span class="n">add_header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">opened</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_close_button</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">widget_icon</span><span class="o">=</span><span class="s1">&#39;gear&#39;</span><span class="p">,</span> <span class="n">close_button_icon</span><span class="o">=</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="n">widget_args</span><span class="o">=</span><span class="p">{},</span> <span class="n">close_button_args</span><span class="o">=</span><span class="p">{},</span> <span class="n">display_widget</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 
 <a href="#geemap.geemap.Map.add_widget" class="headerlink" title="Permanent link">&para;</a></h3>
@@ -21112,8 +20818,8 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
       <tr>
         <td><code>add_header</code></td>
         <td><code>bool</code></td>
-        <td><p>Whether to add a header with close buttons to the widget. Defaults to True.</p></td>
-        <td><code>True</code></td>
+        <td><p>Whether to add a header with close buttons to the widget. Defaults to False.</p></td>
+        <td><code>False</code></td>
       </tr>
       <tr>
         <td><code>opened</code></td>
@@ -21171,7 +20877,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">content</span><span class="p">,</span>
     <span class="n">position</span><span class="o">=</span><span class="s2">&quot;bottomright&quot;</span><span class="p">,</span>
-    <span class="n">add_header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">add_header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">opened</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">show_close_button</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">widget_icon</span><span class="o">=</span><span class="s2">&quot;gear&quot;</span><span class="p">,</span>
@@ -21186,7 +20892,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 <span class="sd">    Args:</span>
 <span class="sd">        content (str | ipywidgets.Widget | object): The widget to add.</span>
 <span class="sd">        position (str, optional): The position of the widget. Defaults to &quot;bottomright&quot;.</span>
-<span class="sd">        add_header (bool, optional): Whether to add a header with close buttons to the widget. Defaults to True.</span>
+<span class="sd">        add_header (bool, optional): Whether to add a header with close buttons to the widget. Defaults to False.</span>
 <span class="sd">        opened (bool, optional): Whether to open the toolbar. Defaults to True.</span>
 <span class="sd">        show_close_button (bool, optional): Whether to show the close button. Defaults to True.</span>
 <span class="sd">        widget_icon (str, optional): The icon name for the toolbar button. Defaults to &#39;gear&#39;.</span>
@@ -21724,44 +21430,10 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 <span class="sd">        ee_object (Element|Geometry): An Earth Engine object to center on a geometry, image or feature.</span>
 <span class="sd">        zoom (int, optional): The zoom level, from 1 to 24. Defaults to None.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">maxError</span> <span class="o">=</span> <span class="mf">0.001</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">):</span>
-        <span class="n">geometry</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">maxError</span><span class="o">=</span><span class="n">maxError</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">geometry</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="n">maxError</span><span class="o">=</span><span class="n">maxError</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span>
-                <span class="n">maxError</span><span class="o">=</span><span class="n">maxError</span>
-            <span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
-                <span class="s2">&quot;ee_object must be an instance of one of ee.Geometry, ee.FeatureCollection, ee.Image, or ee.ImageCollection.&quot;</span>
-            <span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">zoom</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">zoom</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Zoom must be an integer.&quot;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">centroid</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">centroid</span><span class="p">(</span><span class="n">maxError</span><span class="o">=</span><span class="n">maxError</span><span class="p">)</span><span class="o">.</span><span class="n">getInfo</span><span class="p">()[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">]</span>
-            <span class="n">lat</span> <span class="o">=</span> <span class="n">centroid</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">lon</span> <span class="o">=</span> <span class="n">centroid</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">set_center</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">zoom</span><span class="p">)</span>
-
-            <span class="k">if</span> <span class="n">is_arcpy</span><span class="p">():</span>
-                <span class="n">arc_zoom_to_extent</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">)</span>
-
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">coordinates</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">bounds</span><span class="p">(</span><span class="n">maxError</span><span class="p">)</span><span class="o">.</span><span class="n">getInfo</span><span class="p">()[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">coordinates</span><span class="p">]</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">coordinates</span><span class="p">]</span>
-        <span class="n">xmin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">xmax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">ymin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-        <span class="n">ymax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-        <span class="n">bounds</span> <span class="o">=</span> <span class="p">[[</span><span class="n">ymin</span><span class="p">,</span> <span class="n">xmin</span><span class="p">],</span> <span class="p">[</span><span class="n">ymax</span><span class="p">,</span> <span class="n">xmax</span><span class="p">]]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fit_bounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">is_arcpy</span><span class="p">():</span>
-            <span class="n">arc_zoom_to_extent</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">center_object</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">zoom</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">is_arcpy</span><span class="p">():</span>
+        <span class="n">bds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span>
+        <span class="n">arc_zoom_to_extent</span><span class="p">(</span><span class="n">bds</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">bds</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">bds</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">bds</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
 </code></pre></div>
         </details>
     </div>
@@ -21818,44 +21490,10 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 <span class="sd">        ee_object (Element|Geometry): An Earth Engine object to center on a geometry, image or feature.</span>
 <span class="sd">        zoom (int, optional): The zoom level, from 1 to 24. Defaults to None.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">maxError</span> <span class="o">=</span> <span class="mf">0.001</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">):</span>
-        <span class="n">geometry</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">maxError</span><span class="o">=</span><span class="n">maxError</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">geometry</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="n">maxError</span><span class="o">=</span><span class="n">maxError</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span>
-                <span class="n">maxError</span><span class="o">=</span><span class="n">maxError</span>
-            <span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
-                <span class="s2">&quot;ee_object must be an instance of one of ee.Geometry, ee.FeatureCollection, ee.Image, or ee.ImageCollection.&quot;</span>
-            <span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">zoom</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">zoom</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Zoom must be an integer.&quot;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">centroid</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">centroid</span><span class="p">(</span><span class="n">maxError</span><span class="o">=</span><span class="n">maxError</span><span class="p">)</span><span class="o">.</span><span class="n">getInfo</span><span class="p">()[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">]</span>
-            <span class="n">lat</span> <span class="o">=</span> <span class="n">centroid</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">lon</span> <span class="o">=</span> <span class="n">centroid</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">set_center</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">zoom</span><span class="p">)</span>
-
-            <span class="k">if</span> <span class="n">is_arcpy</span><span class="p">():</span>
-                <span class="n">arc_zoom_to_extent</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">)</span>
-
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">coordinates</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">bounds</span><span class="p">(</span><span class="n">maxError</span><span class="p">)</span><span class="o">.</span><span class="n">getInfo</span><span class="p">()[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">coordinates</span><span class="p">]</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">coordinates</span><span class="p">]</span>
-        <span class="n">xmin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">xmax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">ymin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-        <span class="n">ymax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-        <span class="n">bounds</span> <span class="o">=</span> <span class="p">[[</span><span class="n">ymin</span><span class="p">,</span> <span class="n">xmin</span><span class="p">],</span> <span class="p">[</span><span class="n">ymax</span><span class="p">,</span> <span class="n">xmax</span><span class="p">]]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fit_bounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">is_arcpy</span><span class="p">():</span>
-            <span class="n">arc_zoom_to_extent</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">center_object</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">zoom</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">is_arcpy</span><span class="p">():</span>
+        <span class="n">bds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span>
+        <span class="n">arc_zoom_to_extent</span><span class="p">(</span><span class="n">bds</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">bds</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">bds</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">bds</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
 </code></pre></div>
         </details>
     </div>
@@ -22336,17 +21974,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 <span class="sd">    Returns:</span>
 <span class="sd">        float: Map resolution in meters.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span> <span class="nn">math</span>
-
-    <span class="n">zoom_level</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zoom</span>
-    <span class="n">center_lat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-    <span class="c1"># Reference:</span>
-    <span class="c1"># - https://blogs.bing.com/maps/2006/02/25/map-control-zoom-levels-gt-resolution</span>
-    <span class="c1"># - https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Resolution_and_Scale</span>
-    <span class="n">center_lat_cos</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">center_lat</span><span class="p">))</span>
-    <span class="n">resolution</span> <span class="o">=</span> <span class="mf">156543.04</span> <span class="o">*</span> <span class="n">center_lat_cos</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">zoom_level</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">resolution</span>
+    <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_scale</span><span class="p">()</span>
 </code></pre></div>
         </details>
     </div>
@@ -22520,17 +22148,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 <span class="sd">    Returns:</span>
 <span class="sd">        float: Map resolution in meters.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span> <span class="nn">math</span>
-
-    <span class="n">zoom_level</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zoom</span>
-    <span class="n">center_lat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-    <span class="c1"># Reference:</span>
-    <span class="c1"># - https://blogs.bing.com/maps/2006/02/25/map-control-zoom-levels-gt-resolution</span>
-    <span class="c1"># - https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Resolution_and_Scale</span>
-    <span class="n">center_lat_cos</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">center_lat</span><span class="p">))</span>
-    <span class="n">resolution</span> <span class="o">=</span> <span class="mf">156543.04</span> <span class="o">*</span> <span class="n">center_lat_cos</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">zoom_level</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">resolution</span>
+    <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_scale</span><span class="p">()</span>
 </code></pre></div>
         </details>
     </div>
@@ -23669,10 +23287,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 <span class="sd">        lat (float): The latitude of the center, in degrees.</span>
 <span class="sd">        zoom (int, optional): The zoom level, from 1 to 24. Defaults to None.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">zoom</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="n">zoom</span>
-
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">set_center</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">zoom</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">is_arcpy</span><span class="p">():</span>
         <span class="n">arc_zoom_to_extent</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">)</span>
 </code></pre></div>
@@ -23862,10 +23477,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 <span class="sd">        lat (float): The latitude of the center, in degrees.</span>
 <span class="sd">        zoom (int, optional): The zoom level, from 1 to 24. Defaults to None.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">zoom</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="n">zoom</span>
-
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">set_center</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">zoom</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">is_arcpy</span><span class="p">():</span>
         <span class="n">arc_zoom_to_extent</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">)</span>
 </code></pre></div>
@@ -24448,16 +24060,16 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
         <span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">close_btn_click</span><span class="p">(</span><span class="n">change</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">change</span><span class="p">[</span><span class="s2">&quot;new&quot;</span><span class="p">]:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">controls</span> <span class="o">=</span> <span class="n">controls</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">layers</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-
             <span class="k">if</span> <span class="n">left_label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">remove_control</span><span class="p">(</span><span class="n">left_control</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">right_label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">remove_control</span><span class="p">(</span><span class="n">right_control</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">change</span><span class="p">[</span><span class="s2">&quot;new&quot;</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">controls</span> <span class="o">=</span> <span class="n">controls</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">layers</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">dragging</span> <span class="o">=</span> <span class="kc">True</span>
 
@@ -25197,34 +24809,6 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-</code></pre></div>
-        </details>
-    </div>
-
-  </div>
-
-
-
-  <div class="doc doc-object doc-method">
-
-
-
-<h3 id="geemap.geemap.Map.update_layer_manager" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">update_layer_manager</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
-
-
-<a href="#geemap.geemap.Map.update_layer_manager" class="headerlink" title="Permanent link">&para;</a></h3>
-
-    <div class="doc doc-contents ">
-
-      <p>Update the Layer Manager.</p>
-
-        <details class="quote">
-          <summary>Source code in <code>geemap/geemap.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">update_layer_manager</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Update the Layer Manager.&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span><span class="o">.</span><span class="n">refresh_layers</span><span class="p">()</span>
 </code></pre></div>
         </details>
     </div>
