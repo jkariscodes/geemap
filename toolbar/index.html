@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.3.1">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.0">
     
     
       
@@ -30,10 +30,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.046329b4.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.9f615399.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.85d0ee34.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.649f08f9.min.css">
       
       
 
@@ -4669,6 +4669,10 @@ Toolbar            (<span title="ipywidgets.widgets.widget_box.VBox">VBox</span>
             <span class="n">layout</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">Layout</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="s2">&quot;28px&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="s2">&quot;72px&quot;</span><span class="p">),</span>
         <span class="p">)</span>
 
+        <span class="k">if</span> <span class="n">in_colab_shell</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">toolbar_button</span><span class="o">.</span><span class="n">button_style</span> <span class="o">=</span> <span class="s2">&quot;primary&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">layers_button</span><span class="o">.</span><span class="n">button_style</span> <span class="o">=</span> <span class="s2">&quot;primary&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">toolbar_header</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">HBox</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">toolbar_header</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">layers_button</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">toolbar_button</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">toolbar_footer</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">VBox</span><span class="p">()</span>
@@ -4993,6 +4997,10 @@ or unselected the tool.</p></td>
         <span class="n">icon</span><span class="o">=</span><span class="s2">&quot;server&quot;</span><span class="p">,</span>
         <span class="n">layout</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">Layout</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="s2">&quot;28px&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="s2">&quot;72px&quot;</span><span class="p">),</span>
     <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">in_colab_shell</span><span class="p">():</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar_button</span><span class="o">.</span><span class="n">button_style</span> <span class="o">=</span> <span class="s2">&quot;primary&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers_button</span><span class="o">.</span><span class="n">button_style</span> <span class="o">=</span> <span class="s2">&quot;primary&quot;</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">toolbar_header</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">HBox</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">toolbar_header</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">layers_button</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">toolbar_button</span><span class="p">]</span>
@@ -7061,6 +7069,10 @@ or unselected the tool.</p></td>
         <span class="p">],</span>
     <span class="p">)</span>
     <span class="n">search_type</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">button_width</span> <span class="o">=</span> <span class="s2">&quot;110px&quot;</span>
+
+    <span class="k">if</span> <span class="n">in_colab_shell</span><span class="p">():</span>
+        <span class="n">search_button</span><span class="o">.</span><span class="n">button_style</span> <span class="o">=</span> <span class="s2">&quot;primary&quot;</span>
+        <span class="n">search_type</span><span class="o">.</span><span class="n">button_style</span> <span class="o">=</span> <span class="s2">&quot;primary&quot;</span>
 
     <span class="n">search_box</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span>
         <span class="n">placeholder</span><span class="o">=</span><span class="s2">&quot;Search by place name or address&quot;</span><span class="p">,</span>
@@ -9522,10 +9534,10 @@ or unselected the tool.</p></td>
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.highlight", "search.share"], "search": "../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "search.highlight", "search.share"], "search": "../assets/javascripts/workers/search.a264c092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      <script src="../assets/javascripts/bundle.4e0fa4ba.min.js"></script>
       
         <script src="../js/timeago.min.js"></script>
       
