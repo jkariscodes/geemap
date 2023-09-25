@@ -5906,7 +5906,7 @@ For example, {min: 0, max: 10} will result in ('min': 0, 'max': 10)</p>
 
 
 <h2 id="geemap.conversion.js_to_python_dir" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">js_to_python_dir</span><span class="p">(</span><span class="n">in_dir</span><span class="p">,</span> <span class="n">out_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_qgis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">github_repo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">js_to_python_dir</span><span class="p">(</span><span class="n">in_dir</span><span class="p">,</span> <span class="n">out_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_qgis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">github_repo</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">import_geemap</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
 
 <a href="#geemap.conversion.js_to_python_dir" class="headerlink" title="Permanent link">&para;</a></h2>
@@ -5923,11 +5923,14 @@ For example, {min: 0, max: 10} will result in ('min': 0, 'max': 10)</p>
     use_qgis (bool, optional): Whether to add &quot;from ee_plugin import Map
 </code></pre></div></td></tr></table></div>
 <p>" to the output script. Defaults to True.
-        github_repo (str, optional): GitHub repo url. Defaults to None.</p>
+        github_repo (str, optional): GitHub repo url. Defaults to None.
+        import_geemap (bool, optional): Whether to add "import geemap" to the output script. Defaults to False.</p>
 
         <details class="quote">
           <summary>Source code in <code>geemap/conversion.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">js_to_python_dir</span><span class="p">(</span><span class="n">in_dir</span><span class="p">,</span> <span class="n">out_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_qgis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">github_repo</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">js_to_python_dir</span><span class="p">(</span>
+    <span class="n">in_dir</span><span class="p">,</span> <span class="n">out_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_qgis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">github_repo</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">import_geemap</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Converts all Earth Engine JavaScripts in a folder recursively to Python scripts.</span>
 
 <span class="sd">    Args:</span>
@@ -5935,6 +5938,7 @@ For example, {min: 0, max: 10} will result in ('min': 0, 'max': 10)</p>
 <span class="sd">        out_dir (str, optional): The output folder containing Earth Engine Python scripts. Defaults to None.</span>
 <span class="sd">        use_qgis (bool, optional): Whether to add &quot;from ee_plugin import Map \n&quot; to the output script. Defaults to True.</span>
 <span class="sd">        github_repo (str, optional): GitHub repo url. Defaults to None.</span>
+<span class="sd">        import_geemap (bool, optional): Whether to add &quot;import geemap&quot; to the output script. Defaults to False.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Converting Earth Engine JavaScripts to Python scripts...</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">in_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">in_dir</span><span class="p">)</span>
@@ -5955,7 +5959,9 @@ For example, {min: 0, max: 10} will result in ('min': 0, 'max': 10)</p>
         <span class="c1"># else:</span>
         <span class="n">out_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">in_file</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_geemap.py&quot;</span>
         <span class="n">out_file</span> <span class="o">=</span> <span class="n">out_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">in_dir</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">)</span>
-        <span class="n">js_to_python</span><span class="p">(</span><span class="n">in_file</span><span class="p">,</span> <span class="n">out_file</span><span class="p">,</span> <span class="n">use_qgis</span><span class="p">,</span> <span class="n">github_repo</span><span class="p">,</span> <span class="n">import_geemap</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">js_to_python</span><span class="p">(</span>
+            <span class="n">in_file</span><span class="p">,</span> <span class="n">out_file</span><span class="p">,</span> <span class="n">use_qgis</span><span class="p">,</span> <span class="n">github_repo</span><span class="p">,</span> <span class="n">import_geemap</span><span class="o">=</span><span class="n">import_geemap</span>
+        <span class="p">)</span>
     <span class="c1"># print(&quot;Output Python script folder: {}&quot;.format(out_dir))</span>
 </code></pre></div>
         </details>
