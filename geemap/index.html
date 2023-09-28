@@ -6253,7 +6253,7 @@ Map            (<a class="autorefs autorefs-internal" title="geemap.core.Map" hr
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;basemap&quot;</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_xyz_dict</span> <span class="o">=</span> <span class="n">get_xyz_dict</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">baseclass</span> <span class="o">=</span> <span class="s2">&quot;ipyleaflet&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
@@ -7016,7 +7016,7 @@ Map            (<a class="autorefs autorefs-internal" title="geemap.core.Map" hr
 <span class="sd">        Args:</span>
 <span class="sd">            layer_dict (dict): A dict containing information about the layer. It is an element from Map.ee_layers.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;layer_editor&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_layer_editor</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;topright&quot;</span><span class="p">,</span> <span class="n">layer_dict</span><span class="o">=</span><span class="n">layer_dict</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">add_inspector</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -7055,39 +7055,32 @@ Map            (<a class="autorefs autorefs-internal" title="geemap.core.Map" hr
 <span class="sd">            opened (bool, optional): Whether the control is opened. Defaults to True.</span>
 <span class="sd">            show_close_button (bool, optional): Whether to show the close button. Defaults to True.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_add_layer_manager</span><span class="p">(</span><span class="s2">&quot;layer_manager&quot;</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span><span class="o">.</span><span class="n">collapsed</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">opened</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span><span class="o">.</span><span class="n">close_button_hidden</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">show_close_button</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_add_layer_manager</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">layer_manager</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_layer_manager</span><span class="p">:</span>
+            <span class="n">layer_manager</span><span class="o">.</span><span class="n">collapsed</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">opened</span>
+            <span class="n">layer_manager</span><span class="o">.</span><span class="n">close_button_hidden</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">show_close_button</span>
 
-    <span class="k">def</span> <span class="nf">add_basemap_widget</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">value</span><span class="o">=</span><span class="s2">&quot;OpenStreetMap&quot;</span><span class="p">,</span>
-        <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topright&quot;</span><span class="p">,</span>
-    <span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_on_basemap_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">basemap_name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">basemap_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_layer_names</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span><span class="n">basemap_name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">basemap_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xyz_dict</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s2">&quot;bounds&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xyz_dict</span><span class="p">[</span><span class="n">basemap_name</span><span class="p">]:</span>
+                    <span class="n">bounds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xyz_dict</span><span class="p">[</span><span class="n">basemap_name</span><span class="p">][</span><span class="s2">&quot;bounds&quot;</span><span class="p">]</span>
+                    <span class="n">bounds</span> <span class="o">=</span> <span class="p">[</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">zoom_to_bounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add_basemap_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;OpenStreetMap&quot;</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topright&quot;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add the Basemap GUI to the map.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            value (str): The default value from basemaps to select. Defaults to &quot;OpenStreetMap&quot;.</span>
 <span class="sd">            position (str, optional): The position of the Inspector GUI. Defaults to &quot;topright&quot;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span><span class="p">:</span>
-            <span class="k">return</span>
-
-        <span class="k">def</span> <span class="nf">_on_close</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">toolbar_reset</span><span class="p">()</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">remove_control</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span> <span class="o">=</span> <span class="kc">None</span>
-
-        <span class="n">basemap_widget</span> <span class="o">=</span> <span class="n">map_widgets</span><span class="o">.</span><span class="n">Basemap</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">basemaps</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="n">value</span><span class="p">,</span> <span class="n">get_xyz_dict</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_add_basemap_selector</span><span class="p">(</span>
+            <span class="n">position</span><span class="p">,</span> <span class="n">basemaps</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">basemaps</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="n">value</span><span class="o">=</span><span class="n">value</span>
         <span class="p">)</span>
-        <span class="n">basemap_widget</span><span class="o">.</span><span class="n">on_close</span> <span class="o">=</span> <span class="n">_on_close</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span>
-            <span class="n">widget</span><span class="o">=</span><span class="n">basemap_widget</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">basemap_selector</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_basemap_selector</span><span class="p">:</span>
+            <span class="n">basemap_selector</span><span class="o">.</span><span class="n">on_basemap_changed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_basemap_changed</span>
 
     <span class="k">def</span> <span class="nf">add_draw_control</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topleft&quot;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a draw control to the map</span>
@@ -11128,7 +11121,7 @@ Map            (<a class="autorefs autorefs-internal" title="geemap.core.Map" hr
         <span class="k">else</span><span class="p">:</span>
             <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;basemap&quot;</span><span class="p">)</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_xyz_dict</span> <span class="o">=</span> <span class="n">get_xyz_dict</span><span class="p">()</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">baseclass</span> <span class="o">=</span> <span class="s2">&quot;ipyleaflet&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
@@ -11571,35 +11564,18 @@ Map            (<a class="autorefs autorefs-internal" title="geemap.core.Map" hr
 </table>
         <details class="quote">
           <summary>Source code in <code>geemap/geemap.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">add_basemap_widget</span><span class="p">(</span>
-    <span class="bp">self</span><span class="p">,</span>
-    <span class="n">value</span><span class="o">=</span><span class="s2">&quot;OpenStreetMap&quot;</span><span class="p">,</span>
-    <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topright&quot;</span><span class="p">,</span>
-<span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">add_basemap_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;OpenStreetMap&quot;</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topright&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Add the Basemap GUI to the map.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        value (str): The default value from basemaps to select. Defaults to &quot;OpenStreetMap&quot;.</span>
 <span class="sd">        position (str, optional): The position of the Inspector GUI. Defaults to &quot;topright&quot;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span><span class="p">:</span>
-        <span class="k">return</span>
-
-    <span class="k">def</span> <span class="nf">_on_close</span><span class="p">():</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar_reset</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">remove_control</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span> <span class="o">=</span> <span class="kc">None</span>
-
-    <span class="n">basemap_widget</span> <span class="o">=</span> <span class="n">map_widgets</span><span class="o">.</span><span class="n">Basemap</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">basemaps</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="n">value</span><span class="p">,</span> <span class="n">get_xyz_dict</span><span class="p">()</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_add_basemap_selector</span><span class="p">(</span>
+        <span class="n">position</span><span class="p">,</span> <span class="n">basemaps</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">basemaps</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="n">value</span><span class="o">=</span><span class="n">value</span>
     <span class="p">)</span>
-    <span class="n">basemap_widget</span><span class="o">.</span><span class="n">on_close</span> <span class="o">=</span> <span class="n">_on_close</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span>
-        <span class="n">widget</span><span class="o">=</span><span class="n">basemap_widget</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span>
-    <span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">basemap_control</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">basemap_selector</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_basemap_selector</span><span class="p">:</span>
+        <span class="n">basemap_selector</span><span class="o">.</span><span class="n">on_basemap_changed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_basemap_changed</span>
 </code></pre></div>
         </details>
     </div>
@@ -14664,9 +14640,10 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
 <span class="sd">        opened (bool, optional): Whether the control is opened. Defaults to True.</span>
 <span class="sd">        show_close_button (bool, optional): Whether to show the close button. Defaults to True.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_add_layer_manager</span><span class="p">(</span><span class="s2">&quot;layer_manager&quot;</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span><span class="o">.</span><span class="n">collapsed</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">opened</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">layer_manager_widget</span><span class="o">.</span><span class="n">close_button_hidden</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">show_close_button</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_add_layer_manager</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">layer_manager</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_layer_manager</span><span class="p">:</span>
+        <span class="n">layer_manager</span><span class="o">.</span><span class="n">collapsed</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">opened</span>
+        <span class="n">layer_manager</span><span class="o">.</span><span class="n">close_button_hidden</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">show_close_button</span>
 </code></pre></div>
         </details>
     </div>
@@ -19896,7 +19873,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 <span class="sd">    Args:</span>
 <span class="sd">        layer_dict (dict): A dict containing information about the layer. It is an element from Map.ee_layers.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;layer_editor&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_add_layer_editor</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;topright&quot;</span><span class="p">,</span> <span class="n">layer_dict</span><span class="o">=</span><span class="n">layer_dict</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
