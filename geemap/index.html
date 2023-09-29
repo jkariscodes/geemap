@@ -1719,40 +1719,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#geemap.geemap.MapDrawControl" class="md-nav__link">
-    MapDrawControl
-  </a>
-  
-    <nav class="md-nav" aria-label="MapDrawControl">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#geemap.geemap.MapDrawControl.user_roi" class="md-nav__link">
-    user_roi
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#geemap.geemap.MapDrawControl.user_rois" class="md-nav__link">
-    user_rois
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#geemap.geemap.MapDrawControl.__init__" class="md-nav__link">
-    __init__()
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#geemap.geemap.ee_tile_layer" class="md-nav__link">
     ee_tile_layer()
   </a>
@@ -5907,40 +5873,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#geemap.geemap.MapDrawControl" class="md-nav__link">
-    MapDrawControl
-  </a>
-  
-    <nav class="md-nav" aria-label="MapDrawControl">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#geemap.geemap.MapDrawControl.user_roi" class="md-nav__link">
-    user_roi
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#geemap.geemap.MapDrawControl.user_rois" class="md-nav__link">
-    user_rois
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#geemap.geemap.MapDrawControl.__init__" class="md-nav__link">
-    __init__()
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#geemap.geemap.ee_tile_layer" class="md-nav__link">
     ee_tile_layer()
   </a>
@@ -6190,24 +6122,32 @@ Map            (<a class="autorefs autorefs-internal" title="geemap.core.Map" hr
 
     <span class="c1"># Map attributes for drawing features</span>
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">draw_control</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_draw_control</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">draw_control_lite</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_draw_control</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">draw_features</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">features</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span> <span class="k">else</span> <span class="p">[]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_draw_control</span><span class="o">.</span><span class="n">features</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_draw_control</span> <span class="k">else</span> <span class="p">[]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">draw_last_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">last_feature</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_draw_control</span><span class="o">.</span><span class="n">last_feature</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_draw_control</span> <span class="k">else</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">draw_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">layer</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_draw_control</span><span class="o">.</span><span class="n">layer</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_draw_control</span> <span class="k">else</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">user_roi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">user_roi</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_draw_control</span><span class="o">.</span><span class="n">last_geometry</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_draw_control</span> <span class="k">else</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">user_rois</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">user_rois</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_draw_control</span><span class="o">.</span><span class="n">collection</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_draw_control</span> <span class="k">else</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a map object. The following additional parameters can be passed in addition to the ipyleaflet.Map parameters:</span>
@@ -6386,6 +6326,7 @@ Map            (<a class="autorefs autorefs-internal" title="geemap.core.Map" hr
             <span class="s2">&quot;fullscreen_ctrl&quot;</span><span class="p">:</span> <span class="s2">&quot;fullscreen_control&quot;</span><span class="p">,</span>
             <span class="s2">&quot;scale_ctrl&quot;</span><span class="p">:</span> <span class="s2">&quot;scale_control&quot;</span><span class="p">,</span>
             <span class="s2">&quot;toolbar_ctrl&quot;</span><span class="p">:</span> <span class="s2">&quot;toolbar&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;draw_ctrl&quot;</span><span class="p">:</span> <span class="s2">&quot;draw_control&quot;</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="n">obj</span> <span class="o">=</span> <span class="n">backward_compatibilities</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
 
@@ -6393,8 +6334,6 @@ Map            (<a class="autorefs autorefs-internal" title="geemap.core.Map" hr
             <span class="n">toolbar</span><span class="o">.</span><span class="n">search_data_gui</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">obj</span> <span class="o">==</span> <span class="s2">&quot;search_ctrl&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_search_control</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">obj</span> <span class="o">==</span> <span class="s2">&quot;draw_ctrl&quot;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">add_draw_control</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">obj</span> <span class="o">==</span> <span class="s2">&quot;measure_ctrl&quot;</span><span class="p">:</span>
             <span class="n">measure</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">MeasureControl</span><span class="p">(</span>
                 <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
@@ -7088,18 +7027,7 @@ Map            (<a class="autorefs autorefs-internal" title="geemap.core.Map" hr
 <span class="sd">        Args:</span>
 <span class="sd">            position (str, optional): The position of the draw control. Defaults to &quot;topleft&quot;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">draw_control</span> <span class="o">=</span> <span class="n">MapDrawControl</span><span class="p">(</span>
-            <span class="n">host_map</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
-            <span class="n">marker</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;shapeOptions&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;#3388ff&quot;</span><span class="p">}},</span>
-            <span class="n">rectangle</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;shapeOptions&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;#3388ff&quot;</span><span class="p">}},</span>
-            <span class="c1"># circle={&quot;shapeOptions&quot;: {&quot;color&quot;: &quot;#3388ff&quot;}},</span>
-            <span class="n">circlemarker</span><span class="o">=</span><span class="p">{},</span>
-            <span class="n">edit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">remove</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">draw_control</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span> <span class="o">=</span> <span class="n">draw_control</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;draw_control&quot;</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">add_draw_control_lite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topleft&quot;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a lite version draw control to the map for the plotting tool.</span>
@@ -7107,8 +7035,9 @@ Map            (<a class="autorefs autorefs-internal" title="geemap.core.Map" hr
 <span class="sd">        Args:</span>
 <span class="sd">            position (str, optional): The position of the draw control. Defaults to &quot;topleft&quot;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="n">draw_control_lite</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">DrawControl</span><span class="p">(</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="s2">&quot;draw_control&quot;</span><span class="p">,</span>
+            <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
             <span class="n">marker</span><span class="o">=</span><span class="p">{},</span>
             <span class="n">rectangle</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;shapeOptions&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;#3388ff&quot;</span><span class="p">}},</span>
             <span class="n">circle</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;shapeOptions&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;#3388ff&quot;</span><span class="p">}},</span>
@@ -7117,9 +7046,7 @@ Map            (<a class="autorefs autorefs-internal" title="geemap.core.Map" hr
             <span class="n">polygon</span><span class="o">=</span><span class="p">{},</span>
             <span class="n">edit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="n">remove</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw_control_lite</span> <span class="o">=</span> <span class="n">draw_control_lite</span>
 
     <span class="k">def</span> <span class="nf">add_toolbar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topright&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a toolbar to the map.</span>
@@ -8612,31 +8539,20 @@ Map            (<a class="autorefs autorefs-internal" title="geemap.core.Map" hr
 
     <span class="k">def</span> <span class="nf">remove_draw_control</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Removes the draw control from the map&quot;&quot;&quot;</span>
-        <span class="n">controls</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">old_draw_control</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">for</span> <span class="n">control</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="n">MapDrawControl</span><span class="p">):</span>
-                <span class="n">old_draw_control</span> <span class="o">=</span> <span class="n">control</span>
-
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">controls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">control</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">controls</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">controls</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">old_draw_control</span><span class="p">:</span>
-            <span class="n">old_draw_control</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;draw_control&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">remove_drawn_features</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Removes user-drawn geometries from the map&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_draw_control</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_draw_control</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">remove_last_drawn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Removes last user-drawn geometry from the map&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_draw_control</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_draw_control</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">remove_drawn_features</span><span class="p">()</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">count</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">remove_geometry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">geometries</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_draw_control</span><span class="o">.</span><span class="n">count</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_draw_control</span><span class="o">.</span><span class="n">remove_geometry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_draw_control</span><span class="o">.</span><span class="n">geometries</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
                 <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_chart_values&quot;</span><span class="p">):</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_chart_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chart_values</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
                 <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_chart_points&quot;</span><span class="p">):</span>
@@ -10925,6 +10841,8 @@ Map            (<a class="autorefs autorefs-internal" title="geemap.core.Map" hr
 
 
 
+
+
   <div class="doc doc-object doc-method">
 
 
@@ -11217,6 +11135,7 @@ Map            (<a class="autorefs autorefs-internal" title="geemap.core.Map" hr
         <span class="s2">&quot;fullscreen_ctrl&quot;</span><span class="p">:</span> <span class="s2">&quot;fullscreen_control&quot;</span><span class="p">,</span>
         <span class="s2">&quot;scale_ctrl&quot;</span><span class="p">:</span> <span class="s2">&quot;scale_control&quot;</span><span class="p">,</span>
         <span class="s2">&quot;toolbar_ctrl&quot;</span><span class="p">:</span> <span class="s2">&quot;toolbar&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;draw_ctrl&quot;</span><span class="p">:</span> <span class="s2">&quot;draw_control&quot;</span><span class="p">,</span>
     <span class="p">}</span>
     <span class="n">obj</span> <span class="o">=</span> <span class="n">backward_compatibilities</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
 
@@ -11224,8 +11143,6 @@ Map            (<a class="autorefs autorefs-internal" title="geemap.core.Map" hr
         <span class="n">toolbar</span><span class="o">.</span><span class="n">search_data_gui</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">obj</span> <span class="o">==</span> <span class="s2">&quot;search_ctrl&quot;</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_search_control</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">obj</span> <span class="o">==</span> <span class="s2">&quot;draw_ctrl&quot;</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_draw_control</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">obj</span> <span class="o">==</span> <span class="s2">&quot;measure_ctrl&quot;</span><span class="p">:</span>
         <span class="n">measure</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">MeasureControl</span><span class="p">(</span>
             <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
@@ -12702,18 +12619,7 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
 <span class="sd">    Args:</span>
 <span class="sd">        position (str, optional): The position of the draw control. Defaults to &quot;topleft&quot;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">draw_control</span> <span class="o">=</span> <span class="n">MapDrawControl</span><span class="p">(</span>
-        <span class="n">host_map</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
-        <span class="n">marker</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;shapeOptions&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;#3388ff&quot;</span><span class="p">}},</span>
-        <span class="n">rectangle</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;shapeOptions&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;#3388ff&quot;</span><span class="p">}},</span>
-        <span class="c1"># circle={&quot;shapeOptions&quot;: {&quot;color&quot;: &quot;#3388ff&quot;}},</span>
-        <span class="n">circlemarker</span><span class="o">=</span><span class="p">{},</span>
-        <span class="n">edit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">remove</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">draw_control</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span> <span class="o">=</span> <span class="n">draw_control</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;draw_control&quot;</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -12763,8 +12669,9 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
 <span class="sd">    Args:</span>
 <span class="sd">        position (str, optional): The position of the draw control. Defaults to &quot;topleft&quot;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">draw_control_lite</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">DrawControl</span><span class="p">(</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+        <span class="s2">&quot;draw_control&quot;</span><span class="p">,</span>
+        <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
         <span class="n">marker</span><span class="o">=</span><span class="p">{},</span>
         <span class="n">rectangle</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;shapeOptions&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;#3388ff&quot;</span><span class="p">}},</span>
         <span class="n">circle</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;shapeOptions&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;#3388ff&quot;</span><span class="p">}},</span>
@@ -12773,9 +12680,7 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
         <span class="n">polygon</span><span class="o">=</span><span class="p">{},</span>
         <span class="n">edit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">remove</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">draw_control_lite</span> <span class="o">=</span> <span class="n">draw_control_lite</span>
 </code></pre></div>
         </details>
     </div>
@@ -21299,18 +21204,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
           <summary>Source code in <code>geemap/geemap.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">remove_draw_control</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Removes the draw control from the map&quot;&quot;&quot;</span>
-    <span class="n">controls</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">old_draw_control</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="k">for</span> <span class="n">control</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="n">MapDrawControl</span><span class="p">):</span>
-            <span class="n">old_draw_control</span> <span class="o">=</span> <span class="n">control</span>
-
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">controls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">control</span><span class="p">)</span>
-
-    <span class="bp">self</span><span class="o">.</span><span class="n">controls</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">controls</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">old_draw_control</span><span class="p">:</span>
-        <span class="n">old_draw_control</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;draw_control&quot;</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -21337,8 +21231,8 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
           <summary>Source code in <code>geemap/geemap.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">remove_drawn_features</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Removes user-drawn geometries from the map&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_draw_control</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_draw_control</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 </code></pre></div>
         </details>
     </div>
@@ -21448,11 +21342,11 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
           <summary>Source code in <code>geemap/geemap.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">remove_last_drawn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Removes last user-drawn geometry from the map&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_draw_control</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_draw_control</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">remove_drawn_features</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">count</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">remove_geometry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">geometries</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_draw_control</span><span class="o">.</span><span class="n">count</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_draw_control</span><span class="o">.</span><span class="n">remove_geometry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_draw_control</span><span class="o">.</span><span class="n">geometries</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
             <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_chart_values&quot;</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_chart_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chart_values</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_chart_points&quot;</span><span class="p">):</span>
@@ -23388,260 +23282,6 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
             <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Device location&quot;</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">marker</span><span class="p">)</span>
-</code></pre></div>
-        </details>
-    </div>
-
-  </div>
-
-
-
-
-
-  </div>
-
-    </div>
-
-  </div>
-
-
-
-  <div class="doc doc-object doc-class">
-
-
-
-<h2 id="geemap.geemap.MapDrawControl" class="doc doc-heading">
-        <code>
-MapDrawControl            (<span title="ipyleaflet.leaflet.DrawControl">DrawControl</span>, <a class="autorefs autorefs-internal" title="geemap.map_widgets.AbstractDrawControl" href="../map_widgets/#geemap.map_widgets.AbstractDrawControl">AbstractDrawControl</a>)
-        </code>
-
-
-
-<a href="#geemap.geemap.MapDrawControl" class="headerlink" title="Permanent link">&para;</a></h2>
-
-    <div class="doc doc-contents ">
-
-      <p>Implements the AbstractDrawControl for the map.</p>
-
-        <details class="quote">
-          <summary>Source code in <code>geemap/geemap.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">MapDrawControl</span><span class="p">(</span><span class="n">ipyleaflet</span><span class="o">.</span><span class="n">DrawControl</span><span class="p">,</span> <span class="n">map_widgets</span><span class="o">.</span><span class="n">AbstractDrawControl</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Implements the AbstractDrawControl for the map.&quot;&quot;&quot;</span>
-
-    <span class="n">_roi_start</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="n">_roi_end</span> <span class="o">=</span> <span class="kc">False</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host_map</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the map draw control.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            host_map (geemap.Map): The geemap.Map object that the control will be added to.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">MapDrawControl</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">host_map</span><span class="o">=</span><span class="n">host_map</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">user_roi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the last drawn geometry.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            ee.Geometry: Last drawn geometry.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_geometry</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">user_rois</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns all drawn geometries as an ee.FeatureCollection.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            ee.FeatureCollection: All drawn geometries.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">collection</span>
-
-    <span class="c1"># NOTE: Overridden for backwards compatibility, where edited geometries are</span>
-    <span class="c1"># added to the layer instead of modified in place. Remove when</span>
-    <span class="c1"># https://github.com/jupyter-widgets/ipyleaflet/issues/1119 is fixed to</span>
-    <span class="c1"># allow geometry edits to be reflected on the tile layer.</span>
-    <span class="k">def</span> <span class="nf">_handle_geometry_edited</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geo_json</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_geometry_created</span><span class="p">(</span><span class="n">geo_json</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">_get_synced_geojson_from_draw_control</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">]</span>
-
-    <span class="k">def</span> <span class="nf">_bind_to_draw_control</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># Handles draw events</span>
-        <span class="k">def</span> <span class="nf">handle_draw</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">geo_json</span><span class="p">):</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_roi_start</span> <span class="o">=</span> <span class="kc">True</span>
-                <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_handle_geometry_created</span><span class="p">(</span><span class="n">geo_json</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;edited&quot;</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_handle_geometry_edited</span><span class="p">(</span><span class="n">geo_json</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;deleted&quot;</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_handle_geometry_deleted</span><span class="p">(</span><span class="n">geo_json</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_roi_end</span> <span class="o">=</span> <span class="kc">True</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_roi_start</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">clear_draw_control</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_roi_start</span> <span class="o">=</span> <span class="kc">False</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_roi_end</span> <span class="o">=</span> <span class="kc">False</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There was an error creating Earth Engine Feature.&quot;</span><span class="p">)</span>
-                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">on_draw</span><span class="p">(</span><span class="n">handle_draw</span><span class="p">)</span>
-        <span class="c1"># NOTE: Uncomment the following code once</span>
-        <span class="c1"># https://github.com/jupyter-widgets/ipyleaflet/issues/1119 is fixed</span>
-        <span class="c1"># to allow edited geometries to be reflected instead of added.</span>
-        <span class="c1"># def handle_data_update(_):</span>
-        <span class="c1">#     self._sync_geometries()</span>
-        <span class="c1"># self.observe(handle_data_update, &#39;data&#39;)</span>
-
-    <span class="k">def</span> <span class="nf">_remove_geometry_at_index_on_draw_control</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
-        <span class="c1"># NOTE: Uncomment the following code once</span>
-        <span class="c1"># https://github.com/jupyter-widgets/ipyleaflet/issues/1119 is fixed to</span>
-        <span class="c1"># remove drawn geometries with `remove_last_drawn()`.</span>
-        <span class="c1"># del self.data[index]</span>
-        <span class="c1"># self.send_state(key=&#39;data&#39;)</span>
-        <span class="k">pass</span>
-
-    <span class="k">def</span> <span class="nf">_clear_draw_control</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Remove all drawn features from the map.</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-</code></pre></div>
-        </details>
-
-
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-  <div class="doc doc-object doc-attribute">
-
-
-
-<h3 id="geemap.geemap.MapDrawControl.user_roi" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">user_roi</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-property"><code>property</code></small>
-      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
-  </span>
-
-<a href="#geemap.geemap.MapDrawControl.user_roi" class="headerlink" title="Permanent link">&para;</a></h3>
-
-    <div class="doc doc-contents ">
-
-      <p>Returns the last drawn geometry.</p>
-
-<p><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>ee.Geometry</code></td>
-      <td><p>Last drawn geometry.</p></td>
-    </tr>
-  </tbody>
-</table>    </div>
-
-  </div>
-
-
-
-  <div class="doc doc-object doc-attribute">
-
-
-
-<h3 id="geemap.geemap.MapDrawControl.user_rois" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">user_rois</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-property"><code>property</code></small>
-      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
-  </span>
-
-<a href="#geemap.geemap.MapDrawControl.user_rois" class="headerlink" title="Permanent link">&para;</a></h3>
-
-    <div class="doc doc-contents ">
-
-      <p>Returns all drawn geometries as an ee.FeatureCollection.</p>
-
-<p><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>ee.FeatureCollection</code></td>
-      <td><p>All drawn geometries.</p></td>
-    </tr>
-  </tbody>
-</table>    </div>
-
-  </div>
-
-
-
-
-
-
-  <div class="doc doc-object doc-method">
-
-
-
-<h3 id="geemap.geemap.MapDrawControl.__init__" class="doc doc-heading">
-<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host_map</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-special"><code>special</code></small>
-  </span>
-
-<a href="#geemap.geemap.MapDrawControl.__init__" class="headerlink" title="Permanent link">&para;</a></h3>
-
-    <div class="doc doc-contents ">
-
-      <p>Initialize the map draw control.</p>
-
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
-      <tr>
-        <td><code>host_map</code></td>
-        <td><code>geemap.Map</code></td>
-        <td><p>The geemap.Map object that the control will be added to.</p></td>
-        <td><em>required</em></td>
-      </tr>
-  </tbody>
-</table>
-        <details class="quote">
-          <summary>Source code in <code>geemap/geemap.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host_map</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize the map draw control.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        host_map (geemap.Map): The geemap.Map object that the control will be added to.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">super</span><span class="p">(</span><span class="n">MapDrawControl</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">host_map</span><span class="o">=</span><span class="n">host_map</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
