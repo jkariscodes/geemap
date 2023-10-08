@@ -1,5 +1,46 @@
 # Changelog
 
+## v0.29.0 - Oct 7, 2023
+
+**What's Changed**
+
+-   Update changelog for v0.28.2 by @giswqs in [#1760](https://github.com/gee-community/geemap/pull/1760)
+-   Fix raster editor bug by @giswqs in [#1762](https://github.com/gee-community/geemap/pull/1762)
+-   Update G4G Colab notebook by @giswqs in [#1764](https://github.com/gee-community/geemap/pull/1764)
+-   Ensure toolbar buttons toggle widgets, and turn off when widgets are closed. by @sufyanAbbasi in [#1763](https://github.com/gee-community/geemap/pull/1763)
+
+**Full Changelog**: [v0.28.2...v0.29.0](https://github.com/gee-community/geemap/compare/v0.28.2...v0.29.0)
+
+## v0.28.2 - Oct 4, 2023
+
+**What's Changed**
+
+-   Update changelog for v0.28.1 by @giswqs in [#1758](https://github.com/gee-community/geemap/pull/1758)
+-   Hotfix for broken basemap selector in core by @naschmitz in [#1759](https://github.com/gee-community/geemap/pull/1759)
+
+**Full Changelog**: [v0.28.1...v0.28.2](https://github.com/gee-community/geemap/compare/v0.28.1...v0.28.2)
+
+## v0.28.1 - Oct 4, 2023
+
+**What's Changed**
+
+-   Update changelog for v0.28.0 by @giswqs in [#1755](https://github.com/gee-community/geemap/pull/1755)
+-   Add adaptive theming for the search data control by @giswqs in [#1756](https://github.com/gee-community/geemap/pull/1756)
+-   Fix Output widget bug by @giswqs in [#1757](https://github.com/gee-community/geemap/pull/1757)
+
+**Full Changelog**: [v0.28.0...v0.28.1](https://github.com/gee-community/geemap/compare/v0.28.0...v0.28.1)
+
+## v0.28.0 - Oct 3, 2023
+
+**What's Changed**
+
+-   Update changelog for v0.27.4 by @giswqs in [#1751](https://github.com/gee-community/geemap/pull/1751)
+-   Support adaptive theming (and dark mode) of map widgets in Colab by @sufyanAbbasi in [#1753](https://github.com/gee-community/geemap/pull/1753)
+-   Minor visual bug fixes by @naschmitz in [#1754](https://github.com/gee-community/geemap/pull/1754)
+-   more notebook fixes by @biplovbhandari in [#1752](https://github.com/gee-community/geemap/pull/1752)
+
+**Full Changelog**: [v0.27.4...v0.28.0](https://github.com/gee-community/geemap/compare/v0.27.4...v0.28.0)
+
 ## v0.27.4 - Oct 2, 2023
 
 **What's Changed**
